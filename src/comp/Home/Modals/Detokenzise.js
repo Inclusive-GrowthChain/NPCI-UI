@@ -1,4 +1,4 @@
-import Modal, { ModalHeader } from '../../UIComp/Modal';
+import Modal from '../../UIComp/Modal';
 
 function Detokenzise({ isOpen, data, closeModal }) {
   return (
@@ -6,12 +6,8 @@ function Detokenzise({ isOpen, data, closeModal }) {
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc w-[350px]"
+      title='Detokenize'
     >
-      <ModalHeader
-        title='Detokenize'
-        closeModal={closeModal}
-      />
-
       <h1 className='mb-4'>
         Detokenize {data.securityCode}, {data.issuerName} back to underlying bond
       </h1>

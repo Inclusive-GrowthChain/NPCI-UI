@@ -1,4 +1,4 @@
-import Modal, { ModalHeader } from '../../UIComp/Modal';
+import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
 
 function Tokenise({ isOpen, data, closeModal }) {
@@ -7,12 +7,8 @@ function Tokenise({ isOpen, data, closeModal }) {
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc xs:min-w-[400px] max-h-[80vh]"
+      title='Tokenize your bond'
     >
-      <ModalHeader
-        title='Tokenize your bond'
-        closeModal={closeModal}
-      />
-
       <div className='scroll-y'>
         <div className='grid md:grid-cols-2 gap-4'>
           <Input

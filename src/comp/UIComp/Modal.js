@@ -4,7 +4,7 @@ import { ReactComponent as Close } from '../../assets/svg/actions/close.svg';
 
 function Modal({
   isOpen = true, closeModal = () => { }, children,
-  overlayCls = '', contentCls = ''
+  overlayCls = '', contentCls = '', title = "",
 }) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -33,6 +33,21 @@ function Modal({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className={`modal-content ${contentCls}`}>
+                {
+                  title &&
+                  <>
+                    <div className='df mb-4'>
+                      <h1 className='df text-xl font-bold'>
+                        {title}
+                      </h1>
+
+                      <Close
+                        className='w-8 h-8 shrink-0 ml-auto'
+                        onClick={closeModal}
+                      />
+                    </div>
+                  </>
+                }
                 {children}
               </Dialog.Panel>
             </Transition.Child>
@@ -40,24 +55,6 @@ function Modal({
         </div>
       </Dialog>
     </Transition>
-  )
-}
-
-export function ModalHeader({
-  icon = '', title = '', closeModal = () => { }
-}) {
-  return (
-    <div className='df mb-4'>
-      <h1 className='df text-xl font-bold'>
-        {icon}
-        {title}
-      </h1>
-
-      <Close
-        className='w-8 h-8 shrink-0 ml-auto'
-        onClick={closeModal}
-      />
-    </div>
   )
 }
 
