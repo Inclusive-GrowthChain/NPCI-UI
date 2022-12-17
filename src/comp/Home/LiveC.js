@@ -12,7 +12,7 @@ function LiveC() {
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className="df py-2 px-6 border-b border-[rgba(255,255,255,.3)]">
-        <h1 className="flex-auto text-lg font-medium text-center">Live Market</h1>
+        <h1 className="flex-auto text-lg font-medium text-center">MBE Market</h1>
 
         <div className="df">
           <span className="w-4 h-4 rounded-full bg-emerald-400"></span>

@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useStore from "../../store";
 
 function Login() {
+  const logIn = useStore(state => state.logIn)
+  const navigate = useNavigate()
+
+  const onSubmit = () => {
+    logIn()
+    navigate("/mbe-market")
+  }
+
   return (
     <div className="dc min-h-screen bg-slate-200">
       <div className="dc flex-col gap-6 container max-w-sm mx-auto flex-1 px-2">
@@ -23,6 +32,7 @@ function Login() {
           <button
             type="submit"
             className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black"
+            onClick={onSubmit}
           >
             Login
           </button>
