@@ -7,9 +7,12 @@ const ForgetPass = lazy(() => import("./comp/Auth/ForgetPass"))
 const Signup = lazy(() => import("./comp/Auth/Signup"))
 const Login = lazy(() => import("./comp/Auth/Login"))
 
-const MyAccount = lazy(() => import("./comp/Home/MyAccount"))
-const Tokenize = lazy(() => import("./comp/Home/Tokenize"))
-const LiveC = lazy(() => import("./comp/Home/LiveC"))
+const TransactionHitory = lazy(() => import("./comp/Home/TransactionHitory"))
+const TokenHoldings = lazy(() => import("./comp/Home/TokenHoldings"))
+const BondHoldings = lazy(() => import("./comp/Home/BondHoldings"))
+const CBDCWallet = lazy(() => import("./comp/Home/CBDCWallet"))
+const MBEMarket = lazy(() => import("./comp/Home/MBEMarket"))
+const Profile = lazy(() => import("./comp/Home/Profile"))
 const Home = lazy(() => import("./comp/Home"))
 
 function App() {
@@ -22,9 +25,12 @@ function App() {
 
         <Route path="/" element={<Home />}>
           <Route index element={<div></div>} />
-          <Route path="mbe-market" element={<LiveC />} />
-          <Route path="my-account" element={<MyAccount />} />
-          <Route path="tokenize" element={<Tokenize />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="mbe-market" element={<MBEMarket />} />
+          <Route path="cbdc-wallet" element={<CBDCWallet />} />
+          <Route path="bond-holdings" element={<BondHoldings />} />
+          <Route path="token-holdings" element={<TokenHoldings />} />
+          <Route path="transaction-hitory" element={<TransactionHitory />} />
         </Route>
       </Routes>
     </Suspense>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import live from "../../constants/live";
 import Buy from './Modals/Buy';
 
-function LiveC() {
+function MBEMarket() {
   const [open, setOpen] = useState("")
 
   const updateOpen = id => setOpen(id)
@@ -80,4 +80,4 @@ function LiveC() {
   )
 }
 
-export default LiveC
+export default MBEMarket

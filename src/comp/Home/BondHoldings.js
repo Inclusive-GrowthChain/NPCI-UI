@@ -3,7 +3,7 @@ import { useState } from 'react';
 import live from "../../constants/live";
 import Tokenise from './Modals/Tokenise';
 
-function Tokenize() {
+function BondHoldings() {
   const [open, setOpen] = useState("")
 
   const updateOpen = id => setOpen(id)
@@ -12,7 +12,9 @@ function Tokenize() {
 
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
-      <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>Your bond holdings with MBE Costodian</h1>
+      <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
+        Your bond holdings with MBE Costodian
+      </h1>
 
       <div className="scroll-y overflow-x-auto">
         <table className="w-full table-fixed">
@@ -69,4 +71,4 @@ function Tokenize() {
   )
 }
 
-export default Tokenize
+export default BondHoldings

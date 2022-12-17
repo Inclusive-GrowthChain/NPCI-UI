@@ -14,7 +14,7 @@ function Input({ lable = "", value = "" }) {
   )
 }
 
-function MyAccount() {
+function TokenHoldings() {
   const [type, setType] = useState("")
   const [open, setOpen] = useState("")
 
@@ -149,4 +149,4 @@ function MyAccount() {
   )
 }
 
-export default MyAccount
+export default TokenHoldings

@@ -7,16 +7,24 @@ import { DropDownWrapper } from '../UIComp/DropDown';
 
 function Nav() {
   const isLoggedIn = useStore(state => state.isLoggedIn)
-  const [list] = useState(["Profile", "My token holdings", "My bond holdings"])
+  const logOut = useStore(state => state.logOut)
+  const [list] = useState(["Profile", "My token holdings", "My bond holdings", "CBDC Wallet", "Transaction Hitory", "Log Out"])
   const navigate = useNavigate()
 
   const onClk = val => {
     if (val === list[0]) {
-      navigate('/')
+      navigate('/profile')
     } else if (val === list[1]) {
-      navigate('/tokenize')
+      navigate('/token-holdings')
     } else if (val === list[2]) {
-      navigate('/my-account')
+      navigate('/bond-holdings')
+    } else if (val === list[3]) {
+      navigate('/cbdc-wallet')
+    } else if (val === list[4]) {
+      navigate('/transaction-hitory')
+    } else if (val === list[5]) {
+      logOut()
+      navigate('/')
     }
   }
 
@@ -28,6 +36,13 @@ function Nav() {
           to="/"
         >
           Micro Bond Exchange
+        </Link>
+
+        <Link
+          className='text-white hover:text-emerald-300'
+          to="/mbe-market"
+        >
+          MBE Market
         </Link>
 
         {

@@ -3,6 +3,9 @@ const authSlice = (set, get) => ({
   logIn: () => {
     set({ isLoggedIn: true })
   },
+  logOut: () => {
+    set({ isLoggedIn: false })
+  },
 })
 
 export default authSlice
