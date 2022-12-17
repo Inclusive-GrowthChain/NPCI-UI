@@ -23,7 +23,7 @@ function ForgetPass() {
 
         <div className="df">
           Remembered your password?
-          <Link className="text-blue-600 hover:underline" to='/'>
+          <Link className="text-blue-600 hover:underline" to='/login'>
             Login
           </Link>
         </div>
