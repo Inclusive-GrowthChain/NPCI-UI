@@ -1,3 +1,7 @@
+import getRandom from '../helper/getRandom';
+
+const type = ["Tokenized", "Detokenized", "Sale", "Purchase"]
+
 const live = [
   {
     id: "1",
@@ -13,6 +17,7 @@ const live = [
     yield: "6.85",
     volumn: 20000,
     noOfToken: 120000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "2",
@@ -28,6 +33,7 @@ const live = [
     yield: "7.85",
     volumn: 300000,
     noOfToken: 170000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "3",
@@ -43,6 +49,7 @@ const live = [
     yield: "8.54",
     volumn: 1000000,
     noOfToken: 106000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "4",
@@ -58,6 +65,7 @@ const live = [
     yield: "7.81",
     volumn: 70000,
     noOfToken: 19900,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "5",
@@ -73,6 +81,7 @@ const live = [
     yield: "10.08",
     volumn: 108000,
     noOfToken: 70000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "6",
@@ -88,6 +97,7 @@ const live = [
     yield: "7.22",
     volumn: 3000000,
     noOfToken: 90000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "7",
@@ -103,6 +113,7 @@ const live = [
     yield: "8",
     volumn: 70000,
     noOfToken: 83000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "8",
@@ -118,6 +129,7 @@ const live = [
     yield: "7.3",
     volumn: 800000,
     noOfToken: 520000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "9",
@@ -133,6 +145,7 @@ const live = [
     yield: "9.39",
     volumn: 4000000,
     noOfToken: 820000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "10",
@@ -148,6 +161,7 @@ const live = [
     yield: "8.25",
     volumn: 1000000,
     noOfToken: 200800,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "11",
@@ -163,6 +177,7 @@ const live = [
     yield: "7.94",
     volumn: 90000,
     noOfToken: 96200,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "12",
@@ -178,6 +193,7 @@ const live = [
     yield: "8.32",
     volumn: 700000,
     noOfToken: 120000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "13",
@@ -193,6 +209,7 @@ const live = [
     yield: "7.58",
     volumn: 900000,
     noOfToken: 72000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "14",
@@ -208,6 +225,7 @@ const live = [
     yield: "7.85",
     volumn: 500000,
     noOfToken: 45800,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "15",
@@ -223,6 +241,7 @@ const live = [
     yield: "7.6",
     volumn: 600000,
     noOfToken: 260000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "16",
@@ -238,6 +257,7 @@ const live = [
     yield: "7.62",
     volumn: 8000000,
     noOfToken: 270000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "17",
@@ -253,6 +273,7 @@ const live = [
     yield: "7.5",
     volumn: 68000,
     noOfToken: 120000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "18",
@@ -268,6 +289,7 @@ const live = [
     yield: "7.53",
     volumn: 750000,
     noOfToken: 100000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "19",
@@ -283,6 +305,7 @@ const live = [
     yield: "6",
     volumn: 690000,
     noOfToken: 270000,
+    transactionType: type[getRandom(0, 3)],
   },
   {
     id: "20",
@@ -298,6 +321,7 @@ const live = [
     yield: "8.05",
     volumn: 10000000,
     noOfToken: 120000,
+    transactionType: type[getRandom(0, 3)],
   },
 ]
 

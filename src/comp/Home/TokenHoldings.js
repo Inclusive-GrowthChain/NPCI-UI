@@ -4,16 +4,6 @@ import live from "../../constants/live";
 import Detokenzise from './Modals/Detokenzise';
 import Sell from './Modals/Sell';
 
-function Input({ lable = "", value = "" }) {
-  return (
-    <div className='df'>
-      <p className="w-28 font-medium shrink-0">{lable}</p>
-      <span className="font-medium">:</span>
-      <p>{value}</p>
-    </div>
-  )
-}
-
 function TokenHoldings() {
   const [type, setType] = useState("")
   const [open, setOpen] = useState("")
@@ -30,33 +20,6 @@ function TokenHoldings() {
 
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 py-2 px-6 border-b border-[rgba(255,255,255,.3)]">
-        <Input
-          lable='First Name'
-          value='Raj'
-        />
-        <Input
-          lable='Last Name'
-          value='Kumar'
-        />
-        <Input
-          lable='PAN Number'
-          value='12345'
-        />
-        <Input
-          lable='Mobile'
-          value='9876543210'
-        />
-        <Input
-          lable='Email'
-          value='raj@gmail.com'
-        />
-        <Input
-          lable='Account ID'
-          value='1234'
-        />
-      </div>
-
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
         Your token holdings with MBE
       </h1>
