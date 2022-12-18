@@ -1,11 +1,15 @@
-import countryCodes from '../../../constants/countryCodes';
 import { useState } from "react";
+import { successNotify } from '../../../helper/toastifyHelp';
+import countryCodes from '../../../constants/countryCodes';
 
 function Step0({ updateStep }) {
   const [selectedCountryCode, setSelectedCountryCode] = useState("+91")
   const [showOtp, setShowOtp] = useState(false)
 
-  const updateShowOtp = () => setShowOtp(p => !p)
+  const updateShowOtp = () => {
+    successNotify("Sent a message to your number/email")
+    setShowOtp(p => !p)
+  }
 
   return (
     <div className='xs:w-[350px]'>
@@ -45,7 +49,6 @@ function Step0({ updateStep }) {
       </div>
 
       <button
-        type="submit"
         className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black disabled:opacity-60"
         onClick={updateShowOtp}
         disabled={showOtp}

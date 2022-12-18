@@ -1,7 +1,19 @@
+import { useState } from 'react';
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
 
+// If executed “Trade executed, Visit transaction history for more details
+// If pending “Transaction pending, Visit transaction history for more details
+// If wallet is not having enough money “You don’t have enough balance to make the payment, Add money to your wallet”
+// Show Add Money (Button) (Lead to CBDC interface to add money into wallet)
+
 function Buy({ isOpen, data, closeModal }) {
+  const [isTradeOpen, setIsTradeOpen] = useState(false)
+
+  const onClick = () => {
+    if (!isTradeOpen) return setIsTradeOpen(true)
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -10,7 +22,7 @@ function Buy({ isOpen, data, closeModal }) {
       title='Bond Details'
     >
       <div className='scroll-y'>
-        <div className='grid md:grid-cols-2 gap-4'>
+        <div className='grid md:grid-cols-2 gap-4 mb-4'>
           <Input
             lable='Security Code'
             value={data.securityCode}
@@ -39,17 +51,17 @@ function Buy({ isOpen, data, closeModal }) {
             lable='Currency'
             value="Rupee"
           />
-        </div>
 
-        <select className='my-4'>
-          <option value="">Bond Details</option>
-        </select>
+          <div></div>
 
-        <select disabled>
-          <option value="">Price Details</option>
-        </select>
+          <select>
+            <option value="">Bond Details</option>
+          </select>
 
-        <div className='grid md:grid-cols-2 gap-4 my-4'>
+          <select disabled>
+            <option value="">Price Details</option>
+          </select>
+
           <div>
             <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
             <input type="text" />
@@ -60,10 +72,40 @@ function Buy({ isOpen, data, closeModal }) {
             <input type="text" />
           </div>
         </div>
+
+        {
+          isTradeOpen &&
+          <div className='grid grid-cols-3 gap-4 mb-4'>
+            <div>
+              <label className='mb-1 font-medium' htmlFor="">Quantity</label>
+              <input type="text" />
+            </div>
+
+            <div>
+              <label className='mb-1 font-medium' htmlFor="">Price Per Token (LTP)</label>
+              <input type="text" />
+            </div>
+
+            <div>
+              <label className='mb-1 font-medium' htmlFor="">Price (LTP)</label>
+              <input type="text" />
+            </div>
+          </div>
+        }
       </div>
 
-      <button className='block w-1/2 mx-auto rounded-md text-white bg-emerald-400 hover:bg-emerald-700'>
-        Buy
+      {
+        isTradeOpen &&
+        <div className='mb-1 text-xs text-slate-700'>
+          Click here to make payment from your CBDC wallet
+        </div>
+      }
+
+      <button
+        className='block w-1/2 mx-auto rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
+        onClick={onClick}
+      >
+        {isTradeOpen ? "Execute Trade" : "Buy"}
       </button>
     </Modal>
   )

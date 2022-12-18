@@ -1,6 +1,9 @@
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
 
+// If Tokenized “Tokenized , Visit transaction history & My token holdings for more details”.
+// If pending “Transaction pending, Visit transaction history for more details”.
+
 function Tokenise({ isOpen, data, closeModal }) {
   return (
     <Modal

@@ -9,7 +9,7 @@ function Step2() {
     setIsConfirmed(p => !p)
     setTimeout(() => {
       navigate("/login")
-    }, 2500)
+    }, 3000)
   }
 
   return (

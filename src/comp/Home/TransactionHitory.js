@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import live from "../../constants/live";
+import { ReactComponent as Print } from '../../assets/svg/files/print.svg';
+import CertificateAsPdf from './Modals/CertificateAsPdf';
 
 function getTypeClr(type) {
   if (type === "Tokenized") return "text-green-400"
@@ -8,6 +11,10 @@ function getTypeClr(type) {
 }
 
 function TransactionHitory() {
+  const [open, setOpen] = useState(false)
+
+  const updateOpen = () => setOpen(p => !p)
+
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
@@ -25,6 +32,7 @@ function TransactionHitory() {
               <td className="px-4 py-2">Number of Tokens</td>
               <td className="px-4 py-2">Price</td>
               <td className="px-4 py-2">Status</td>
+              <td className="w-32 px-4 py-2 text-center">Certificate</td>
             </tr>
           </thead>
 
@@ -48,12 +56,26 @@ function TransactionHitory() {
                         : "Success"
                     }
                   </td>
+                  <td className='px-4 py-2 text-sm border-b border-[rgba(255,255,255,.3)]'>
+                    {
+                      i % 5 !== 0 &&
+                      <Print
+                        className="mx-auto fill-white opacity-70 hover:opacity-100"
+                        onClick={updateOpen}
+                      />
+                    }
+                  </td>
                 </tr>
               ))
             }
           </tbody>
         </table>
       </div>
+
+      <CertificateAsPdf
+        isOpen={open}
+        closeModal={updateOpen}
+      />
     </section>
   )
 }

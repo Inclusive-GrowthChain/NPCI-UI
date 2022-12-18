@@ -1,17 +1,17 @@
 import { toast } from "react-toastify";
 
-toast.configure();
-
-export const successNotify = (notification) => {
-  toast.success(notification, {
-    position: toast.POSITION.BOTTOM_RIGHT,
+export const successNotify = (msg, position = "") => {
+  toast.success(msg, {
+    position: position || toast.POSITION.TOP_CENTER,
     autoClose: 2000,
-  });
-};
+    hideProgressBar: true,
+  })
+}
 
-export const errorNotify = (notification) => {
-  toast.error(notification, {
-    position: toast.POSITION.BOTTOM_RIGHT,
+export const errorNotify = (msg, position = "") => {
+  toast.error(msg, {
+    position: position || toast.POSITION.TOP_CENTER,
     autoClose: 2000,
-  });
-};
+    hideProgressBar: true,
+  })
+}

@@ -13,7 +13,7 @@ function BondHoldings() {
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
-        Your bond holdings with MBE Costodian
+        My Bond Holdings
       </h1>
 
       <div className="scroll-y overflow-x-auto">
@@ -25,7 +25,7 @@ function BondHoldings() {
               <td className="w-32 px-4 py-2">Coupon Rate</td>
               <td className="w-72 px-4 py-2">Credit Rating</td>
               <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
-              <td className="w-24 px-4 py-2 text-center">Volume</td>
+              <td className="w-24 px-4 py-2 text-center">Value</td>
               <td className="w-32 px-4 py-2"></td>
             </tr>
           </thead>

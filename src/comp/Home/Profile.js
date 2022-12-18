@@ -1,8 +1,8 @@
 function Input({ lable = "", value = "" }) {
   return (
-    <div className='df'>
-      <p className="w-28 font-medium shrink-0">{lable}</p>
-      <span className="font-medium">:</span>
+    <div className='flex text-xs md:text-base'>
+      <p className="w-32 md:ml-8 shrink-0 opacity-70">{lable}</p>
+      <span className="font-medium md:mx-4 opacity-70">:</span>
       <p className="ml-6">{value}</p>
     </div>
   )
@@ -10,10 +10,18 @@ function Input({ lable = "", value = "" }) {
 
 function Profile() {
   return (
-    <section className="grid gap-4 justify-center max-w-md mx-auto px-6 py-10 bg-slate-800 rounded-b-2xl">
+    <section className="grid gap-4 max-w-xl mx-4 sm:mx-auto px-6 py-10 bg-slate-800 rounded-b-2xl">
       <Input
         lable='Name'
         value='Raj kumar'
+      />
+      <Input
+        lable='Account ID'
+        value='1234'
+      />
+      <Input
+        lable='CBDC Balance'
+        value='100000'
       />
       <Input
         lable='PAN Number'
@@ -32,16 +40,12 @@ function Profile() {
         value='raj@gmail.com'
       />
       <Input
-        lable='Account ID'
-        value='1234'
-      />
-      <Input
         lable='Gender'
         value='Male'
       />
       <Input
         lable='Address'
-        value='Some address, chennai.'
+        value='Some door No, Some street, Some Village, Some City, Some, State.'
       />
     </section>
   )

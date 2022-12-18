@@ -1,6 +1,9 @@
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
 
+// If executed “Trade executed, Visit transaction history for more details”.
+// If pending “Transaction pending, Visit transaction history for more details
+
 function Sell({ isOpen, data, closeModal }) {
   return (
     <Modal

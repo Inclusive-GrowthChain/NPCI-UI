@@ -4,29 +4,31 @@ import useStore from '../../store';
 
 import { ReactComponent as UserProfile } from '../../assets/svg/users/profile.svg';
 import { DropDownWrapper } from '../UIComp/DropDown';
+import AddBalance from './Modals/AddBalance';
 
 function Nav() {
   const isLoggedIn = useStore(state => state.isLoggedIn)
   const logOut = useStore(state => state.logOut)
-  const [list] = useState(["Profile", "My token holdings", "My bond holdings", "CBDC Wallet", "Transaction Hitory", "Log Out"])
+  const [open, setOpen] = useState(false)
+  const [list] = useState(["Profile", "My token holdings", "My bond holdings", "Transaction Hitory", "Log Out"])
   const navigate = useNavigate()
 
   const onClk = val => {
-    if (val === list[0]) {
+    if (val === "Profile") {
       navigate('/profile')
-    } else if (val === list[1]) {
+    } else if (val === "My token holdings") {
       navigate('/token-holdings')
-    } else if (val === list[2]) {
+    } else if (val === "My bond holdings") {
       navigate('/bond-holdings')
-    } else if (val === list[3]) {
-      navigate('/cbdc-wallet')
-    } else if (val === list[4]) {
+    } else if (val === "Transaction Hitory") {
       navigate('/transaction-hitory')
-    } else if (val === list[5]) {
+    } else if (val === "Log Out") {
       logOut()
       navigate('/')
     }
   }
+
+  const updateOpen = () => setOpen(p => !p)
 
   return (
     <>
@@ -47,11 +49,20 @@ function Nav() {
 
         {
           isLoggedIn ? <>
+            <button
+              className='p-0 text-sm hover:underline'
+              onClick={updateOpen}
+              title="Add balance"
+            >
+              CBDC Balance : 10000
+            </button>
+
             <DropDownWrapper
               list={list}
               onClk={onClk}
               rootCls="p-0"
               needArrow
+              btnCls="whitespace-nowrap"
             >
               <UserProfile />
             </DropDownWrapper>
@@ -72,6 +83,11 @@ function Nav() {
           </>
         }
       </nav>
+
+      <AddBalance
+        isOpen={open}
+        closeModal={updateOpen}
+      />
     </>
   )
 }

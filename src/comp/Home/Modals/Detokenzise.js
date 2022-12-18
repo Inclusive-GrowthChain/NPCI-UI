@@ -1,5 +1,8 @@
 import Modal from '../../UIComp/Modal';
 
+// If Detokenized “Detokenized , Visit transaction for more details”.
+// If pending “Transaction pending, Visit transaction history for more details”.
+
 function Detokenzise({ isOpen, data, closeModal }) {
   return (
     <Modal

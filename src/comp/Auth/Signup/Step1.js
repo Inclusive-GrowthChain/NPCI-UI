@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { successNotify } from '../../../helper/toastifyHelp';
 
 function RegisteredInvesterWithNSE({ updateStep }) {
   const [isFetched, setIsFetched] = useState(false)
@@ -83,12 +84,14 @@ function NewUser({ updateStep }) {
   const onBtnClk = () => {
     if (!isKycShown) {
       if (!showOTPForPAN) {
+        successNotify("Sent a message to your registered mobile number")
         setShowOTPForPAN(true)
       } else {
         setIsKycShown(true)
       }
     } else {
       if (!showOTPForAadhar) {
+        successNotify("Sent a message to your registered mobile number")
         setShowOTPForAadhar(true)
       } else {
         updateStep(2)

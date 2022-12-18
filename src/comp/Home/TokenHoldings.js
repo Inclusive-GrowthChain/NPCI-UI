@@ -21,7 +21,7 @@ function TokenHoldings() {
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
-        Your token holdings with MBE
+        My Token Holdings
       </h1>
 
       <div className="scroll-y overflow-x-auto">
@@ -38,7 +38,7 @@ function TokenHoldings() {
               <td className="w-28 px-4 py-2 text-center">Bid Price</td>
               <td className="w-28 px-4 py-2 text-center">Ask Price</td>
               <td className="w-28 px-4 py-2 text-center">No. of Tokens</td>
-              <td className="w-28 px-4 py-2 text-center">Volume in my account</td>
+              <td className="w-28 px-4 py-2 text-center">Current Value</td>
               <td className="w-32 px-4 py-2"></td>
             </tr>
           </thead>

@@ -41,7 +41,7 @@ function Login() {
             to="/forget-pass"
             className="block mt-4 text-right hover:text-blue-700"
           >
-            Forget Password?
+            Forgot Password?
           </Link>
         </div>
 
