@@ -1,9 +1,26 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import live from "../../constants/live";
+import SearchBorPopup from './SearchBorPopup';
 import Buy from './Modals/Buy';
 
 function MBEMarket() {
+  const [securityCode, setSecurityCode] = useState("")
+  const [issuerName, setIssuerName] = useState("")
   const [open, setOpen] = useState("")
+
+  const data = useMemo(() => {
+    let cloned = [...live]
+
+    if (securityCode) {
+      cloned = cloned.filter(c => c.securityCode.toLowerCase().match(securityCode))
+    }
+
+    if (issuerName) {
+      cloned = cloned.filter(c => c.issuerName.toLowerCase().match(issuerName))
+    }
+
+    return cloned
+  }, [issuerName, securityCode])
 
   const updateOpen = id => setOpen(id)
 
@@ -24,8 +41,24 @@ function MBEMarket() {
         <table className="w-full table-fixed">
           <thead>
             <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
-              <td className="w-36 px-4 py-2">Security Code</td>
-              <td className="w-52 px-4 py-2">Issuer Name</td>
+              <td className="w-36 px-4 py-2">
+                <div className='df group'>
+                  <p>Security Code</p>
+                  <SearchBorPopup
+                    value={securityCode}
+                    onChange={e => setSecurityCode(e.target.value)}
+                  />
+                </div>
+              </td>
+              <td className="w-52 px-4 py-2">
+                <div className='df group'>
+                  <p>Issuer Name</p>
+                  <SearchBorPopup
+                    value={issuerName}
+                    onChange={e => setIssuerName(e.target.value)}
+                  />
+                </div>
+              </td>
               <td className="w-32 px-4 py-2">Coupon Rate</td>
               <td className="w-28 px-4 py-2">Face Value</td>
               <td className="w-24 px-4 py-2">LTP</td>
@@ -38,7 +71,7 @@ function MBEMarket() {
 
           <tbody>
             {
-              live.map(li => (
+              data.map(li => (
                 <tr
                   key={li.id}
                   className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"

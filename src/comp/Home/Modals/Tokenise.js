@@ -58,7 +58,7 @@ function Tokenise({ isOpen, data, closeModal }) {
       </div>
 
       <button className='block w-1/2 mx-auto rounded-md text-white bg-emerald-400 hover:bg-emerald-700'>
-        Tokenise
+        Tokenize
       </button>
     </Modal>
   )

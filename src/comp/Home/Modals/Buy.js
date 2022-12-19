@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
+import useStore from '../../../store';
 
 // If executed “Trade executed, Visit transaction history for more details
 // If pending “Transaction pending, Visit transaction history for more details
@@ -8,6 +9,7 @@ import Input from '../common/Input';
 // Show Add Money (Button) (Lead to CBDC interface to add money into wallet)
 
 function Buy({ isOpen, data, closeModal }) {
+  const isLoggedIn = useStore(state => state.isLoggedIn)
   const [isTradeOpen, setIsTradeOpen] = useState(false)
 
   const onClick = () => {
@@ -101,12 +103,15 @@ function Buy({ isOpen, data, closeModal }) {
         </div>
       }
 
-      <button
-        className='block w-1/2 mx-auto rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
-        onClick={onClick}
-      >
-        {isTradeOpen ? "Execute Trade" : "Buy"}
-      </button>
+      {
+        isLoggedIn &&
+        <button
+          className='block w-1/2 mx-auto rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
+          onClick={onClick}
+        >
+          {isTradeOpen ? "Execute Trade" : "Buy"}
+        </button>
+      }
     </Modal>
   )
 }

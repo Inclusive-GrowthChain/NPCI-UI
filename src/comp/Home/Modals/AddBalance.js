@@ -14,7 +14,7 @@ function AddBalance({ isOpen, closeModal }) {
       />
 
       <button className='mx-auto mt-4 px-12 rounded-md bg-emerald-400 text-white hover:bg-emerald-600'>
-        Add
+        Add money to CBDC wallet
       </button>
     </Modal>
   )

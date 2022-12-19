@@ -25,12 +25,12 @@ function App() {
 
         <Route path="/" element={<Home />}>
           <Route index element={<div></div>} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="/investor/profile" element={<Profile />} />
           <Route path="mbe-market" element={<MBEMarket />} />
-          <Route path="cbdc-wallet" element={<CBDCWallet />} />
-          <Route path="bond-holdings" element={<BondHoldings />} />
-          <Route path="token-holdings" element={<TokenHoldings />} />
-          <Route path="transaction-hitory" element={<TransactionHitory />} />
+          <Route path="/investor/cbdc-wallet" element={<CBDCWallet />} />
+          <Route path="/investor/bond-holdings" element={<BondHoldings />} />
+          <Route path="/investor/token-holdings" element={<TokenHoldings />} />
+          <Route path="/investor/transaction-hitory" element={<TransactionHitory />} />
         </Route>
       </Routes>
     </Suspense>

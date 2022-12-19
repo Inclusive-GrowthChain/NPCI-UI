@@ -30,7 +30,7 @@ function TransactionHitory() {
               <td className="px-4 py-2">Issuer Name</td>
               <td className="px-4 py-2">TransactionType</td>
               <td className="px-4 py-2">Number of Tokens</td>
-              <td className="px-4 py-2">Price</td>
+              <td className="px-4 py-2">Amount</td>
               <td className="px-4 py-2">Status</td>
               <td className="w-32 px-4 py-2 text-center">Certificate</td>
             </tr>

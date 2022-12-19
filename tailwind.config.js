@@ -22,7 +22,26 @@ module.exports = {
         1: 1,
         2: 2,
         3: 3,
-      }
+      },
+      animation: {
+        'enter-opacity': 'enterOpacity 300ms ease-out',
+        'enter': 'enter 300ms ease-out',
+        'scale': 'scale 200ms ease-in-out',
+      },
+      keyframes: {
+        enterOpacity: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        enter: {
+          '0%': { opacity: '0', transform: 'scale(.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        scale: {
+          "0%": { transform: "scale(0)" },
+          "100%": { transform: "scale(1)" },
+        }
+      },
     },
   },
   plugins: [],

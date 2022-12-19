@@ -6,25 +6,30 @@ import { ReactComponent as UserProfile } from '../../assets/svg/users/profile.sv
 import { DropDownWrapper } from '../UIComp/DropDown';
 import AddBalance from './Modals/AddBalance';
 
+const data = {
+  investor: [
+    { value: "Profile", to: "/profile" },
+    { value: "My token holdings", to: "/token-holdings" },
+    { value: "My bond holdings", to: "/bond-holdings" },
+    { value: "Transaction Hitory", to: "/transaction-hitory" },
+    { value: "Log Out", to: "/" },
+  ],
+}
+
 function Nav() {
   const isLoggedIn = useStore(state => state.isLoggedIn)
   const logOut = useStore(state => state.logOut)
   const [open, setOpen] = useState(false)
-  const [list] = useState(["Profile", "My token holdings", "My bond holdings", "Transaction Hitory", "Log Out"])
+  const [list] = useState(data.investor)
   const navigate = useNavigate()
 
   const onClk = val => {
     if (val === "Profile") {
-      navigate('/profile')
-    } else if (val === "My token holdings") {
-      navigate('/token-holdings')
-    } else if (val === "My bond holdings") {
-      navigate('/bond-holdings')
-    } else if (val === "Transaction Hitory") {
-      navigate('/transaction-hitory')
-    } else if (val === "Log Out") {
+      navigate(val.to)
+    }
+
+    if (val === "Log Out") {
       logOut()
-      navigate('/')
     }
   }
 
