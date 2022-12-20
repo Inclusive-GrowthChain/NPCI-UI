@@ -4,7 +4,7 @@ import useStore from "../../store";
 
 function Login() {
   const [password, setPassword] = useState("")
-  const [mbeId, setMBEId] = useState("investor custodian")
+  const [mbeId, setMBEId] = useState("investor/custodian")
   const logIn = useStore(state => state.logIn)
   const navigate = useNavigate()
 

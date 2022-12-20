@@ -18,7 +18,7 @@ function TransactionHitory() {
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
-        Transaction Hitory
+        Transactions Hitory
       </h1>
 
       <div className="scroll-y overflow-x-auto">

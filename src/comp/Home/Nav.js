@@ -11,7 +11,13 @@ const routes = {
     "Profile": "profile",
     "My token holdings": "token-holdings",
     "My bond holdings": "bond-holdings",
-    "Transaction Hitory": "transaction-hitory",
+    "Transactions Hitory": "transactions-hitory",
+  },
+  custodian: {
+    "Profile": "profile",
+    "My token holdings": "token-holdings",
+    "My bond holdings": "bond-holdings",
+    "Transactions Hitory": "transactions-hitory",
   },
 }
 
@@ -21,13 +27,13 @@ function Nav() {
   const role = useStore(state => state.role)
 
   const [open, setOpen] = useState(false)
-  const [list] = useState(["Profile", "My token holdings", "My bond holdings", "Transaction Hitory", "Log Out"])
+  const [list] = useState(["Profile", "My token holdings", "My bond holdings", "Transactions Hitory", "Log Out"])
   const navigate = useNavigate()
 
   const onClk = val => {
     if (val === "Log Out") {
       logOut()
-      navigate("")
+      navigate("/")
     } else {
       navigate(`/${role}/${routes[role][val]}`)
     }

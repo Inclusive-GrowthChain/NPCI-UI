@@ -7,6 +7,8 @@ const ForgetPass = lazy(() => import("./comp/Auth/ForgetPass"))
 const Signup = lazy(() => import("./comp/Auth/Signup"))
 const Login = lazy(() => import("./comp/Auth/Login"))
 
+const ListOfInvestors = lazy(() => import("./comp/Custodian/ListOfInvestors"))
+
 const TransactionHitory = lazy(() => import("./comp/Home/TransactionHitory"))
 const TokenHoldings = lazy(() => import("./comp/Home/TokenHoldings"))
 const BondHoldings = lazy(() => import("./comp/Home/BondHoldings"))
@@ -30,7 +32,9 @@ function App() {
           {/* <Route path="/investor/cbdc-wallet" element={<CBDCWallet />} /> */}
           <Route path="/investor/bond-holdings" element={<BondHoldings />} />
           <Route path="/investor/token-holdings" element={<TokenHoldings />} />
-          <Route path="/investor/transaction-hitory" element={<TransactionHitory />} />
+          <Route path="/investor/transactions-hitory" element={<TransactionHitory />} />
+
+          <Route path="/custodian/investors-list" element={<ListOfInvestors />} />
         </Route>
       </Routes>
     </Suspense>

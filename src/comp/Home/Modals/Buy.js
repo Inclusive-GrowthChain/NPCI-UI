@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
 import useStore from '../../../store';
@@ -11,7 +12,9 @@ import useStore from '../../../store';
 function Buy({ isOpen, data, closeModal }) {
   const isLoggedIn = useStore(state => state.isLoggedIn)
   const role = useStore(state => state.role)
+
   const [isTradeOpen, setIsTradeOpen] = useState(false)
+  const navigate = useNavigate()
 
   const onClick = () => {
     if (!isTradeOpen) return setIsTradeOpen(true)
@@ -85,7 +88,10 @@ function Buy({ isOpen, data, closeModal }) {
           {
             role === "custodian" &&
             <div className='dc'>
-              <button className='w-full rounded-md text-white bg-emerald-400 hover:bg-emerald-700'>
+              <button
+                className='w-full rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
+                onClick={() => navigate("/custodian/investors-list")}
+              >
                 List of Investors
               </button>
             </div>
