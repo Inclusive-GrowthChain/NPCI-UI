@@ -90,7 +90,7 @@ function Buy({ isOpen, data, closeModal }) {
             <div className='dc'>
               <button
                 className='w-full rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
-                onClick={() => navigate("/custodian/investors-list")}
+                onClick={() => navigate("/custodian/investors-list", { state: data })}
               >
                 List of Investors
               </button>

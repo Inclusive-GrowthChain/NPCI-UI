@@ -170,6 +170,16 @@
   .DropDownArrow {
     @apply bg-inherit w-4 h-4 rotate-45 -z-1 border border-inherit;
   }
+
+
+  /* Other Comps */
+  .c-lable {
+    @apply w-28 font-medium shrink-0;
+  }
+  
+  .c-input {
+    @apply md:max-w-[180px] ml-4;
+  }
 }
 
 

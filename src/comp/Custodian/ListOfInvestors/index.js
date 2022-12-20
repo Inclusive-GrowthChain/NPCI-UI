@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import investorList from '../../../constants/investorList';
 import TransactionHistoryModal from '../Modals/TransactionHistory';
@@ -6,11 +7,13 @@ import TokenHoldingsModal from '../Modals/TokenHoldings';
 import BondHoldingsModal from '../Modals/BondHoldings';
 import SearchBorPopup from '../../Home/SearchBorPopup';
 import UserInfoModal from '../Modals/UserInfo';
+import Input from '../../Home/common/Input';
 
 function ListOfInvestors() {
   const [userName, setUserName] = useState("")
   const [mbeId, setMbeId] = useState("")
   const [open, setOpen] = useState({ state: "", data: {} })
+  const { state: tokenDetails } = useLocation()
 
   const data = useMemo(() => {
     let cloned = [...investorList]
@@ -32,8 +35,25 @@ function ListOfInvestors() {
 
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
-      <div>
-
+      <div className='df gap-8 p-4 border-b border-[rgba(255,255,255,.3)]'>
+        <Input
+          lable='Security Code'
+          value={tokenDetails.securityCode}
+          inputCls="bg-slate-800 text-white border-none"
+          lableCls='w-auto mb-0'
+        />
+        <Input
+          lable='Issuer Name'
+          value={tokenDetails.issuerName}
+          inputCls="bg-slate-800 text-white border-none"
+          lableCls='w-auto mb-0'
+        />
+        <Input
+          lable='No Of Token'
+          value={tokenDetails.noOfToken}
+          inputCls="bg-slate-800 text-white border-none"
+          lableCls='w-auto mb-0'
+        />
       </div>
 
       <div className="scroll-y overflow-x-auto">

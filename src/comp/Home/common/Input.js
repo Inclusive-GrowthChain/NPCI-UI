@@ -1,13 +1,13 @@
-function Input({ lable = "", value = "" }) {
+function Input({ lable = "", value = "", inputCls = "", lableCls = "" }) {
   return (
     <div className='df'>
-      <label className="w-28 font-medium shrink-0">{lable}</label>
+      <label className={`c-lable ${lableCls}`}>{lable}</label>
       <span className="font-medium">:</span>
       <input
         disabled
         type="text"
         defaultValue={value}
-        className="md:max-w-[180px] ml-4"
+        className={`c-input ${inputCls}`}
       />
     </div>
   )
