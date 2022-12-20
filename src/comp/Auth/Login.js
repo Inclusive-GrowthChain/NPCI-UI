@@ -1,12 +1,15 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useStore from "../../store";
 
 function Login() {
+  const [password, setPassword] = useState("investor")
+  const [mbeId, setMBEId] = useState("investor")
   const logIn = useStore(state => state.logIn)
   const navigate = useNavigate()
 
   const onSubmit = () => {
-    logIn()
+    logIn(mbeId)
     navigate("/mbe-market")
   }
 
@@ -20,6 +23,8 @@ function Login() {
             className="p-3 rounded mb-4"
             name="MBE_ID"
             placeholder="MBE ID"
+            value={mbeId}
+            onChange={e => setMBEId(e.target.value)}
           />
 
           <input
@@ -27,6 +32,8 @@ function Login() {
             className="p-3 rounded mb-4"
             name="password"
             placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
           />
 
           <button

@@ -6,30 +6,30 @@ import { ReactComponent as UserProfile } from '../../assets/svg/users/profile.sv
 import { DropDownWrapper } from '../UIComp/DropDown';
 import AddBalance from './Modals/AddBalance';
 
-const data = {
-  investor: [
-    { value: "Profile", to: "/profile" },
-    { value: "My token holdings", to: "/token-holdings" },
-    { value: "My bond holdings", to: "/bond-holdings" },
-    { value: "Transaction Hitory", to: "/transaction-hitory" },
-    { value: "Log Out", to: "/" },
-  ],
+const routes = {
+  investor: {
+    "Profile": "profile",
+    "My token holdings": "token-holdings",
+    "My bond holdings": "bond-holdings",
+    "Transaction Hitory": "transaction-hitory",
+  },
 }
 
 function Nav() {
   const isLoggedIn = useStore(state => state.isLoggedIn)
   const logOut = useStore(state => state.logOut)
+  const role = useStore(state => state.role)
+
   const [open, setOpen] = useState(false)
-  const [list] = useState(data.investor)
+  const [list] = useState(["Profile", "My token holdings", "My bond holdings", "Transaction Hitory", "Log Out"])
   const navigate = useNavigate()
 
   const onClk = val => {
-    if (val === "Profile") {
-      navigate(val.to)
-    }
-
     if (val === "Log Out") {
       logOut()
+      navigate("")
+    } else {
+      navigate(`/${role}/${routes[role][val]}`)
     }
   }
 
@@ -67,7 +67,7 @@ function Nav() {
               onClk={onClk}
               rootCls="p-0"
               needArrow
-              btnCls="whitespace-nowrap"
+              boxCls="profile-dd"
             >
               <UserProfile />
             </DropDownWrapper>

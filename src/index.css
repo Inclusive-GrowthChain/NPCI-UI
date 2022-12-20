@@ -196,3 +196,8 @@
 /* .Toastify__close-button {
   display: none;
 } */
+
+
+.profile-dd {
+  min-width: 150px;
+}

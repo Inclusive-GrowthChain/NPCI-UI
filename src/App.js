@@ -10,7 +10,7 @@ const Login = lazy(() => import("./comp/Auth/Login"))
 const TransactionHitory = lazy(() => import("./comp/Home/TransactionHitory"))
 const TokenHoldings = lazy(() => import("./comp/Home/TokenHoldings"))
 const BondHoldings = lazy(() => import("./comp/Home/BondHoldings"))
-const CBDCWallet = lazy(() => import("./comp/Home/CBDCWallet"))
+// const CBDCWallet = lazy(() => import("./comp/Home/CBDCWallet"))
 const MBEMarket = lazy(() => import("./comp/Home/MBEMarket"))
 const Profile = lazy(() => import("./comp/Home/Profile"))
 const Home = lazy(() => import("./comp/Home"))
@@ -25,9 +25,9 @@ function App() {
 
         <Route path="/" element={<Home />}>
           <Route index element={<div></div>} />
-          <Route path="/investor/profile" element={<Profile />} />
           <Route path="mbe-market" element={<MBEMarket />} />
-          <Route path="/investor/cbdc-wallet" element={<CBDCWallet />} />
+          <Route path="/profile" element={<Profile />} />
+          {/* <Route path="/investor/cbdc-wallet" element={<CBDCWallet />} /> */}
           <Route path="/investor/bond-holdings" element={<BondHoldings />} />
           <Route path="/investor/token-holdings" element={<TokenHoldings />} />
           <Route path="/investor/transaction-hitory" element={<TransactionHitory />} />

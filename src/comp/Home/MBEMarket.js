@@ -1,9 +1,12 @@
 import { useMemo, useState } from 'react';
 import live from "../../constants/live";
+import useStore from '../../store';
+
 import SearchBorPopup from './SearchBorPopup';
 import Buy from './Modals/Buy';
 
 function MBEMarket() {
+  const role = useStore(state => state.role)
   const [securityCode, setSecurityCode] = useState("")
   const [issuerName, setIssuerName] = useState("")
   const [open, setOpen] = useState("")
@@ -26,6 +29,7 @@ function MBEMarket() {
 
   const closeModal = () => setOpen("")
 
+  console.log({ role })
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className="df py-2 px-6 border-b border-[rgba(255,255,255,.3)]">

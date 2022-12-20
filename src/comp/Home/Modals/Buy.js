@@ -10,6 +10,7 @@ import useStore from '../../../store';
 
 function Buy({ isOpen, data, closeModal }) {
   const isLoggedIn = useStore(state => state.isLoggedIn)
+  const role = useStore(state => state.role)
   const [isTradeOpen, setIsTradeOpen] = useState(false)
 
   const onClick = () => {
@@ -104,7 +105,7 @@ function Buy({ isOpen, data, closeModal }) {
       }
 
       {
-        isLoggedIn &&
+        role === "investor" && isLoggedIn &&
         <button
           className='block w-1/2 mx-auto rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
           onClick={onClick}
