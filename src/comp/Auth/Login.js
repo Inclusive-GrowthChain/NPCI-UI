@@ -3,14 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import useStore from "../../store";
 
 function Login() {
-  const [password, setPassword] = useState("investor")
-  const [mbeId, setMBEId] = useState("investor")
+  const [password, setPassword] = useState("")
+  const [mbeId, setMBEId] = useState("investor custodian")
   const logIn = useStore(state => state.logIn)
   const navigate = useNavigate()
 
   const onSubmit = () => {
-    logIn(mbeId)
-    navigate("/mbe-market")
+    if (mbeId === "custodian" || mbeId === "investor") {
+      logIn(mbeId)
+      navigate("/mbe-market")
+    }
   }
 
   return (

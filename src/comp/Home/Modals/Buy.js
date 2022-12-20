@@ -67,13 +67,29 @@ function Buy({ isOpen, data, closeModal }) {
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-            <input type="text" />
+            <input
+              type="text"
+              defaultValue={role === "custodian" ? "500" : ""}
+              disabled={role === "custodian"}
+            />
           </div>
 
-          <div>
-            <label className='mb-1 font-medium' htmlFor="">Token value</label>
-            <input type="text" />
-          </div>
+          {
+            role === "investor" &&
+            <div>
+              <label className='mb-1 font-medium' htmlFor="">Token value</label>
+              <input type="text" />
+            </div>
+          }
+
+          {
+            role === "custodian" &&
+            <div className='dc'>
+              <button className='w-full rounded-md text-white bg-emerald-400 hover:bg-emerald-700'>
+                List of Investors
+              </button>
+            </div>
+          }
         </div>
 
         {
