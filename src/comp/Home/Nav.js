@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useStore from '../../store';
 
@@ -15,9 +15,10 @@ const routes = {
   },
   custodian: {
     "Profile": "profile",
-    "My token holdings": "tokenised-bond",
-    "My bond holdings": "bond-holdings",
-    "Transactions Hitory": "transactions-hitory",
+    "Investors list": "investors-list",
+    "Tokenized Bonds": "tokenised-bond",
+    "Transactions list": "transactions-hitory",
+    "Reports": "reports",
   },
 }
 
@@ -27,8 +28,13 @@ function Nav() {
   const role = useStore(state => state.role)
 
   const [open, setOpen] = useState(false)
-  const [list] = useState(["Profile", "My token holdings", "My bond holdings", "Transactions Hitory", "Log Out"])
+  const [list, setList] = useState([])
   const navigate = useNavigate()
+
+  useEffect(() => {
+    let newData = routes[role] || {}
+    setList([...Object.keys(newData), "Log Out"])
+  }, [role])
 
   const onClk = val => {
     if (val === "Log Out") {

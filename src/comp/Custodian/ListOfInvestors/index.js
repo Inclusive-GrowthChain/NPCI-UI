@@ -36,24 +36,30 @@ function ListOfInvestors() {
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className='df gap-8 p-4 border-b border-[rgba(255,255,255,.3)]'>
-        <Input
-          lable='Security Code'
-          value={tokenDetails.securityCode}
-          inputCls="bg-slate-800 text-white border-none"
-          lableCls='w-auto mb-0'
-        />
-        <Input
-          lable='Issuer Name'
-          value={tokenDetails.issuerName}
-          inputCls="bg-slate-800 text-white border-none"
-          lableCls='w-auto mb-0'
-        />
-        <Input
-          lable='No Of Token'
-          value={tokenDetails.noOfToken}
-          inputCls="bg-slate-800 text-white border-none"
-          lableCls='w-auto mb-0'
-        />
+        {
+          tokenDetails ?
+            <>
+              <Input
+                lable='Security Code'
+                value={tokenDetails.securityCode}
+                inputCls="bg-slate-800 text-white border-none"
+                lableCls='w-auto mb-0'
+              />
+              <Input
+                lable='Issuer Name'
+                value={tokenDetails.issuerName}
+                inputCls="bg-slate-800 text-white border-none"
+                lableCls='w-auto mb-0'
+              />
+              <Input
+                lable='No Of Token'
+                value={tokenDetails.noOfToken}
+                inputCls="bg-slate-800 text-white border-none"
+                lableCls='w-auto mb-0'
+              />
+            </>
+            : <h1 className='mx-auto text-lg font-medium text-center'>List of Investors</h1>
+        }
       </div>
 
       <div className="scroll-y overflow-x-auto">
@@ -87,47 +93,49 @@ function ListOfInvestors() {
 
           <tbody>
             {
-              data.map((li, i) => (
-                <tr
-                  key={li.mbeId}
-                  className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
-                >
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {i} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.mbeId} </td>
-                  <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
-                    <p
-                      className='cursor-pointer hover:text-emerald-200'
-                      onClick={() => updateOpen("UserInfo", li)}
-                    >
-                      {li.name}
-                    </p>
-                  </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
-                    <button
-                      className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"
-                      onClick={() => updateOpen("BondHoldings", li)}
-                    >
-                      View
-                    </button>
-                  </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
-                    <button
-                      className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"
-                      onClick={() => updateOpen("TokenHoldings", li)}
-                    >
-                      View
-                    </button>
-                  </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
-                    <button
-                      className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"
-                      onClick={() => updateOpen("TransactionHistory", li)}
-                    >
-                      View
-                    </button>
-                  </td>
-                </tr>
-              ))
+              data
+                .filter((l, i) => tokenDetails ? i < 5 : true)
+                .map((li, i) => (
+                  <tr
+                    key={li.mbeId}
+                    className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
+                  >
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {i} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.mbeId} </td>
+                    <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
+                      <p
+                        className='cursor-pointer hover:text-emerald-200'
+                        onClick={() => updateOpen("UserInfo", li)}
+                      >
+                        {li.name}
+                      </p>
+                    </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
+                      <button
+                        className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"
+                        onClick={() => updateOpen("BondHoldings", li)}
+                      >
+                        View
+                      </button>
+                    </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
+                      <button
+                        className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"
+                        onClick={() => updateOpen("TokenHoldings", li)}
+                      >
+                        View
+                      </button>
+                    </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
+                      <button
+                        className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"
+                        onClick={() => updateOpen("TransactionHistory", li)}
+                      >
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))
             }
           </tbody>
         </table>
