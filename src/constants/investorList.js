@@ -2,6 +2,7 @@ const investorList = [
   {
     mbeId: "mbe-1538-v-98",
     name: "Raj Kumar",
+    arr: [2, 3, 7, 9, 10, 16],
     personal: {
       pan: "DVPR1438",
       aadhar: "7864 8726 0369",
@@ -15,6 +16,7 @@ const investorList = [
   {
     mbeId: "mbe-5800-v-07",
     name: "Shreyansh Nema",
+    arr: [1, 4, 7, 9, 15, 18],
     personal: {
       pan: "BWMLK1234G",
       aadhar: "9876 1234 4567",
@@ -28,6 +30,7 @@ const investorList = [
   {
     mbeId: "mbe-5768-v-76",
     name: "Prudhvi Krishna",
+    arr: [6, 16, 18, 19, 20],
     personal: {
       pan: "CHAAJ83736",
       aadhar: "8276 2926 2716",
@@ -41,6 +44,7 @@ const investorList = [
   {
     mbeId: "mbe-1158-v-67",
     name: "Mohammed Muhsin",
+    arr: [9, 10, 18, 12, 13],
     personal: {
       pan: "ETMPM179N",
       aadhar: "4627 0805 1808",
@@ -54,6 +58,7 @@ const investorList = [
   {
     mbeId: "mbe-6679-v-87",
     name: "Kesavan",
+    arr: [1, 6, 7, 14, 13, 20],
     personal: {
       pan: "KSV87654",
       aadhar: "8978 8876 5678",

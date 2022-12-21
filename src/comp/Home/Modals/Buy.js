@@ -25,7 +25,7 @@ function Buy({ isOpen, data, closeModal }) {
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc xs:min-w-[400px] max-h-[80vh]"
-      title='Bond Details'
+      title='Descriptor'
     >
       <div className='scroll-y'>
         <div className='grid md:grid-cols-2 gap-4 mb-4'>
@@ -68,33 +68,40 @@ function Buy({ isOpen, data, closeModal }) {
             <option value="">Price Details</option>
           </select>
 
-          <div>
-            <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-            <input
-              type="text"
-              defaultValue={role === "custodian" ? "500" : ""}
-              disabled={role === "custodian"}
-            />
-          </div>
-
           {
             role === "investor" &&
-            <div>
-              <label className='mb-1 font-medium' htmlFor="">Token value</label>
-              <input type="text" />
-            </div>
+            <>
+              <div>
+                <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
+                <input type="text" />
+              </div>
+
+              <div>
+                <label className='mb-1 font-medium' htmlFor="">Token value</label>
+                <input type="text" />
+              </div>
+            </>
           }
 
           {
             role === "custodian" &&
-            <div className='dc'>
-              <button
-                className='w-full rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
-                onClick={() => navigate("/custodian/investors-list", { state: data })}
-              >
-                List of Investors
-              </button>
-            </div>
+            <>
+              <Input
+                lable='Number of Tokens'
+                value="500"
+                lableCls='w-auto'
+                inputCls='ml-2'
+              />
+
+              <div className='dc'>
+                <button
+                  className='w-full rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
+                  onClick={() => navigate("/custodian/investors-list", { state: data })}
+                >
+                  List of Investors
+                </button>
+              </div>
+            </>
           }
         </div>
 

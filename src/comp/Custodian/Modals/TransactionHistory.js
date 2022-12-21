@@ -14,7 +14,7 @@ function TransactionHistory({ isOpen, data, closeModal }) {
     <Modal
       isOpen={isOpen}
       closeModal={closeModal}
-      contentCls="dfc h-[80vh] overflow-y-hidden"
+      contentCls="dfc max-h-[80vh] overflow-y-hidden"
       title={`Transactions History of ${data.name}`}
     >
       <div className='scroll-y'>
@@ -34,35 +34,37 @@ function TransactionHistory({ isOpen, data, closeModal }) {
 
           <tbody>
             {
-              live.map((li, i) => (
-                <tr
-                  key={li.id}
-                  className="even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
-                >
-                  <td className="pl-8 pr-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.maturityDate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.securityCode} </td>
-                  <td className="px-4 py-2 text-sm font-medium opacity-80 group-hover:opacity-100"> {li.issuerName} </td>
-                  <td className={`px-4 py-2 text-sm opacity-80 group-hover:opacity-100 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.noOfToken / 100} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.askPrice} </td>
-                  <td className={`px-4 py-2 text-xs opacity-80 group-hover:opacity-100 ${i % 5 === 0 ? "text-red-400" : "text-emerald-400"}`}>
-                    {
-                      i % 5 === 0
-                        ? "Failure"
-                        : "Success"
-                    }
-                  </td>
-                  <td className='px-4 py-2 text-sm'>
-                    {
-                      i % 5 !== 0 &&
-                      <Print
-                        className="mx-auto fill-slate-900 opacity-70 hover:opacity-100"
-                      // onClick={updateOpen}
-                      />
-                    }
-                  </td>
-                </tr>
-              ))
+              live
+                .filter((li, i) => data.arr.includes(i))
+                .map((li, i) => (
+                  <tr
+                    key={li.id}
+                    className="even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
+                  >
+                    <td className="pl-8 pr-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.maturityDate} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.securityCode} </td>
+                    <td className="px-4 py-2 text-sm font-medium opacity-80 group-hover:opacity-100"> {li.issuerName} </td>
+                    <td className={`px-4 py-2 text-sm opacity-80 group-hover:opacity-100 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.noOfToken / 100} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.askPrice} </td>
+                    <td className={`px-4 py-2 text-xs opacity-80 group-hover:opacity-100 ${i % 5 === 0 ? "text-red-400" : "text-emerald-400"}`}>
+                      {
+                        i % 5 === 0
+                          ? "Failure"
+                          : "Success"
+                      }
+                    </td>
+                    <td className='px-4 py-2 text-sm'>
+                      {
+                        i % 5 !== 0 &&
+                        <Print
+                          className="mx-auto fill-slate-900 opacity-70 hover:opacity-100"
+                        // onClick={updateOpen}
+                        />
+                      }
+                    </td>
+                  </tr>
+                ))
             }
           </tbody>
         </table>

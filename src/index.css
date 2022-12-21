@@ -174,7 +174,7 @@
 
   /* Other Comps */
   .c-lable {
-    @apply w-28 font-medium shrink-0;
+    @apply w-28 font-medium shrink-0 mb-0;
   }
   
   .c-input {

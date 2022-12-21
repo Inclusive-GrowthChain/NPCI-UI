@@ -15,7 +15,7 @@ const routes = {
   },
   custodian: {
     "Profile": "profile",
-    "My token holdings": "token-holdings",
+    "My token holdings": "tokenised-bond",
     "My bond holdings": "bond-holdings",
     "Transactions Hitory": "transactions-hitory",
   },

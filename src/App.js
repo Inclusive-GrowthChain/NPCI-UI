@@ -8,6 +8,7 @@ const Signup = lazy(() => import("./comp/Auth/Signup"))
 const Login = lazy(() => import("./comp/Auth/Login"))
 
 const ListOfInvestors = lazy(() => import("./comp/Custodian/ListOfInvestors"))
+const TokenisedBond = lazy(() => import("./comp/Custodian/TokenisedBond"))
 
 const TransactionHitory = lazy(() => import("./comp/Home/TransactionHitory"))
 const TokenHoldings = lazy(() => import("./comp/Home/TokenHoldings"))
@@ -35,6 +36,7 @@ function App() {
           <Route path="/investor/transactions-hitory" element={<TransactionHitory />} />
 
           <Route path="/custodian/investors-list" element={<ListOfInvestors />} />
+          <Route path="/custodian/tokenised-bond" element={<TokenisedBond />} />
           <Route path="/custodian/profile" element={<Profile />} />
         </Route>
       </Routes>

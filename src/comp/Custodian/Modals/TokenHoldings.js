@@ -6,7 +6,7 @@ function TokenHoldings({ isOpen, data, closeModal }) {
     <Modal
       isOpen={isOpen}
       closeModal={closeModal}
-      contentCls="dfc h-[80vh] overflow-y-hidden"
+      contentCls="dfc max-h-[80vh] overflow-y-hidden"
       title={`Token Holdings of ${data.name}`}
     >
       <div className='scroll-y'>
@@ -27,22 +27,24 @@ function TokenHoldings({ isOpen, data, closeModal }) {
 
           <tbody>
             {
-              live.map(li => (
-                <tr
-                  key={li.id}
-                  className="even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
-                >
-                  <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.securityCode} </td>
-                  <td className="px-4 py-2 text-sm font-medium opacity-80 group-hover:opacity-100"> {li.issuerName} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100 text-center"> {li.maturityDate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.couponRate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.faceValue} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.askPrice} </td>
-                  <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {li.noOfToken} </td>
-                  <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {li.ltp} </td>
-                  <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {li.bidPrice} </td>
-                </tr>
-              ))
+              live
+                .filter((li, i) => data.arr.includes(i))
+                .map(li => (
+                  <tr
+                    key={li.id}
+                    className="even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
+                  >
+                    <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.securityCode} </td>
+                    <td className="px-4 py-2 text-sm font-medium opacity-80 group-hover:opacity-100"> {li.issuerName} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100 text-center"> {li.maturityDate} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.couponRate} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.faceValue} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.askPrice}</td>
+                    <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {li.noOfToken / 100} </td>
+                    <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {li.ltp} </td>
+                    <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {li.bidPrice} </td>
+                  </tr>
+                ))
             }
           </tbody>
         </table>
