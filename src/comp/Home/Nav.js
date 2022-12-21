@@ -66,13 +66,16 @@ function Nav() {
 
         {
           isLoggedIn ? <>
-            <button
-              className='p-0 text-sm hover:underline'
-              onClick={updateOpen}
-              title="Add balance"
-            >
-              CBDC Balance : 10000
-            </button>
+            {
+              role === "investor" &&
+              <button
+                className='p-0 text-sm hover:underline'
+                onClick={updateOpen}
+                title="Add balance"
+              >
+                CBDC Balance : 10000
+              </button>
+            }
 
             <DropDownWrapper
               list={list}
