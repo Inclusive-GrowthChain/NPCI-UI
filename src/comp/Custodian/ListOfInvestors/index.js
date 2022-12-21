@@ -5,9 +5,9 @@ import investorList from '../../../constants/investorList';
 import TransactionHistoryModal from '../Modals/TransactionHistory';
 import TokenHoldingsModal from '../Modals/TokenHoldings';
 import BondHoldingsModal from '../Modals/BondHoldings';
-import SearchBorPopup from '../../Home/SearchBorPopup';
 import UserInfoModal from '../Modals/UserInfo';
 import Input from '../../Home/common/Input';
+import FiltersBy from './FiltersBy';
 
 function ListOfInvestors() {
   const [userName, setUserName] = useState("")
@@ -58,8 +58,17 @@ function ListOfInvestors() {
                 lableCls='w-auto mb-0'
               />
             </>
-            : <h1 className='mx-auto text-lg font-medium text-center'>List of Investors</h1>
+            : <h1 className='mx-auto text-lg font-medium text-center'>
+              List of Investors
+            </h1>
         }
+
+        <FiltersBy
+          mbeId={mbeId}
+          setMbeId={setMbeId}
+          userName={userName}
+          setUserName={setUserName}
+        />
       </div>
 
       <div className="scroll-y overflow-x-auto">
@@ -67,24 +76,8 @@ function ListOfInvestors() {
           <thead>
             <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
               <td className="w-32 px-4 py-2">Sl.No.</td>
-              <td className="w-36 px-4 py-2">
-                <div className='df group'>
-                  <p>MBE Id</p>
-                  <SearchBorPopup
-                    value={mbeId}
-                    onChange={e => setMbeId(e.target.value)}
-                  />
-                </div>
-              </td>
-              <td className="w-52 px-4 py-2">
-                <div className='df group'>
-                  <p>Investor Name</p>
-                  <SearchBorPopup
-                    value={userName}
-                    onChange={e => setUserName(e.target.value)}
-                  />
-                </div>
-              </td>
+              <td className="w-36 px-4 py-2">MBE Id</td>
+              <td className="w-52 px-4 py-2">Investor Name</td>
               <td className="w-32 px-4 py-2 text-center">Bond holdings</td>
               <td className="w-32 px-4 py-2 text-center">Token holdings</td>
               <td className="w-28 px-4 py-2 text-center">Transactions History</td>
