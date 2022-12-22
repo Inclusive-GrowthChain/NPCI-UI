@@ -51,7 +51,7 @@ function Nav() {
     <>
       <nav className="df gap-4 sm:gap-8 h-16 px-8 border-b border-[rgba(255,255,255,.6)]">
         <Link
-          className='mr-auto py-4 text-xl sm:text-[26px] lg:text-[40px] font-semibold bg-gradient-to-r from-emerald-300 to-emerald-700 bg-clip-text text-transparent'
+          className='mr-auto py-4 sm:text-xl lg:text-2xl font-semibold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent'
           to="/"
         >
           Micro Bond Exchange
