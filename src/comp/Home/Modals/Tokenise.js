@@ -15,7 +15,7 @@ function Tokenise({ isOpen, data, closeModal }) {
       <div className='scroll-y'>
         <div className='grid md:grid-cols-2 gap-4'>
           <Input
-            lable='Security Code'
+            lable='ISIN'
             value={data.securityCode}
           />
           <Input

@@ -2,13 +2,7 @@ import { useState } from 'react';
 import live from "../../constants/live";
 import { ReactComponent as Print } from '../../assets/svg/files/print.svg';
 import CertificateAsPdf from './Modals/CertificateAsPdf';
-
-function getTypeClr(type) {
-  if (type === "Tokenized") return "text-green-400"
-  if (type === "Detokenized") return "text-red-400"
-  if (type === "Sale") return "text-orange-400"
-  return "text-emerald-400"
-}
+import getTypeClr from '../../helper/getTypeClr';
 
 function TransactionHitory() {
   const [open, setOpen] = useState(false)
@@ -26,7 +20,7 @@ function TransactionHitory() {
           <thead>
             <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
               <td className="pl-8 pr-4 py-2">Date</td>
-              <td className="px-4 py-2">Security Code</td>
+              <td className="px-4 py-2">ISIN</td>
               <td className="px-4 py-2">Issuer Name</td>
               <td className="px-4 py-2">TransactionType</td>
               <td className="px-4 py-2">Number of Tokens</td>

@@ -30,7 +30,7 @@ function Buy({ isOpen, data, closeModal }) {
       <div className='scroll-y'>
         <div className='grid md:grid-cols-2 gap-4 mb-4'>
           <Input
-            lable='Security Code'
+            lable='ISIN'
             value={data.securityCode}
           />
           <Input
@@ -93,14 +93,22 @@ function Buy({ isOpen, data, closeModal }) {
                 inputCls='ml-2'
               />
 
-              <div className='dc'>
+              <div className='dc gap-8 grid-col-full'>
                 <button
-                  className='w-full rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
+                  className='rounded-md text-white bg-slate-600 hover:bg-slate-700'
                   onClick={() => navigate("/custodian/investors-list", { state: data })}
                 >
                   List of Investors
                 </button>
+
+                <button
+                  className='rounded-md text-white bg-slate-600 hover:bg-slate-700'
+                  onClick={() => navigate("/custodian/transactions-hitory", { state: data })}
+                >
+                  Transactions List
+                </button>
               </div>
+
             </>
           }
         </div>

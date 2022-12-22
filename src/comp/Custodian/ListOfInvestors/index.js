@@ -40,7 +40,7 @@ function ListOfInvestors() {
           tokenDetails ?
             <>
               <Input
-                lable='Security Code'
+                lable='ISIN'
                 value={tokenDetails.securityCode}
                 inputCls="bg-slate-800 text-white border-none"
                 lableCls='w-auto mb-0'
@@ -75,12 +75,12 @@ function ListOfInvestors() {
         <table className="w-full table-fixed">
           <thead>
             <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
-              <td className="w-32 px-4 py-2">Sl.No.</td>
-              <td className="w-36 px-4 py-2">MBE Id</td>
+              <td className="w-36 pl-8 pr-4 py-2">MBE Id</td>
               <td className="w-52 px-4 py-2">Investor Name</td>
               <td className="w-32 px-4 py-2 text-center">Bond holdings</td>
               <td className="w-32 px-4 py-2 text-center">Token holdings</td>
               <td className="w-28 px-4 py-2 text-center">Transactions History</td>
+              <td className="w-24 px-4 py-2 text-center">CBDC Balance</td>
             </tr>
           </thead>
 
@@ -88,13 +88,12 @@ function ListOfInvestors() {
             {
               data
                 .filter((l, i) => tokenDetails ? i < 5 : true)
-                .map((li, i) => (
+                .map(li => (
                   <tr
                     key={li.mbeId}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                   >
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {i} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.mbeId} </td>
+                    <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.mbeId} </td>
                     <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
                       <p
                         className='cursor-pointer hover:text-emerald-200'
@@ -126,6 +125,9 @@ function ListOfInvestors() {
                       >
                         View
                       </button>
+                    </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
+                      {li.noOfToken * 100}
                     </td>
                   </tr>
                 ))

@@ -51,7 +51,7 @@ function MBEMarket() {
         <table className="w-full table-fixed">
           <thead>
             <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
-              <td className="w-36 px-4 py-2">Security Code</td>
+              <td className="w-36 px-4 py-2">ISIN</td>
               <td className="w-52 px-4 py-2">Issuer Name</td>
               <td className="w-32 px-4 py-2">Coupon Rate</td>
               <td className="w-28 px-4 py-2">Face Value</td>

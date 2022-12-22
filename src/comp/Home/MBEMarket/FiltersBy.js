@@ -60,7 +60,7 @@ function FiltersBy({
           <div className='my-1.5'>
             <label
               className='mb-1 text-[13px] font-medium'
-              htmlFor="Security_Code_filter">Security Code
+              htmlFor="Security_Code_filter">ISIN
             </label>
             <input
               className='px-1.5 py-1 bg-slate-700 text-white border-none'
