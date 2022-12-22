@@ -1,10 +1,28 @@
 import { useState } from "react";
 import { successNotify } from '../../../helper/toastifyHelp';
 import countryCodes from '../../../constants/countryCodes';
+import { sendOtp, verifyOtp } from "../../../apis/Step1";
 
 function Step0({ updateStep }) {
   const [selectedCountryCode, setSelectedCountryCode] = useState("+91")
   const [showOtp, setShowOtp] = useState(false)
+
+  const [details, setDetails] = useState({})
+
+  const onChange = e => {
+    setDetails(p => ({
+      ...p,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const onSuccessOtpSend = () => {
+    updateShowOtp();
+  }
+
+  const onSuccessOtpVerify = () => {
+    updateStep(1);
+  }
 
   const updateShowOtp = () => {
     successNotify("Sent a message to your number/email")
@@ -18,6 +36,7 @@ function Step0({ updateStep }) {
         className="p-3 rounded mb-2"
         name="email"
         placeholder="Email"
+        onChange={onChange}
       />
 
       <div className='mb-2 text-lg text-center text-slate-500'>or</div>
@@ -43,14 +62,15 @@ function Step0({ updateStep }) {
         <input
           type="number"
           className="no-number-arrows p-3 border-none"
-          name="mobileNumber"
+          name="phoneNumber"
           placeholder="Mobile Number"
+          onChange={onChange}
         />
       </div>
 
       <button
         className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black disabled:opacity-60"
-        onClick={updateShowOtp}
+        onClick={() => sendOtp(details, onSuccessOtpSend)}
         disabled={showOtp}
       >
         Send OTP
@@ -62,13 +82,14 @@ function Step0({ updateStep }) {
           <input
             type="text"
             className="p-3 rounded mb-4 mt-8"
-            name="otp"
+            name="enterOtp"
             placeholder="OTP"
+            onChange={onChange}
           />
 
           <button
             className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black"
-            onClick={() => updateStep(1)}
+            onClick={() => verifyOtp(details, onSuccessOtpVerify)}
           >
             Verify
           </button>
