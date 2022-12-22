@@ -131,11 +131,12 @@ function TransactionList() {
           <thead>
             <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
               <td className="w-32 pl-8 pr-4 py-2">Date</td>
-              <td className="w-36 px-4 py-2">Transation Number</td>
-              <td className="w-52 px-4 py-2">Type</td>
+              <td className="w-32 px-4 py-2">Transaction number</td>
+              <td className="w-24 px-4 py-2">Type</td>
               <td className="w-32 px-4 py-2">Investors</td>
               <td className="w-28 px-4 py-2">Status</td>
               <td className="w-24 px-4 py-2">Authorization</td>
+              <td className="w-24 px-4 py-2">Amount</td>
               <td className="w-32 px-4 py-2 text-center">Certificate</td>
             </tr>
           </thead>
@@ -168,6 +169,7 @@ function TransactionList() {
                     <td className={`px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 ${getTypeClr(li.authorisedStaus)}`}>
                       {li.authorisedStaus}
                     </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.transactionNo * 70} </td>
                     <td className='px-4 py-2 text-sm border-b border-[rgba(255,255,255,.3)]'>
                       {
                         i % 5 !== 0 &&

@@ -1,6 +1,14 @@
+import { useState } from 'react';
 import live from "../../constants/live";
+import InvestorsList from './Modals/InvestorsList';
+import UserInfoModal from './Modals/UserInfo';
 
 function TokenisedBond() {
+  const [open, setOpen] = useState({ state: "", data: {} })
+
+  const updateOpen = (state, data = {}) => setOpen({ state, data })
+  const closeModal = () => setOpen({ state: "", data: {} })
+
   return (
     <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
@@ -39,15 +47,18 @@ function TokenisedBond() {
                   <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.ltp} </td>
                   <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.askPrice} </td>
                   <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
-                    <button className="w-16 rounded border border-emerald-600">
+                    <button
+                      className="w-16 rounded border border-emerald-600 hover:bg-emerald-600"
+                      onClick={() => updateOpen("InvestorsList", li)}
+                    >
                       View
                     </button>
                   </td>
                   <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
-                    {Math.floor(li.volumn / 789)}
+                    {Math.floor(li.volumn / 789) * 200}
                   </td>
                   <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
-                    {Math.floor(li.volumn / 676)}
+                    {Math.floor(li.volumn / 676) * 150}
                   </td>
                 </tr>
               ))
@@ -55,6 +66,25 @@ function TokenisedBond() {
           </tbody>
         </table>
       </div>
+
+      {
+        open.state === "InvestorsList" &&
+        <InvestorsList
+          isOpen
+          title={open.data?.issuerName || "SHRIRAM TRANSPORT"}
+          updateOpen={updateOpen}
+          closeModal={closeModal}
+        />
+      }
+
+      {
+        open.state === "UserInfo" &&
+        <UserInfoModal
+          isOpen
+          data={open.data}
+          closeModal={() => updateOpen("InvestorsList", open.data)}
+        />
+      }
     </section>
   )
 }

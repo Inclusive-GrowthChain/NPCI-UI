@@ -26,7 +26,7 @@ function BondHoldings() {
               <td className="w-72 px-4 py-2">Credit Rating</td>
               <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
               <td className="w-28 px-4 py-2 text-center">Face Value</td>
-              <td className="w-24 px-4 py-2 text-center">Value</td>
+              <td className="w-24 px-4 py-2 text-center">Current Price</td>
               <td className="w-32 px-4 py-2"></td>
             </tr>
           </thead>

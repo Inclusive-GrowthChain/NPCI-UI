@@ -22,6 +22,7 @@ function TransactionHistory({ isOpen, data, closeModal }) {
               <td className="px-4 py-2">Number of Tokens</td>
               <td className="px-4 py-2">Amount</td>
               <td className="px-4 py-2">Status</td>
+              <td className="px-4 py-2">Amount</td>
               <td className="w-32 px-4 py-2 text-center">Certificate</td>
             </tr>
           </thead>
@@ -48,6 +49,7 @@ function TransactionHistory({ isOpen, data, closeModal }) {
                           : "Success"
                       }
                     </td>
+                    <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.noOfToken * 35} </td>
                     <td className='px-4 py-2 text-sm'>
                       {
                         i % 5 !== 0 &&

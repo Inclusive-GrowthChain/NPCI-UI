@@ -16,14 +16,14 @@ function InvestorsList({ isOpen, title = "", updateOpen, closeModal }) {
               <td className="w-36 px-4 py-2">MBE Id</td>
               <td className="w-52 px-4 py-2">Investor Name</td>
               <td className="w-32 px-4 py-2 text-center">No. of tokens</td>
-              <td className="w-32 px-4 py-2 text-center">Current Price</td>
+              <td className="w-32 px-4 py-2 text-center">Amount</td>
             </tr>
           </thead>
 
           <tbody>
             {
               investorList
-                .map((li, i) => (
+                .map(li => (
                   <tr
                     key={li.mbeId}
                     className="even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
@@ -32,7 +32,7 @@ function InvestorsList({ isOpen, title = "", updateOpen, closeModal }) {
                     <td className="px-4 py-2 text-sm font-medium opacity-80 group-hover:opacity-100">
                       <button
                         className='p-0 hover:scale-105 transition-transform'
-                        onClick={() => updateOpen("UserInfo", li)}
+                        onClick={() => updateOpen("UserInfo", { ...li, issuerName: title })}
                       >
                         {li.name}
                       </button>
