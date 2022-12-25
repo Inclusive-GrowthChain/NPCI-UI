@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import useStore from '../../../store';
 
 import custodianTransaction from '../../../constants/custodianTransaction';
 import getTypeClr from '../../../helper/getTypeClr';
@@ -14,6 +15,8 @@ import FilterByDate from './FilterByDate';
 import Input from '../../Home/common/Input';
 
 function TransactionList() {
+  const role = useStore(state => state.role)
+
   const [dateFilter, setDateFilter] = useState(null)
   const [authorisation, setAuthorisation] = useState("")
   const [status, setStatus] = useState("")
@@ -57,7 +60,7 @@ function TransactionList() {
   const closeModal = () => setOpen({ state: "", data: {} })
 
   return (
-    <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
+    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className='df gap-4 p-4 border-b border-[rgba(255,255,255,.3)] relative'>
         <Menu
           label={<Filter className={`fill-white ${authorisation || status || type ? "opacity-100" : "opacity-70"}`} />}
@@ -201,6 +204,7 @@ function TransactionList() {
           title={tokenDetails?.issuerName || "SHRIRAM TRANSPORT"}
           updateOpen={updateOpen}
           closeModal={closeModal}
+          needInvesterName={role !== "mbe"}
         />
       }
 

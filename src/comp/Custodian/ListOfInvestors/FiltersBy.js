@@ -7,6 +7,7 @@ function FiltersBy({
   setMbeId,
   userName,
   setUserName,
+  needInvesterName
 }) {
   const [open, setOpen] = useState(false)
 
@@ -73,21 +74,24 @@ function FiltersBy({
             />
           </div>
 
-          <div className='my-1.5'>
-            <label
-              className='mb-1 text-[13px] font-medium'
-              htmlFor="Issuer_Name_filter"
-            >
-              Investor Name
-            </label>
-            <input
-              className='px-1.5 py-1 bg-slate-700 text-white border-none'
-              type="text"
-              id='Issuer_Name_filter'
-              value={userName}
-              onChange={e => setUserName(e.target.value)}
-            />
-          </div>
+          {
+            needInvesterName &&
+            <div className='my-1.5'>
+              <label
+                className='mb-1 text-[13px] font-medium'
+                htmlFor="Issuer_Name_filter"
+              >
+                Investor Name
+              </label>
+              <input
+                className='px-1.5 py-1 bg-slate-700 text-white border-none'
+                type="text"
+                id='Issuer_Name_filter'
+                value={userName}
+                onChange={e => setUserName(e.target.value)}
+              />
+            </div>
+          }
         </div>
       }
     </div>

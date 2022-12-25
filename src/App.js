@@ -42,6 +42,12 @@ function App() {
           <Route path="/custodian/tokenised-bond" element={<TokenisedBond />} />
           <Route path="/custodian/profile" element={<Profile />} />
           <Route path="/custodian/reports" element={<Report />} />
+
+          <Route path="/mbe/transactions-hitory" element={<TransactionList />} />
+          <Route path="/mbe/investors-list" element={<ListOfInvestors />} />
+          <Route path="/mbe/tokenised-bond" element={<TokenisedBond />} />
+          <Route path="/mbe/profile" element={<Profile />} />
+          <Route path="/mbe/reports" element={<Report />} />
         </Route>
       </Routes>
     </Suspense>

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import useStore from '../../../store';
 
 import investorList from '../../../constants/investorList';
 import TransactionHistoryModal from '../Modals/TransactionHistory';
@@ -10,9 +11,12 @@ import Input from '../../Home/common/Input';
 import FiltersBy from './FiltersBy';
 
 function ListOfInvestors() {
+  const role = useStore(state => state.role)
+
   const [userName, setUserName] = useState("")
   const [mbeId, setMbeId] = useState("")
   const [open, setOpen] = useState({ state: "", data: {} })
+
   const { state: tokenDetails } = useLocation()
 
   const data = useMemo(() => {
@@ -34,7 +38,7 @@ function ListOfInvestors() {
   const closeModal = () => setOpen({ state: "", data: {} })
 
   return (
-    <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
+    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className='df gap-8 p-4 border-b border-[rgba(255,255,255,.3)]'>
         {
           tokenDetails ?
@@ -68,6 +72,7 @@ function ListOfInvestors() {
           setMbeId={setMbeId}
           userName={userName}
           setUserName={setUserName}
+          needInvesterName={role !== "mbe"}
         />
       </div>
 
@@ -76,7 +81,10 @@ function ListOfInvestors() {
           <thead>
             <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
               <td className="w-36 pl-8 pr-4 py-2">MBE Id</td>
-              <td className="w-52 px-4 py-2">Investor Name</td>
+              {
+                role !== "mbe" &&
+                <td className="w-52 px-4 py-2">Investor Name</td>
+              }
               <td className="w-32 px-4 py-2 text-center">Bond holdings</td>
               <td className="w-32 px-4 py-2 text-center">Token holdings</td>
               <td className="w-28 px-4 py-2 text-center">Transactions History</td>
@@ -94,14 +102,17 @@ function ListOfInvestors() {
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                   >
                     <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.mbeId} </td>
-                    <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
-                      <p
-                        className='cursor-pointer hover:text-emerald-200'
-                        onClick={() => updateOpen("UserInfo", li)}
-                      >
-                        {li.name}
-                      </p>
-                    </td>
+                    {
+                      role !== "mbe" &&
+                      <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
+                        <p
+                          className='cursor-pointer hover:text-emerald-200'
+                          onClick={() => updateOpen("UserInfo", li)}
+                        >
+                          {li.name}
+                        </p>
+                      </td>
+                    }
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
                       <button
                         className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"

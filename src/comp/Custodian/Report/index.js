@@ -30,7 +30,7 @@ function Report() {
   const updateType = val => setType(p => p === val ? "" : val)
 
   return (
-    <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
+    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className='df gap-4 p-4 border-b border-[rgba(255,255,255,.3)] relative'>
         <DropDownWrapper
           list={["List of Tokenized Bonds", "List of Detokenized Bonds", "Trade Report"]}
