@@ -42,6 +42,10 @@ function Detokenzise({ isOpen, data, closeModal }) {
             lable='Currency'
             value="Rupee"
           />
+          <Input
+            lable='No. of tokens'
+            value="200000"
+          />
 
           <div className='grid-col-full'>
             <Input
