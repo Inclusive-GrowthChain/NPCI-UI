@@ -31,7 +31,7 @@ function MBEMarket() {
 
   // console.log({ role })
   return (
-    <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
+    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className="df py-2 px-6 border-b border-[rgba(255,255,255,.3)]">
         <FiltersBy
           securityCode={securityCode}

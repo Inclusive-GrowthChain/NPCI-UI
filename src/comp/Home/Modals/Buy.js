@@ -25,7 +25,7 @@ function Buy({ isOpen, data, closeModal }) {
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc xs:min-w-[400px] max-h-[80vh]"
-      title='Descriptor'
+      title='Bond Details'
     >
       <div className='scroll-y'>
         <div className='grid md:grid-cols-2 gap-4 mb-4'>
@@ -42,7 +42,7 @@ function Buy({ isOpen, data, closeModal }) {
             value={data.couponRate}
           />
           <Input
-            lable='Price'
+            lable='LTP'
             value={data.askPrice}
           />
           <Input
@@ -50,23 +50,18 @@ function Buy({ isOpen, data, closeModal }) {
             value={data.maturityDate}
           />
           <Input
-            lable='Yield'
-            value={data.yield}
-          />
-          <Input
             lable='Currency'
             value="Rupee"
           />
 
-          <div></div>
-
-          <select>
-            <option value="">Bond Details</option>
-          </select>
-
-          <select disabled>
-            <option value="">Price Details</option>
-          </select>
+          <div className='grid-col-full'>
+            <Input
+              lable='Security Description'
+              value={data.securityDescription}
+              inputCls="w-full max-w-none"
+              lableCls='w-auto'
+            />
+          </div>
 
           {
             role === "investor" &&
@@ -77,7 +72,7 @@ function Buy({ isOpen, data, closeModal }) {
               </div>
 
               <div>
-                <label className='mb-1 font-medium' htmlFor="">Token value</label>
+                <label className='mb-1 font-medium' htmlFor="">Bid price (Per token)</label>
                 <input type="text" />
               </div>
             </>
@@ -127,7 +122,7 @@ function Buy({ isOpen, data, closeModal }) {
             </div>
 
             <div>
-              <label className='mb-1 font-medium' htmlFor="">Price (LTP)</label>
+              <label className='mb-1 font-medium' htmlFor="">Total</label>
               <input type="text" />
             </div>
           </div>

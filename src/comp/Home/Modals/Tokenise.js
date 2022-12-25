@@ -13,7 +13,7 @@ function Tokenise({ isOpen, data, closeModal }) {
       title='Tokenize your bond'
     >
       <div className='scroll-y'>
-        <div className='grid md:grid-cols-2 gap-4'>
+        <div className='grid md:grid-cols-2 gap-4 mb-4'>
           <Input
             lable='ISIN'
             value={data.securityCode}
@@ -27,32 +27,46 @@ function Tokenise({ isOpen, data, closeModal }) {
             value={data.couponRate}
           />
           <Input
-            lable='Price'
-            value={data.askPrice}
+            lable='LTP'
+            value={data.ltp}
           />
           <Input
             lable='Maturity Date'
             value={data.maturityDate}
           />
           <Input
-            lable='Yield'
-            value={data.yield}
+            lable='No. of lots'
+            value="1"
           />
           <Input
             lable='Currency'
             value="Rupee"
           />
+
+          <div className='grid-col-full'>
+            <Input
+              lable='Security Description'
+              value={data.securityDescription}
+              inputCls="w-full max-w-none"
+              lableCls='w-auto'
+            />
+          </div>
         </div>
 
-        <div className='grid md:grid-cols-2 gap-4 my-4'>
+        <div className='grid grid-cols-3 gap-4 mb-4'>
           <div>
-            <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
+            <label className='mb-1 font-medium' htmlFor="">No. of lots</label>
             <input type="text" />
           </div>
 
           <div>
-            <label className='mb-1 font-medium' htmlFor="">Token value</label>
-            <input type="text" />
+            <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
+            <input type="text" defaultValue="200000" disabled />
+          </div>
+
+          <div>
+            <label className='mb-1 font-medium' htmlFor="">Face value</label>
+            <input type="text" defaultValue="1" disabled />
           </div>
         </div>
       </div>

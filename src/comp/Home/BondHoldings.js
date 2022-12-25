@@ -11,7 +11,7 @@ function BondHoldings() {
   const closeModal = () => setOpen("")
 
   return (
-    <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
+    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
         My Bond Holdings
       </h1>
@@ -47,13 +47,12 @@ function BondHoldings() {
                     <td className="px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.creditRating} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.maturityDate} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.faceValue} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.volumn} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.currentPrice || "-"} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
-                      <button className='px-3 py-1.5 rounded border border-green-500'>
+                      <button className='px-3 py-1.5 rounded border border-emerald-400 hover:bg-emerald-400'>
                         Tokenize
                       </button>
                     </td>
-
                   </tr>
                 ))
             }

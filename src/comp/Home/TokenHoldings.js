@@ -19,7 +19,7 @@ function TokenHoldings() {
   }
 
   return (
-    <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
+    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
         My Token Holdings
       </h1>
@@ -37,8 +37,8 @@ function TokenHoldings() {
               <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
               <td className="w-28 px-4 py-2 text-center">Bid Price</td>
               <td className="w-28 px-4 py-2 text-center">Ask Price</td>
-              <td className="w-28 px-4 py-2 text-center">No. of Tokens</td>
-              <td className="w-28 px-4 py-2 text-center">Current Price</td>
+              <td className="w-32 px-4 py-2 text-center">No. of Tokens</td>
+              <td className="w-32 px-4 py-2 text-center">Current Price</td>
               <td className="w-32 px-4 py-2"></td>
             </tr>
           </thead>
@@ -70,8 +70,8 @@ function TokenHoldings() {
                         {li.askPrice}
                       </button>
                     </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.volumn / li.faceValue} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.volumn} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.noOfToken} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.currentPrice || "-"} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
                       <button
                         className='px-3 py-1.5 rounded border border-red-500 hover:bg-red-500 hover:text-white'
