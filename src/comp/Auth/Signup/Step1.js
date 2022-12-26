@@ -36,32 +36,59 @@ function RegisteredInvesterWithNSE({ updateStep }) {
       {
         isFetched &&
         <>
-          <input
-            type="text"
-            className="p-3 rounded mb-4"
-            name=""
-            placeholder="First Name"
-          />
+          <div className="df max-sm:flex-col gap-4 mb-4">
+            <input
+              type="text"
+              className="p-3 rounded"
+              name=""
+              placeholder="First Name"
+            />
+
+            <input
+              type="text"
+              className="p-3 rounded"
+              name=""
+              placeholder="Last Name"
+            />
+          </div>
+
+          <div className="df max-sm:flex-col gap-4 mb-4">
+            <input
+              type="text"
+              className="p-3 rounded"
+              name=""
+              placeholder="Father Name"
+            />
+
+            <input
+              type="text"
+              className="p-3 rounded"
+              name=""
+              placeholder="Gender"
+            />
+          </div>
+
+          <div className="df max-sm:flex-col gap-4 mb-4">
+            <input
+              type="text"
+              className="p-3 rounded"
+              name=""
+              placeholder="Date of Birth"
+            />
+
+            <input
+              type="text"
+              className="p-3 rounded"
+              name="Nationality"
+              placeholder="Nationality"
+            />
+          </div>
 
           <input
             type="text"
             className="p-3 rounded mb-4"
-            name=""
-            placeholder="Last Name"
-          />
-
-          <input
-            type="text"
-            className="p-3 rounded mb-4"
-            name=""
-            placeholder="Father Name"
-          />
-
-          <input
-            type="text"
-            className="p-3 rounded mb-4"
-            name="Nationality"
-            placeholder="Nationality"
+            name="address"
+            placeholder="Address"
           />
 
           <button
@@ -175,6 +202,13 @@ function NewUser({ updateStep }) {
                 placeholder="Nationality"
               />
             </div>
+
+            <input
+              type="text"
+              className="p-3 rounded mb-4"
+              name="address"
+              placeholder="Address"
+            />
 
             <label htmlFor="">KYC Verification</label>
             <input

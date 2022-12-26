@@ -34,24 +34,22 @@ function Sell({ isOpen, data, closeModal }) {
             value={data.couponRate}
           />
           <Input
-            lable='Price'
-            value={data.askPrice}
+            lable='LTP'
+            value={data.ltp}
           />
           <Input
             lable='Maturity Date'
             value={data.maturityDate}
           />
           <Input
-            lable='LTP'
-            value={data.ltp}
-          />
-          <Input
-            lable='Number of Tokens'
-            value={data.noOfToken}
-          />
-          <Input
             lable='Currency'
             value="Rupee"
+          />
+          <Input
+            lable='Total Number of Tokens'
+            value={data.noOfToken}
+            lableCls="w-auto"
+            wrapperCls='grid-col-full'
           />
 
           <div>
@@ -60,7 +58,7 @@ function Sell({ isOpen, data, closeModal }) {
           </div>
 
           <div>
-            <label className='mb-1 font-medium' htmlFor="">Token value</label>
+            <label className='mb-1 font-medium' htmlFor="">Ask price (per token)</label>
             <input type="text" />
           </div>
         </div>
@@ -70,17 +68,17 @@ function Sell({ isOpen, data, closeModal }) {
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div>
               <label className='mb-1 font-medium' htmlFor="">Quantity</label>
-              <input type="text" />
+              <input type="text" defaultValue="10" disabled />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Price Per Token (LTP)</label>
-              <input type="text" />
+              <input type="text" defaultValue="20" disabled />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Total</label>
-              <input type="text" />
+              <input type="text" defaultValue="30" disabled />
             </div>
           </div>
         }

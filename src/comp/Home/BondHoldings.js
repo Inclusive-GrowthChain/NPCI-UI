@@ -26,7 +26,8 @@ function BondHoldings() {
               <td className="w-72 px-4 py-2">Credit Rating</td>
               <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
               <td className="w-28 px-4 py-2 text-center">Face Value</td>
-              <td className="w-24 px-4 py-2 text-center">Current Price</td>
+              <td className="w-28 px-4 py-2 text-center">No. of Lots</td>
+              <td className="w-28 px-4 py-2 text-center">Current Price</td>
               <td className="w-32 px-4 py-2"></td>
             </tr>
           </thead>
@@ -47,6 +48,7 @@ function BondHoldings() {
                     <td className="px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.creditRating} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.maturityDate} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.faceValue} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.noOfLots} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.currentPrice || "-"} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
                       <button className='px-3 py-1.5 rounded border border-emerald-400 hover:bg-emerald-400'>

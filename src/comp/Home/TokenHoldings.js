@@ -38,6 +38,8 @@ function TokenHoldings() {
               <td className="w-28 px-4 py-2 text-center">Bid Price</td>
               <td className="w-28 px-4 py-2 text-center">Ask Price</td>
               <td className="w-32 px-4 py-2 text-center">No. of Tokens</td>
+              <td className="w-32 px-4 py-2 text-center">No. of Lots</td>
+              <td className="w-32 px-4 py-2 text-center">Purchase Price</td>
               <td className="w-32 px-4 py-2 text-center">Current Price</td>
               <td className="w-32 px-4 py-2"></td>
             </tr>
@@ -71,6 +73,8 @@ function TokenHoldings() {
                       </button>
                     </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.noOfToken} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.noOfLots} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.purchasePrice} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.currentPrice || "-"} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
                       <button

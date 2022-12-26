@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
 
@@ -5,6 +6,8 @@ import Input from '../common/Input';
 // If pending “Transaction pending, Visit transaction history for more details”.
 
 function Tokenise({ isOpen, data, closeModal }) {
+  const [noOfLots, setNoOfLots] = useState(0)
+
   return (
     <Modal
       isOpen={isOpen}
@@ -56,12 +59,17 @@ function Tokenise({ isOpen, data, closeModal }) {
         <div className='grid grid-cols-3 gap-4 mb-4'>
           <div>
             <label className='mb-1 font-medium' htmlFor="">No. of lots</label>
-            <input type="text" />
+            <input
+              type="number"
+              value={noOfLots || ""}
+              onChange={e => setNoOfLots(e.target.value || 0)}
+              className="no-number-arrows"
+            />
           </div>
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-            <input type="text" defaultValue="200000" disabled />
+            <input type="text" value={noOfLots * 200000 || ""} disabled onChange={() => { }} />
           </div>
 
           <div>

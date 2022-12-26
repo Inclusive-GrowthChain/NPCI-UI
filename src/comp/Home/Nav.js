@@ -14,14 +14,18 @@ const routes = {
     "Transactions Hitory": "transactions-hitory",
   },
   custodian: {
-    "Profile": "profile",
+    "Investors list": "investors-list",
+    "Tokenized Bonds": "tokenised-bond",
+    "Transactions list": "transactions-hitory",
+    "Reports": "reports",
+  },
+  regulator: {
     "Investors list": "investors-list",
     "Tokenized Bonds": "tokenised-bond",
     "Transactions list": "transactions-hitory",
     "Reports": "reports",
   },
   mbe: {
-    "Profile": "profile",
     "Investors list": "investors-list",
     "Tokenized Bonds": "tokenised-bond",
     "Transactions list": "transactions-hitory",

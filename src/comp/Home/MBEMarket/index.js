@@ -29,7 +29,6 @@ function MBEMarket() {
 
   const closeModal = () => setOpen("")
 
-  // console.log({ role })
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className="df py-2 px-6 border-b border-[rgba(255,255,255,.3)]">
@@ -96,7 +95,7 @@ function MBEMarket() {
       </div>
 
       {
-        open &&
+        (open || open === 0) &&
         <Buy
           isOpen
           data={live.find(li => li.id === open)}

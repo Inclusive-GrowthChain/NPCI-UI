@@ -4,12 +4,13 @@ import useStore from "../../store";
 
 function Login() {
   const [password, setPassword] = useState("")
-  const [mbeId, setMBEId] = useState("investor/custodian/mbe")
+  const [mbeId, setMBEId] = useState("investor/custodian/regulator/mbe")
   const logIn = useStore(state => state.logIn)
   const navigate = useNavigate()
 
   const onSubmit = () => {
-    if (mbeId === "custodian" || mbeId === "investor" || mbeId === "mbe") {
+    const nodes = ["investor", "custodian", "regulator", "mbe"]
+    if (nodes.includes(mbeId)) {
       logIn(mbeId)
       navigate("/mbe-market")
     }

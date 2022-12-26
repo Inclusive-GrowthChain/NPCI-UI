@@ -64,8 +64,7 @@ function Buy({ isOpen, data, closeModal }) {
           </div>
 
           {
-            role === "investor" &&
-            <>
+            role === "investor" ? <>
               <div>
                 <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
                 <input type="text" />
@@ -75,12 +74,7 @@ function Buy({ isOpen, data, closeModal }) {
                 <label className='mb-1 font-medium' htmlFor="">Bid price (Per token)</label>
                 <input type="text" />
               </div>
-            </>
-          }
-
-          {
-            role === "custodian" &&
-            <>
+            </> : <>
               <Input
                 lable='Number of Tokens'
                 value="500"
@@ -91,19 +85,18 @@ function Buy({ isOpen, data, closeModal }) {
               <div className='dc gap-8 grid-col-full'>
                 <button
                   className='rounded-md text-white bg-slate-600 hover:bg-slate-700'
-                  onClick={() => navigate("/custodian/investors-list", { state: data })}
+                  onClick={() => navigate(`/${role}/investors-list`, { state: data })}
                 >
                   List of Investors
                 </button>
 
                 <button
                   className='rounded-md text-white bg-slate-600 hover:bg-slate-700'
-                  onClick={() => navigate("/custodian/transactions-hitory", { state: data })}
+                  onClick={() => navigate(`/${role}/transactions-hitory`, { state: data })}
                 >
                   Transactions List
                 </button>
               </div>
-
             </>
           }
         </div>

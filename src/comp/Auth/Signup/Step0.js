@@ -20,8 +20,6 @@ function Step0({ updateStep }) {
         placeholder="Email"
       />
 
-      <div className='mb-2 text-lg text-center text-slate-500'>or</div>
-
       <div className="df mb-4 border border-gray-300 rounded">
         <select
           className="w-24 border-y-0 border-l-0 rounded-none bg-[length:18px] bg-[88%]"

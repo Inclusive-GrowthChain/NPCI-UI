@@ -32,6 +32,10 @@ function Profile() {
         value='865-4309-876-6654'
       />
       <Input
+        lable='DOB'
+        value='28/01/1999'
+      />
+      <Input
         lable='Mobile'
         value='9876543210'
       />
