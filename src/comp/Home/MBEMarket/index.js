@@ -1,29 +1,14 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import live from "../../../constants/live";
 // import useStore from '../../store';
 
-import FiltersBy from './FiltersBy';
+import { ReactComponent as Search } from '../../../assets/svg/common/seach.svg';
 import Buy from '../Modals/Buy';
 
 function MBEMarket() {
   // const role = useStore(state => state.role)
-  const [securityCode, setSecurityCode] = useState("")
-  const [issuerName, setIssuerName] = useState("")
+  const [filter, setFilter] = useState("")
   const [open, setOpen] = useState("")
-
-  const data = useMemo(() => {
-    let cloned = [...live]
-
-    if (securityCode) {
-      cloned = cloned.filter(c => c.securityCode.toLowerCase().match(securityCode))
-    }
-
-    if (issuerName) {
-      cloned = cloned.filter(c => c.issuerName.toLowerCase().match(issuerName))
-    }
-
-    return cloned
-  }, [issuerName, securityCode])
 
   const updateOpen = id => setOpen(id)
 
@@ -32,12 +17,16 @@ function MBEMarket() {
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className="df py-2 px-6 border-b border-[rgba(255,255,255,.3)]">
-        <FiltersBy
-          securityCode={securityCode}
-          setSecurityCode={setSecurityCode}
-          issuerName={issuerName}
-          setIssuerName={setIssuerName}
-        />
+        <div className='df p-2 bg-slate-800 rounded'>
+          <Search className='w-4 h-4 fill-white' />
+          <input
+            type="text"
+            className='w-44 p-0 bg-inherit border-none leading-none text-white'
+            placeholder='Search by ISIN/Issuer name'
+            value={filter}
+            onChange={e => setFilter(e.target.value)}
+          />
+        </div>
         <h1 className="flex-auto text-lg font-medium text-center">MBE Market</h1>
 
         <div className="df">
@@ -64,31 +53,33 @@ function MBEMarket() {
 
           <tbody>
             {
-              data.map(li => (
-                <tr
-                  key={li.id}
-                  className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
-                  onClick={() => updateOpen(li.id)}
-                >
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.securityCode} </td>
-                  <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponRate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.faceValue} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.ltp} </td>
-                  <td className="px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.creditRating} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.maturityDate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
-                    <button className="w-20 px-3 py-1.5 rounded border border-emerald-600">
-                      {li.bidPrice}
-                    </button>
-                  </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
-                    <button className="w-20 px-3 py-1.5 rounded border border-yellow-600">
-                      {li.askPrice}
-                    </button>
-                  </td>
-                </tr>
-              ))
+              live
+                .filter(li => li.issuerName.toLowerCase().match(filter) || li.securityCode.toLowerCase().match(filter))
+                .map(li => (
+                  <tr
+                    key={li.id}
+                    className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
+                    onClick={() => updateOpen(li.id)}
+                  >
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.securityCode} </td>
+                    <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponRate} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.faceValue} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.ltp} </td>
+                    <td className="px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.creditRating} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.maturityDate} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
+                      <button className="w-20 px-3 py-1.5 rounded border border-emerald-600">
+                        {li.bidPrice}
+                      </button>
+                    </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
+                      <button className="w-20 px-3 py-1.5 rounded border border-yellow-600">
+                        {li.askPrice}
+                      </button>
+                    </td>
+                  </tr>
+                ))
             }
           </tbody>
         </table>

@@ -1,37 +1,22 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useStore from '../../../store';
 
 import investorList from '../../../constants/investorList';
+import { ReactComponent as Search } from '../../../assets/svg/common/seach.svg';
 import TransactionHistoryModal from '../Modals/TransactionHistory';
 import TokenHoldingsModal from '../Modals/TokenHoldings';
 import BondHoldingsModal from '../Modals/BondHoldings';
 import UserInfoModal from '../Modals/UserInfo';
 import Input from '../../Home/common/Input';
-import FiltersBy from './FiltersBy';
 
 function ListOfInvestors() {
   const role = useStore(state => state.role)
 
-  const [userName, setUserName] = useState("")
-  const [mbeId, setMbeId] = useState("")
+  const [filter, setFilter] = useState("")
   const [open, setOpen] = useState({ state: "", data: {} })
 
   const { state: tokenDetails } = useLocation()
-
-  const data = useMemo(() => {
-    let cloned = [...investorList]
-
-    if (mbeId) {
-      cloned = cloned.filter(c => c.mbeId.toLowerCase().match(mbeId))
-    }
-
-    if (userName) {
-      cloned = cloned.filter(c => c.name.toLowerCase().match(userName))
-    }
-
-    return cloned
-  }, [mbeId, userName])
 
   const updateOpen = (state, data) => setOpen({ state, data })
 
@@ -40,6 +25,17 @@ function ListOfInvestors() {
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className='df gap-8 p-4 border-b border-[rgba(255,255,255,.3)]'>
+        <div className='df p-2 bg-slate-800 rounded'>
+          <Search className='w-4 h-4 fill-white' />
+          <input
+            type="text"
+            className='w-44 p-0 bg-inherit border-none leading-none text-white'
+            placeholder={`Search by ${role === "mbe" ? "ISIN" : "ISIN/Issuer name"}`}
+            value={filter}
+            onChange={e => setFilter(e.target.value)}
+          />
+        </div>
+
         {
           tokenDetails ?
             <>
@@ -66,14 +62,6 @@ function ListOfInvestors() {
               List of Investors
             </h1>
         }
-
-        <FiltersBy
-          mbeId={mbeId}
-          setMbeId={setMbeId}
-          userName={userName}
-          setUserName={setUserName}
-          needInvesterName={role !== "mbe"}
-        />
       </div>
 
       <div className="scroll-y overflow-x-auto">
@@ -94,8 +82,9 @@ function ListOfInvestors() {
 
           <tbody>
             {
-              data
+              investorList
                 .filter((l, i) => tokenDetails ? i < 5 : true)
+                .filter(li => li.mbeId.toLowerCase().match(filter) || li.name.toLowerCase().match(filter))
                 .map(li => (
                   <tr
                     key={li.mbeId}
