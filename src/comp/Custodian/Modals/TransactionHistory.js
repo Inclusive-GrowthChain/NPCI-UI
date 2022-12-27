@@ -2,14 +2,16 @@ import Modal from '../../UIComp/Modal';
 import { ReactComponent as Print } from '../../../assets/svg/files/print.svg';
 import live from '../../../constants/live';
 import getTypeClr from '../../../helper/getTypeClr';
+import useStore from '../../../store';
 
 function TransactionHistory({ isOpen, data, closeModal }) {
+  const role = useStore(state => state.role)
   return (
     <Modal
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc max-h-[80vh] overflow-y-hidden"
-      title={`Transactions History of ${data.name}`}
+      title={`Transactions History of ${role === "mbe" ? data.mbeId : data.name}`}
     >
       <div className='scroll-y'>
         <table className="w-full">

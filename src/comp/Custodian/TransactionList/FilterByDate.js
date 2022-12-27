@@ -36,6 +36,7 @@ function FilterByDate({ setDateFilter }) {
           selected={startDate}
           onChange={(date) => setStartDate(date)}
           startDate={startDate}
+          isClearable
           dateFormat="dd-MM-yyyy"
         />
       </div>
@@ -53,6 +54,7 @@ function FilterByDate({ setDateFilter }) {
           selected={endDate}
           onChange={(date) => setEndDate(date)}
           endDate={endDate}
+          isClearable
           dateFormat="dd-MM-yyyy"
         />
       </div>

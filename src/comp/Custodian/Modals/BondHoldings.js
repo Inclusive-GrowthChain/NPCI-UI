@@ -1,13 +1,15 @@
 import Modal from '../../UIComp/Modal';
 import live from '../../../constants/live';
+import useStore from '../../../store';
 
 function BondHoldings({ isOpen, data, closeModal }) {
+  const role = useStore(state => state.role)
   return (
     <Modal
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc max-h-[80vh] overflow-y-hidden"
-      title={`Bond Holdings of ${data.name}`}
+      title={`Bond Holdings of ${role === "mbe" ? data.mbeId : data.name}`}
     >
       <div className='scroll-y'>
         <table className='w-full'>

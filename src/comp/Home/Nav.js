@@ -22,7 +22,7 @@ const routes = {
     "Reports": "reports",
   },
   regulator: {
-    name: "NSDL(Custodian/Depository)",
+    name: "NSE(Custodian/Depository)",
     "Investors list": "investors-list",
     "Tokenized Bonds": "tokenised-bond",
     "Transactions list": "transactions-hitory",
