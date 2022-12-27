@@ -8,24 +8,28 @@ import AddBalance from './Modals/AddBalance';
 
 const routes = {
   investor: {
+    name: "Investor",
     "Profile": "profile",
     "My token holdings": "token-holdings",
     "My bond holdings": "bond-holdings",
     "Transactions Hitory": "transactions-hitory",
   },
   custodian: {
+    name: "NSDL(Custodian/Depository)",
     "Investors list": "investors-list",
     "Tokenized Bonds": "tokenised-bond",
     "Transactions list": "transactions-hitory",
     "Reports": "reports",
   },
   regulator: {
+    name: "NSDL(Custodian/Depository)",
     "Investors list": "investors-list",
     "Tokenized Bonds": "tokenised-bond",
     "Transactions list": "transactions-hitory",
     "Reports": "reports",
   },
   mbe: {
+    name: "MBE",
     "Investors list": "investors-list",
     "Tokenized Bonds": "tokenised-bond",
     "Transactions list": "transactions-hitory",
@@ -95,7 +99,7 @@ function Nav() {
               needArrow
               boxCls="profile-dd"
             >
-              <UserProfile /> <span className='first-letter:uppercase'>{role}</span>
+              <UserProfile /> <span className='text-xs'>{routes[role]?.name}</span>
             </DropDownWrapper>
           </> : <>
             <Link
