@@ -8,7 +8,15 @@ import Input from '../common/Input';
 function Sell({ isOpen, data, closeModal }) {
   const [isTradeOpen, setIsTradeOpen] = useState(false)
 
+  const [numberOfTokens, setNumberOfTokens] = useState(null)
+  const [sellPricePerToken, setSellPricePerToken] = useState(null)
+  const [total, setTotal] = useState(null)
+
   const onClick = () => {
+    console.log(numberOfTokens);
+    console.log(sellPricePerToken);
+    const total = Number(numberOfTokens) * Number(sellPricePerToken)
+    setTotal(total)
     if (!isTradeOpen) return setIsTradeOpen(true)
   }
 
@@ -54,12 +62,16 @@ function Sell({ isOpen, data, closeModal }) {
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-            <input type="text" />
+            <input type="text" onChange={(e) => {
+              setNumberOfTokens(e.target.value)
+            }} />
           </div>
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Ask price (per token)</label>
-            <input type="text" />
+            <input type="text" onChange={(e) => {
+              setSellPricePerToken(e.target.value)
+            }} />
           </div>
         </div>
 
@@ -68,17 +80,17 @@ function Sell({ isOpen, data, closeModal }) {
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div>
               <label className='mb-1 font-medium' htmlFor="">Quantity</label>
-              <input type="text" defaultValue="10" disabled />
+              <input type="text" value={numberOfTokens} readOnly />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Price Per Token (LTP)</label>
-              <input type="text" defaultValue="20" disabled />
+              <input type="text" value={sellPricePerToken} readOnly />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Total</label>
-              <input type="text" defaultValue="30" disabled />
+              <input type="text" value={total} readOnly />
             </div>
           </div>
         }

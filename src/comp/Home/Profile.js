@@ -23,14 +23,14 @@ function Profile() {
         lable='CBDC Balance'
         value='100000'
       />
-      <Input
+      {/* <Input
         lable='PAN Number'
         value='12345'
       />
       <Input
         lable='Aadhar Card'
         value='865-4309-876-6654'
-      />
+      /> */}
       <Input
         lable='DOB'
         value='28/01/1999'

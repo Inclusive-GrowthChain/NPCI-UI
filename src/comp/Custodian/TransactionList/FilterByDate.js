@@ -4,9 +4,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { ReactComponent as Cal } from '../../../assets/svg/common/calender.svg';
+import { ReactComponent as Search } from '../../../assets/svg/common/seach.svg';
 
 function FilterByDate({ setDateFilter }) {
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
   const [open, setOpen] = useState(false)
 
@@ -31,7 +32,7 @@ function FilterByDate({ setDateFilter }) {
   }
 
   const clear = () => {
-    setStartDate(new Date())
+    setStartDate(null)
     setEndDate(null)
     setOpen(false)
     setDateFilter(null)
@@ -39,45 +40,47 @@ function FilterByDate({ setDateFilter }) {
 
   return (
     <>
+      <div
+        className='text-[11px] px-1.5 py-0.5 bg-slate-700 rounded'
+      >
+        From
+      </div>
+
+      <div
+        className="range-picker animate-enter bg-slate-800 z-10 rounded-lg shadow-sm shadow-slate-300 origin-top-left"
+      >
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          startDate={startDate}
+          dateFormat="dd-MM-yyyy"
+        />
+      </div>
+
+      <div
+        className='text-[11px] px-1.5 py-0.5 bg-slate-700 rounded'
+      >
+        To
+      </div>
+
+      <div
+        className="range-picker animate-enter bg-slate-800 z-10 rounded-lg shadow-sm shadow-slate-300 origin-top-left"
+      >
+        <DatePicker
+          selected={endDate}
+          onChange={(date) => setEndDate(date)}
+          endDate={endDate}
+          dateFormat="dd-MM-yyyy"
+        />
+      </div>
+
       <button
         ref={reference}
         onClick={() => setOpen(p => !p)}
         className="p-0"
       >
-        <Cal className={`fill-white ${false ? "opacity-100" : "opacity-70"}`} />
+        <Search className={`fill-white ${false ? "opacity-100" : "opacity-70"}`} />
       </button>
-
-      {
-        endDate &&
-        <button
-          className='text-[11px] px-1.5 py-0.5 bg-slate-700 rounded hover:bg-slate-800'
-          onClick={clear}
-        >
-          Clear Date Filter
-        </button>
-      }
-
-      {
-        open &&
-        <div
-          ref={floating}
-          style={{
-            position: strategy,
-            top: y ?? "",
-            left: x ?? "",
-          }}
-          className="range-picker animate-enter p-2 bg-slate-800 z-10 rounded-lg shadow-sm shadow-slate-300 origin-top-left"
-        >
-          <DatePicker
-            selected={startDate}
-            onChange={onChange}
-            startDate={startDate}
-            endDate={endDate}
-            selectsRange
-            dateFormat="dd-MM-yyyy"
-          />
-        </div>
-      }
     </>
   )
 }
