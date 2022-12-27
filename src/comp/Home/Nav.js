@@ -95,7 +95,7 @@ function Nav() {
               needArrow
               boxCls="profile-dd"
             >
-              <UserProfile />
+              <UserProfile /> <span className='first-letter:uppercase'>{role}</span>
             </DropDownWrapper>
           </> : <>
             <Link
