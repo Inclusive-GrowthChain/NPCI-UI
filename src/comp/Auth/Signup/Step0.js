@@ -1,16 +1,24 @@
+import useStore from "../../../store/index.js";
 import { useState } from "react";
 import { successNotify } from '../../../helper/toastifyHelp';
 import countryCodes from '../../../constants/countryCodes';
-import { sendOtp, verifyOtp } from "../../../apis/Step1";
+import { sendOtp, verifyOtp } from "../../../apis/apis";
 
 function Step0({ updateStep }) {
   const [selectedCountryCode, setSelectedCountryCode] = useState("+91")
   const [showOtp, setShowOtp] = useState(false)
 
-  const [details, setDetails] = useState({})
+  const [details, setDetail] = useState({})
+
+  const setDetails = useStore((state) => state.setDetails);
+
+  const setData = (keyData, valueData) => {
+    setDetails(keyData, valueData);
+    // clear();
+  }
 
   const onChange = e => {
-    setDetails(p => ({
+    setDetail(p => ({
       ...p,
       [e.target.name]: e.target.value
     }))
@@ -21,6 +29,13 @@ function Step0({ updateStep }) {
   }
 
   const onSuccessOtpVerify = () => {
+    delete details['enterOtp'];
+    console.log(details);
+    for (const [key, value] of Object.entries(details)) {
+      console.log(`${key}: ${value}`);
+      setData(key, value);
+    }
+    // setData(details);
     updateStep(1);
   }
 

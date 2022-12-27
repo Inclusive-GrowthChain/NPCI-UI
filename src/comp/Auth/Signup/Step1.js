@@ -1,32 +1,54 @@
 import { useState } from "react";
 import { successNotify } from '../../../helper/toastifyHelp';
+import useStore from "../../../store/index.js"
+import { fetchNseData, fetchPanCardDetails, postNseData, sendOtp, verifyOtp } from "../../../apis/apis";
 
 function RegisteredInvesterWithNSE({ updateStep }) {
   const [isFetched, setIsFetched] = useState(false)
 
-  const updateIsFetched = () => setIsFetched(p => !p)
+  const updateIsFetched = () => {
+    setIsFetched(p => !p)
+  }
+
+  const [details, setDetails] = useState(useStore((state) => state.details))
+
+  const [kycDetails, setKycDetails] = useState({})
+
+  const onChange = e => {
+    setKycDetails(p => ({
+      ...p,
+      [e.target.name]: e.target.value
+    }))
+    console.log(kycDetails);
+  }
+
+  const onSuccessNseDataFetch = () => {
+    // updateIsFetched();
+  }
 
   return (
     <>
       <input
         type="text"
         className="p-3 rounded mb-4"
-        name="pan"
+        name="panCard"
         placeholder="PAN Card Number"
+        onChange={onChange}
       />
 
       <input
         type="text"
         className="p-3 rounded mb-4"
-        name="aathar"
+        name="aadharCard"
         placeholder="Aadhar Card Number"
+        onChange={onChange}
       />
 
       {
         !isFetched &&
         <button
           className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black disabled:opacity-60"
-          onClick={updateIsFetched}
+          onClick={() => fetchNseData(kycDetails, onSuccessNseDataFetch)}
           disabled={isFetched}
         >
           Fetch Data
@@ -81,20 +103,60 @@ function NewUser({ updateStep }) {
   const [showOTPForPAN, setShowOTPForPAN] = useState(false)
   const [isKycShown, setIsKycShown] = useState(false)
 
+  const [details, setDetails] = useState(useStore((state) => state.details))
+
+  const [nseData, setNseData] = useState({})
+
+  const onChange = e => {
+    setDetails(p => ({
+      ...p,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const updateNseData = e => {
+    setNseData(p => ({
+      ...p,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const onSuccessPanOtpSend = () => {
+    successNotify("Sent a message to your registered mobile number")
+    // setShowOTPForPAN(true)
+  }
+
+  const onSuccessPanOtpVerify = () => {
+    setIsKycShown(true)
+    delete details['enterOtp'];
+  }
+
+  const onSuccessAadharOtpSend = () => {
+    successNotify("Sent a message to your registered mobile number")
+    setShowOTPForAadhar(true)
+  }
+
+  const onSuccessAadharOtpVerify = () => {
+    delete details['enterOtp'];
+    postNseData(nseData, onSuccessNseDataPost);
+  }
+
+  const onSuccessNseDataPost = () => {
+    updateStep(2)
+  }
+
   const onBtnClk = () => {
     if (!isKycShown) {
       if (!showOTPForPAN) {
-        successNotify("Sent a message to your registered mobile number")
-        setShowOTPForPAN(true)
+        fetchPanCardDetails({ "panCard": nseData.panCard }, onSuccessPanOtpSend)
       } else {
-        setIsKycShown(true)
+        verifyOtp({ "panCard": nseData.panCard, "enterOtp": details.enterOtp }, onSuccessPanOtpVerify)
       }
     } else {
       if (!showOTPForAadhar) {
-        successNotify("Sent a message to your registered mobile number")
-        setShowOTPForAadhar(true)
+        sendOtp(details, onSuccessAadharOtpSend)
       } else {
-        updateStep(2)
+        verifyOtp(details, onSuccessAadharOtpVerify)
       }
     }
   }
@@ -104,8 +166,9 @@ function NewUser({ updateStep }) {
       <input
         type="text"
         className={`p-3 rounded mb-4 ${isKycShown ? "border-emerald-600" : ""}`}
-        name="pan"
+        name="panCard"
         placeholder="PAN Card Number"
+        onChange={updateNseData}
       />
 
       {
@@ -115,8 +178,9 @@ function NewUser({ updateStep }) {
             <input
               type="text"
               className="p-3 rounded mb-4"
-              name="otp"
+              name="enterOtp"
               placeholder="OTP"
+              onChange={onChange}
             />
           }
 
@@ -132,15 +196,17 @@ function NewUser({ updateStep }) {
               <input
                 type="text"
                 className="p-3 rounded"
-                name=""
+                name="firstName"
                 placeholder="First Name"
+                onChange={updateNseData}
               />
 
               <input
                 type="text"
                 className="p-3 rounded"
-                name=""
+                name="lastName"
                 placeholder="Last Name"
+                onChange={updateNseData}
               />
             </div>
 
@@ -148,15 +214,17 @@ function NewUser({ updateStep }) {
               <input
                 type="text"
                 className="p-3 rounded"
-                name=""
+                name="fatherName"
                 placeholder="Father Name"
+                onChange={updateNseData}
               />
 
               <input
                 type="text"
                 className="p-3 rounded"
-                name=""
+                name="gender"
                 placeholder="Gender"
+                onChange={updateNseData}
               />
             </div>
 
@@ -164,8 +232,9 @@ function NewUser({ updateStep }) {
               <input
                 type="text"
                 className="p-3 rounded"
-                name=""
+                name="DOB"
                 placeholder="Date of Birth"
+                onChange={updateNseData}
               />
 
               <input
@@ -173,6 +242,7 @@ function NewUser({ updateStep }) {
                 className="p-3 rounded"
                 name="Nationality"
                 placeholder="Nationality"
+                onChange={updateNseData}
               />
             </div>
 
@@ -180,8 +250,9 @@ function NewUser({ updateStep }) {
             <input
               type="text"
               className="p-3 rounded mb-4"
-              name="aathar"
+              name="aadharCard"
               placeholder="Aadhar Card Number"
+              onChange={updateNseData}
             />
 
             {
@@ -189,8 +260,9 @@ function NewUser({ updateStep }) {
               <input
                 type="text"
                 className="p-3 rounded mb-4"
-                name="otp"
+                name="enterOtp"
                 placeholder="OTP"
+                onChange={onChange}
               />
             }
 
@@ -198,7 +270,7 @@ function NewUser({ updateStep }) {
               className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black disabled:opacity-60"
               onClick={onBtnClk}
             >
-              {showOTPForPAN ? "Verify" : "Send OTP"}
+              {showOTPForAadhar ? "Verify" : "Send OTP"}
             </button>
           </>
       }
