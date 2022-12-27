@@ -13,8 +13,6 @@ function Sell({ isOpen, data, closeModal }) {
   const [total, setTotal] = useState(null)
 
   const onClick = () => {
-    console.log(numberOfTokens);
-    console.log(sellPricePerToken);
     const total = Number(numberOfTokens) * Number(sellPricePerToken)
     setTotal(total)
     if (!isTradeOpen) return setIsTradeOpen(true)
