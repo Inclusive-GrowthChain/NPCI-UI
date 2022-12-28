@@ -1,12 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { registerUser } from "../../../apis/apis.js";
+import useStore from "../../../store/index.js"
 
 function Step2() {
   const [isConfiremed, setIsConfirmed] = useState(false)
   const navigate = useNavigate()
+  const nseData = useState(useStore((state) => state.nseData))
 
   const onClk = () => {
     setIsConfirmed(p => !p)
+    registerUser({
+      "panCard": nseData.panCard,
+      "phoneNumber": nseData.phoneNumber
+    }, onSuccess)
+    // setTimeout(() => {
+    //   navigate("/login")
+    // }, 3000)
+  }
+
+  const onSuccess = () => {
     setTimeout(() => {
       navigate("/login")
     }, 3000)

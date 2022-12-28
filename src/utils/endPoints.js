@@ -14,6 +14,8 @@ const endPoints = {
   otpVerify: "email_phone_otp_verify",
   nseData: "nse_data",
   panCardData: "pancard_data",
+
+  tokenize: "tokenzie"
 }
 
 export default endPoints

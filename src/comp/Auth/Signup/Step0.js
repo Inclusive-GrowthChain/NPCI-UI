@@ -7,6 +7,8 @@ import { sendOtp, verifyOtp } from "../../../apis/apis";
 function Step0({ updateStep }) {
   const [selectedCountryCode, setSelectedCountryCode] = useState("+91")
   const [showOtp, setShowOtp] = useState(false)
+  const [email, setEmail] = useState(false)
+  const [phoneNumber, setPhoneNumber] = useState(false)
 
   const [details, setDetail] = useState({})
 
@@ -22,6 +24,12 @@ function Step0({ updateStep }) {
       ...p,
       [e.target.name]: e.target.value
     }))
+    if (e.target.name === "email") {
+      setEmail(true)
+    }
+    if (e.target.name === "phoneNumber") {
+      setPhoneNumber(true)
+    }
   }
 
   const onSuccessOtpSend = () => {
@@ -32,7 +40,6 @@ function Step0({ updateStep }) {
     delete details['enterOtp'];
     console.log(details);
     for (const [key, value] of Object.entries(details)) {
-      console.log(`${key}: ${value}`);
       setData(key, value);
     }
     // setData(details);
@@ -40,8 +47,10 @@ function Step0({ updateStep }) {
   }
 
   const updateShowOtp = () => {
-    successNotify("Sent a message to your number/email")
+    successNotify("OTP has been sent to your mobile number and email")
     setShowOtp(p => !p)
+    setEmail(p => !p)
+    setPhoneNumber(p => !p)
   }
 
   return (
@@ -52,9 +61,10 @@ function Step0({ updateStep }) {
         name="email"
         placeholder="Email"
         onChange={onChange}
+        required
       />
 
-      <div className='mb-2 text-lg text-center text-slate-500'>or</div>
+      <div className='mb-2 text-lg text-center text-slate-500'>and</div>
 
       <div className="df mb-4 border border-gray-300 rounded">
         <select
@@ -80,13 +90,14 @@ function Step0({ updateStep }) {
           name="phoneNumber"
           placeholder="Mobile Number"
           onChange={onChange}
+          required
         />
       </div>
 
       <button
         className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black disabled:opacity-60"
         onClick={() => sendOtp(details, onSuccessOtpSend)}
-        disabled={showOtp}
+        disabled={!email || !phoneNumber}
       >
         Send OTP
       </button>
@@ -100,6 +111,7 @@ function Step0({ updateStep }) {
             name="enterOtp"
             placeholder="OTP"
             onChange={onChange}
+            required
           />
 
           <button

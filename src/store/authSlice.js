@@ -16,10 +16,10 @@ const authSlice = (set, get) => ({
         ...state.details,
       }
     })),
-  setNseData: (data) => 
+  setNseData: (keyData, valueData) => 
     set((state) => ({
       nseData: {
-        data,
+        [keyData]: `${valueData}`,
         ...state.nseData
       }
     }))

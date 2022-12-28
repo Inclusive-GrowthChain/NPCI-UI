@@ -1,16 +1,24 @@
 import { useState } from "react";
 import { successNotify } from '../../../helper/toastifyHelp';
 import useStore from "../../../store/index.js"
-import { fetchNseData, fetchPanCardDetails, postNseData, sendOtp, verifyOtp } from "../../../apis/apis";
+import { fetchNseData, postNseData, sendOtp, verifyOtp } from "../../../apis/apis";
 
 function RegisteredInvesterWithNSE({ updateStep }) {
   const [isFetched, setIsFetched] = useState(false)
+  const [isPanCard, setIsPanCard] = useState(false)
+  const [isAadharCard, setIsAadharCard] = useState(false)
+  const [nseData, setNseData] = useState({})
 
   const updateIsFetched = () => {
     setIsFetched(p => !p)
   }
 
-  const [details, setDetails] = useState(useStore((state) => state.details))
+  // const [details, setDetails] = useState(useStore((state) => state.details))
+  const setNseDetials = useStore((state) => state.setNseData);
+
+  const setData = (keyData, valueData) => {
+    setNseDetials(keyData, valueData);
+  }
 
   const [kycDetails, setKycDetails] = useState({})
 
@@ -19,11 +27,22 @@ function RegisteredInvesterWithNSE({ updateStep }) {
       ...p,
       [e.target.name]: e.target.value
     }))
+    if (e.target.name === 'panCard')
+      setIsPanCard(true)
+    if (e.target.name === 'aadharCard')
+      setIsAadharCard(true)
     console.log(kycDetails);
   }
 
-  const onSuccessNseDataFetch = () => {
-    // updateIsFetched();
+  const onSuccessNseDataFetch = (payload) => {
+    console.log("on page")
+    console.log(payload)
+    setNseData(payload.data)
+    console.log(nseData)
+    updateIsFetched();
+    for (const [key, value] of Object.entries(nseData)) {
+      setData(key, value);
+    }
   }
 
   return (
@@ -49,7 +68,7 @@ function RegisteredInvesterWithNSE({ updateStep }) {
         <button
           className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black disabled:opacity-60"
           onClick={() => fetchNseData(kycDetails, onSuccessNseDataFetch)}
-          disabled={isFetched}
+          disabled={!isPanCard || !isAadharCard}
         >
           Fetch Data
         </button>
@@ -63,6 +82,8 @@ function RegisteredInvesterWithNSE({ updateStep }) {
             className="p-3 rounded mb-4"
             name=""
             placeholder="First Name"
+            readOnly
+            value={nseData.firstName}
           />
 
           <input
@@ -70,6 +91,8 @@ function RegisteredInvesterWithNSE({ updateStep }) {
             className="p-3 rounded mb-4"
             name=""
             placeholder="Last Name"
+            readOnly
+            value={nseData.lastName}
           />
 
           <input
@@ -77,6 +100,8 @@ function RegisteredInvesterWithNSE({ updateStep }) {
             className="p-3 rounded mb-4"
             name=""
             placeholder="Father Name"
+            readOnly
+            value={nseData.fatherName}
           />
 
           <input
@@ -84,6 +109,8 @@ function RegisteredInvesterWithNSE({ updateStep }) {
             className="p-3 rounded mb-4"
             name="Nationality"
             placeholder="Nationality"
+            readOnly
+            value={nseData.Nationality}
           />
 
           <button
@@ -104,8 +131,13 @@ function NewUser({ updateStep }) {
   const [isKycShown, setIsKycShown] = useState(false)
 
   const [details, setDetails] = useState(useStore((state) => state.details))
+  const setDetails2 = useStore((state) => state.setDetails);
 
-  const [nseData, setNseData] = useState({})
+  const setData = (keyData, valueData) => {
+    setDetails2(keyData, valueData);
+  }
+
+  const [nseData, setNseData] = useState(details)
 
   const onChange = e => {
     setDetails(p => ({
@@ -123,7 +155,7 @@ function NewUser({ updateStep }) {
 
   const onSuccessPanOtpSend = () => {
     successNotify("Sent a message to your registered mobile number")
-    // setShowOTPForPAN(true)
+    setShowOTPForPAN(true)
   }
 
   const onSuccessPanOtpVerify = () => {
@@ -142,21 +174,25 @@ function NewUser({ updateStep }) {
   }
 
   const onSuccessNseDataPost = () => {
+    for (const [key, value] of Object.entries(nseData)) {
+      console.log(`${key}: ${value}`);
+      setData(key, value);
+    }
     updateStep(2)
   }
 
   const onBtnClk = () => {
     if (!isKycShown) {
       if (!showOTPForPAN) {
-        fetchPanCardDetails({ "panCard": nseData.panCard }, onSuccessPanOtpSend)
+        sendOtp({ "panCard": nseData.panCard }, onSuccessPanOtpSend)
       } else {
-        verifyOtp({ "panCard": nseData.panCard, "enterOtp": details.enterOtp }, onSuccessPanOtpVerify)
+        verifyOtp({ "phoneNumber": details.phoneNumber, "enterOtp": details.enterOtp }, onSuccessPanOtpVerify)
       }
     } else {
       if (!showOTPForAadhar) {
-        sendOtp(details, onSuccessAadharOtpSend)
+        sendOtp({ "aadharCard": nseData.aadharCard }, onSuccessAadharOtpSend)
       } else {
-        verifyOtp(details, onSuccessAadharOtpVerify)
+        verifyOtp({ "phoneNumber": details.phoneNumber, "enterOtp": details.enterOtp }, onSuccessAadharOtpVerify)
       }
     }
   }

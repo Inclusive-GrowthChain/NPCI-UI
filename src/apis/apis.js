@@ -1,4 +1,3 @@
-import axios from "axios";
 import endPoints from "../utils/endPoints";
 import sendApiReq from "../utils/sendApiReq";
 
@@ -10,9 +9,9 @@ export async function sendOtp(data, onSuccess) {
       url: endPoints.otpSending,
       data,
     })
-
     console.log(payload)
-    onSuccess()
+    if(payload.status_code === 200)
+      onSuccess()
   } catch (error) {
     console.log(error)
   }
@@ -28,7 +27,8 @@ export async function verifyOtp(data, onSuccess) {
     })
 
     console.log(payload)
-    onSuccess()
+    if (payload.status_code === 200)
+      onSuccess()
     console.log(data);
   } catch (error) {
     console.log(error)
@@ -41,11 +41,11 @@ export async function fetchNseData(data, onSuccess) {
     const payload = await sendApiReq({
       method: 'get',
       url: endPoints.nseData,
-      data,
+      params: data,
     })
     console.log(payload)
-
-    onSuccess()
+    if (payload.status_code === 200)
+      onSuccess(payload)
   } catch (error) {
     console.log(error);
   }
@@ -60,34 +60,42 @@ export async function postNseData(data, onSuccess) {
       data,
     })
     console.log(payload)
-
-    onSuccess()
+    if (payload.status_code === 200)
+      onSuccess()
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function fetchPanCardDetails(data, onSuccess) {
+export async function fetchPanCardDetails(details, onSuccess) {
   try {
-    console.log(data);
-    // const payload = await sendApiReq({
-    //   method: 'get',
-    //   url: endPoints.panCardData,
-    //   data: { data }
-    // })
-
-    const response = await axios.get(
-      "http://13.127.192.121:9090/api/v1/pancard_data",
-      {
-        data: {data}
-      }
-    )
+    console.log(details);
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.panCardData,
+      params: details,
+    })
 
     console.log("payload")
-    console.log(response)
-    onSuccess()
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess()
   } catch (error) {
     console.log(error)
   }
 }
 
+export async function registerUser(details, onSuccess) {
+  try {
+    console.log(details);
+    const payload = await sendApiReq({
+      method: 'post',
+      url: endPoints.register_user,
+      details
+    })
+    console.log(payload)
+    onSuccess()
+  } catch (error) {
+    console.log(error)
+  }
+}
