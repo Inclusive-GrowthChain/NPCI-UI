@@ -1,19 +1,21 @@
 import Modal from '../../UIComp/Modal';
 import live from '../../../constants/live';
+import useStore from '../../../store';
 
 function TokenHoldings({ isOpen, data, closeModal }) {
+  const role = useStore(state => state.role)
   return (
     <Modal
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc max-h-[80vh] overflow-y-hidden"
-      title={`Token Holdings of ${data.name}`}
+      title={`Token Holdings of ${role === "mbe" ? data.mbeId : data.name}`}
     >
       <div className='scroll-y'>
         <table>
           <thead>
             <tr className="sticky top-0 text-sm font-medium bg-slate-100 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
-              <td className="w-36 px-4 py-2">Security Code</td>
+              <td className="w-36 px-4 py-2">ISIN</td>
               <td className="w-60 px-4 py-2">Issuer Name</td>
               <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
               <td className="w-32 px-4 py-2">Coupon Rate</td>
@@ -21,7 +23,7 @@ function TokenHoldings({ isOpen, data, closeModal }) {
               <td className="w-24 px-4 py-2">Purchase Price</td>
               <td className="w-32 px-4 py-2">Number of tokens</td>
               <td className="w-24 px-4 py-2">LTP</td>
-              <td className="w-28 px-4 py-2">Current Value</td>
+              <td className="w-28 px-4 py-2">Current Price</td>
             </tr>
           </thead>
 

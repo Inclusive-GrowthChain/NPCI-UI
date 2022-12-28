@@ -8,13 +8,28 @@ import AddBalance from './Modals/AddBalance';
 
 const routes = {
   investor: {
+    name: "Investor",
     "Profile": "profile",
     "My token holdings": "token-holdings",
     "My bond holdings": "bond-holdings",
     "Transactions Hitory": "transactions-hitory",
   },
   custodian: {
-    "Profile": "profile",
+    name: "NSDL(Custodian/Depository)",
+    "Investors list": "investors-list",
+    "Tokenized Bonds": "tokenised-bond",
+    "Transactions list": "transactions-hitory",
+    "Reports": "reports",
+  },
+  regulator: {
+    name: "NSE",
+    "Investors list": "investors-list",
+    "Tokenized Bonds": "tokenised-bond",
+    "Transactions list": "transactions-hitory",
+    "Reports": "reports",
+  },
+  mbe: {
+    name: "MBE",
     "Investors list": "investors-list",
     "Tokenized Bonds": "tokenised-bond",
     "Transactions list": "transactions-hitory",
@@ -51,7 +66,7 @@ function Nav() {
     <>
       <nav className="df gap-4 sm:gap-8 h-16 px-8 border-b border-[rgba(255,255,255,.6)]">
         <Link
-          className='mr-auto py-4 text-xl sm:text-[26px] lg:text-[40px] font-semibold bg-gradient-to-r from-emerald-300 to-emerald-700 bg-clip-text text-transparent'
+          className='mr-auto py-4 sm:text-xl lg:text-2xl font-semibold text-white'
           to="/"
         >
           Micro Bond Exchange
@@ -84,7 +99,7 @@ function Nav() {
               needArrow
               boxCls="profile-dd"
             >
-              <UserProfile />
+              <UserProfile /> <span className='text-xs'>{routes[role]?.name}</span>
             </DropDownWrapper>
           </> : <>
             <Link

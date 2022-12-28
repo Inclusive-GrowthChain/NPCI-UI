@@ -1,28 +1,39 @@
 import { useState } from 'react';
+import live from "../../../constants/live";
+// import useStore from '../../store';
 
-import live from "../../constants/live";
-import Detokenzise from './Modals/Detokenzise';
-import Sell from './Modals/Sell';
+import { ReactComponent as Search } from '../../../assets/svg/common/seach.svg';
+import Buy from '../Modals/Buy';
 
-function TokenHoldings() {
-  const [type, setType] = useState("")
+function MBEMarket() {
+  // const role = useStore(state => state.role)
+  const [filter, setFilter] = useState("")
   const [open, setOpen] = useState("")
 
-  const updateOpen = (id, category) => {
-    setOpen(id)
-    setType(category)
-  }
+  const updateOpen = id => setOpen(id)
 
-  const closeModal = () => {
-    setOpen("")
-    setType('')
-  }
+  const closeModal = () => setOpen("")
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
-      <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
-        My Token Holdings
-      </h1>
+      <div className="df py-2 px-6 border-b border-[rgba(255,255,255,.3)]">
+        <div className='df p-2 bg-slate-800 rounded'>
+          <Search className='w-4 h-4 fill-white' />
+          <input
+            type="text"
+            className='w-44 p-0 bg-inherit border-none leading-none text-white'
+            placeholder='Search by ISIN/Issuer name'
+            value={filter}
+            onChange={e => setFilter(e.target.value)}
+          />
+        </div>
+        <h1 className="flex-auto text-lg font-medium text-center">MBE Market</h1>
+
+        <div className="df">
+          <span className="w-4 h-4 rounded-full bg-emerald-400"></span>
+          <p>Market Open</p>
+        </div>
+      </div>
 
       <div className="scroll-y overflow-x-auto">
         <table className="w-full table-fixed">
@@ -33,27 +44,22 @@ function TokenHoldings() {
               <td className="w-32 px-4 py-2">Coupon Rate</td>
               <td className="w-28 px-4 py-2">Face Value</td>
               <td className="w-24 px-4 py-2">LTP</td>
-              <td className="w-72 px-4 py-2">Credit Rating</td>
+              <td className="w-80 px-4 py-2">Credit Rating</td>
               <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
               <td className="w-28 px-4 py-2 text-center">Bid Price</td>
               <td className="w-28 px-4 py-2 text-center">Ask Price</td>
-              <td className="w-32 px-4 py-2 text-center">No. of Tokens</td>
-              <td className="w-32 px-4 py-2 text-center">No. of Lots</td>
-              <td className="w-32 px-4 py-2 text-center">Purchase Price</td>
-              <td className="w-32 px-4 py-2 text-center">Current Price</td>
-              <td className="w-32 px-4 py-2"></td>
             </tr>
           </thead>
 
           <tbody>
             {
               live
-                .filter((a, i) => [2, 3, 7, 8, 13, 17].includes(i))
+                .filter(li => li.issuerName.toLowerCase().match(filter) || li.securityCode.toLowerCase().match(filter))
                 .map(li => (
                   <tr
                     key={li.id}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
-                    onClick={() => updateOpen(li.id, "Sell")}
+                    onClick={() => updateOpen(li.id)}
                   >
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.securityCode} </td>
                     <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
@@ -72,22 +78,6 @@ function TokenHoldings() {
                         {li.askPrice}
                       </button>
                     </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.noOfToken} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.noOfLots} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.purchasePrice} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.currentPrice || "-"} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
-                      <button
-                        className='px-3 py-1.5 rounded border border-red-500 hover:bg-red-500 hover:text-white'
-                        onClick={e => {
-                          e.stopPropagation()
-                          updateOpen(li.id, "Detokenzise")
-                        }}
-                      >
-                        Detokenize
-                      </button>
-                    </td>
-
                   </tr>
                 ))
             }
@@ -96,17 +86,8 @@ function TokenHoldings() {
       </div>
 
       {
-        type === 'Sell' &&
-        <Sell
-          isOpen
-          data={live.find(li => li.id === open)}
-          closeModal={closeModal}
-        />
-      }
-
-      {
-        type === 'Detokenzise' &&
-        <Detokenzise
+        (open || open === 0) &&
+        <Buy
           isOpen
           data={live.find(li => li.id === open)}
           closeModal={closeModal}
@@ -116,4 +97,4 @@ function TokenHoldings() {
   )
 }
 
-export default TokenHoldings
+export default MBEMarket

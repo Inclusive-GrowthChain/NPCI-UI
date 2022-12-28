@@ -282,6 +282,13 @@ function NewUser({ updateStep }) {
               />
             </div>
 
+            <input
+              type="text"
+              className="p-3 rounded mb-4"
+              name="address"
+              placeholder="Address"
+            />
+
             <label htmlFor="">KYC Verification</label>
             <input
               type="text"

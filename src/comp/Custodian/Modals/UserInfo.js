@@ -26,14 +26,14 @@ function UserInfo({ isOpen, data, closeModal }) {
           lable='DOB'
           value={data.personal.dob}
         />
-        <Input
+        {/* <Input
           lable='PAN Card'
           value={data.personal.pan}
         />
         <Input
           lable='Aadhar Card'
           value={data.personal.aadhar}
-        />
+        /> */}
         <Input
           lable='Email'
           value={data.personal.email}

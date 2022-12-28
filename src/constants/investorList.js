@@ -1,8 +1,12 @@
+import getRandom from '../helper/getRandom';
+
 const investorList = [
   {
     mbeId: "mbe-1538-v-98",
     name: "Raj Kumar",
     arr: [2, 3, 7, 9, 10, 16],
+    noOfToken: getRandom(5, 20) * 1000,
+    currentValue: getRandom(5, 16) * 800,
     personal: {
       pan: "DVPR1438",
       aadhar: "7864 8726 0369",
@@ -17,6 +21,8 @@ const investorList = [
     mbeId: "mbe-5800-v-07",
     name: "Shreyansh Nema",
     arr: [1, 4, 7, 9, 15, 18],
+    noOfToken: getRandom(5, 20) * 1000,
+    currentValue: getRandom(5, 16) * 800,
     personal: {
       pan: "BWMLK1234G",
       aadhar: "9876 1234 4567",
@@ -31,6 +37,8 @@ const investorList = [
     mbeId: "mbe-5768-v-76",
     name: "Prudhvi Krishna",
     arr: [6, 16, 18, 19, 20],
+    noOfToken: getRandom(5, 20) * 1000,
+    currentValue: getRandom(5, 16) * 800,
     personal: {
       pan: "CHAAJ83736",
       aadhar: "8276 2926 2716",
@@ -45,6 +53,8 @@ const investorList = [
     mbeId: "mbe-1158-v-67",
     name: "Mohammed Muhsin",
     arr: [9, 10, 18, 12, 13],
+    noOfToken: getRandom(5, 20) * 1000,
+    currentValue: getRandom(5, 16) * 800,
     personal: {
       pan: "ETMPM179N",
       aadhar: "4627 0805 1808",
@@ -59,6 +69,8 @@ const investorList = [
     mbeId: "mbe-6679-v-87",
     name: "Kesavan",
     arr: [1, 6, 7, 14, 13, 20],
+    noOfToken: getRandom(5, 20) * 1000,
+    currentValue: getRandom(5, 16) * 800,
     personal: {
       pan: "KSV87654",
       aadhar: "8978 8876 5678",
@@ -73,6 +85,8 @@ const investorList = [
     mbeId: "mbe-1238-v-46",
     name: "Vasanth",
     arr: [2, 3, 7, 9, 10, 16],
+    noOfToken: getRandom(5, 20) * 1000,
+    currentValue: getRandom(5, 16) * 800,
     personal: {
       pan: "DVVK1438",
       aadhar: "7864 6543 2349",
@@ -87,6 +101,8 @@ const investorList = [
     mbeId: "mbe-3450-v-06",
     name: "Mohanlal Nema",
     arr: [1, 4, 7, 9, 15, 18],
+    noOfToken: getRandom(5, 20) * 1000,
+    currentValue: getRandom(5, 16) * 800,
     personal: {
       pan: "BWFRG1664G",
       aadhar: "2345 9876 4567",
@@ -101,6 +117,8 @@ const investorList = [
     mbeId: "mbe-1885-v-99",
     name: "Srinivas",
     arr: [6, 16, 18, 19, 20],
+    noOfToken: getRandom(5, 20) * 1000,
+    currentValue: getRandom(5, 16) * 800,
     personal: {
       pan: "CHREF83767",
       aadhar: "8006 3967 2716",
@@ -115,6 +133,8 @@ const investorList = [
     mbeId: "mbe-42114-v-87",
     name: "Musthafa",
     arr: [9, 10, 18, 12, 13],
+    noOfToken: getRandom(5, 20) * 1000,
+    currentValue: getRandom(5, 16) * 800,
     personal: {
       pan: "ETMPM179N",
       aadhar: "7659 6543 6088",
@@ -129,6 +149,8 @@ const investorList = [
     mbeId: "mbe-4570-v-61",
     name: "Sekar",
     arr: [1, 6, 7, 14, 13, 20],
+    noOfToken: getRandom(5, 20) * 1000,
+    currentValue: getRandom(5, 16) * 800,
     personal: {
       pan: "KS399H654",
       aadhar: "8978 8876 5678",

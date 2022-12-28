@@ -2,13 +2,7 @@ import { useState } from 'react';
 import live from "../../constants/live";
 import { ReactComponent as Print } from '../../assets/svg/files/print.svg';
 import CertificateAsPdf from './Modals/CertificateAsPdf';
-
-function getTypeClr(type) {
-  if (type === "Tokenized") return "text-green-400"
-  if (type === "Detokenized") return "text-red-400"
-  if (type === "Sale") return "text-orange-400"
-  return "text-emerald-400"
-}
+import getTypeClr from '../../helper/getTypeClr';
 
 function TransactionHitory() {
   const [open, setOpen] = useState(false)
@@ -16,7 +10,7 @@ function TransactionHitory() {
   const updateOpen = () => setOpen(p => !p)
 
   return (
-    <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
+    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
         Transactions Hitory
       </h1>
@@ -25,14 +19,15 @@ function TransactionHitory() {
         <table className="w-full table-fixed">
           <thead>
             <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
-              <td className="pl-8 pr-4 py-2">Date</td>
-              <td className="px-4 py-2">Security Code</td>
-              <td className="px-4 py-2">Issuer Name</td>
-              <td className="px-4 py-2">TransactionType</td>
-              <td className="px-4 py-2">Number of Tokens</td>
-              <td className="px-4 py-2">Amount</td>
-              <td className="px-4 py-2">Status</td>
-              <td className="w-32 px-4 py-2 text-center">Certificate</td>
+              <td className="w-24 pl-8 pr-4 py-2">Date</td>
+              <td className="w-28 px-4 py-2">ISIN</td>
+              <td className="w-28 px-4 py-2">Transaction Id</td>
+              <td className="w-56 px-4 py-2">Issuer Name</td>
+              <td className="w-32 px-4 py-2">TransactionType</td>
+              <td className="w-32 px-4 py-2">No. of Tokens</td>
+              <td className="w-24 px-4 py-2">Amount</td>
+              <td className="w-24 px-4 py-2">Status</td>
+              <td className="w-24 px-4 py-2 text-center">Certificate</td>
             </tr>
           </thead>
 
@@ -45,10 +40,11 @@ function TransactionHitory() {
                 >
                   <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturityDate} </td>
                   <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.securityCode} </td>
+                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.transactionId} </td>
                   <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
                   <td className={`px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
                   <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.noOfToken / 100} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.askPrice} </td>
+                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.transactionAmount * 1000} </td>
                   <td className={`px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 ${i % 5 === 0 ? "text-red-400" : "text-emerald-400"}`}>
                     {
                       i % 5 === 0

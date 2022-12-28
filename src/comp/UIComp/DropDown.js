@@ -315,15 +315,11 @@ export const MenuComponent = forwardRef(({
 
               {
                 needArrow &&
-                <>
-                  <div
-                    ref={arrowRef}
-                    style={{ ...arrowPlacements }}
-                    className={`DropDownArrow ${arrowCls}`}
-                  ></div>
-
-                  <div className="absolute bg-inherit inset-0 -z-1 rounded-[inherit]"></div>
-                </>
+                <div
+                  ref={arrowRef}
+                  style={{ ...arrowPlacements }}
+                  className={`DropDownArrow ${arrowCls}`}
+                ></div>
               }
             </div>
           </FloatingFocusManager>

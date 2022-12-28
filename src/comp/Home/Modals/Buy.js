@@ -16,7 +16,13 @@ function Buy({ isOpen, data, closeModal }) {
   const [isTradeOpen, setIsTradeOpen] = useState(false)
   const navigate = useNavigate()
 
+  const [numberOfTokens, setNumberOfTokens] = useState(null)
+  const [bidPricePerToken, setBidPricePerToken] = useState(null)
+  const [total, setTotal] = useState(null)
+
   const onClick = () => {
+    const total = Number(numberOfTokens) * Number(bidPricePerToken)
+    setTotal(total)
     if (!isTradeOpen) return setIsTradeOpen(true)
   }
 
@@ -25,12 +31,12 @@ function Buy({ isOpen, data, closeModal }) {
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc xs:min-w-[400px] max-h-[80vh]"
-      title='Descriptor'
+      title='Bond Details'
     >
       <div className='scroll-y'>
         <div className='grid md:grid-cols-2 gap-4 mb-4'>
           <Input
-            lable='Security Code'
+            lable='ISIN'
             value={data.securityCode}
           />
           <Input
@@ -42,7 +48,7 @@ function Buy({ isOpen, data, closeModal }) {
             value={data.couponRate}
           />
           <Input
-            lable='Price'
+            lable='LTP'
             value={data.askPrice}
           />
           <Input
@@ -50,42 +56,35 @@ function Buy({ isOpen, data, closeModal }) {
             value={data.maturityDate}
           />
           <Input
-            lable='Yield'
-            value={data.yield}
-          />
-          <Input
             lable='Currency'
             value="Rupee"
           />
 
-          <div></div>
-
-          <select>
-            <option value="">Bond Details</option>
-          </select>
-
-          <select disabled>
-            <option value="">Price Details</option>
-          </select>
+          <div className='grid-col-full'>
+            <Input
+              lable='Security Description'
+              value={data.securityDescription}
+              inputCls="w-full max-w-none"
+              lableCls='w-auto'
+            />
+          </div>
 
           {
-            role === "investor" &&
-            <>
+            role === "investor" ? <>
               <div>
                 <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-                <input type="text" />
+                <input type="text" onChange={(e) => {
+                  setNumberOfTokens(e.target.value)
+                }} />
               </div>
 
               <div>
-                <label className='mb-1 font-medium' htmlFor="">Token value</label>
-                <input type="text" />
+                <label className='mb-1 font-medium' htmlFor="">Bid price (Per token)</label>
+                <input type="text" onChange={(e) => {
+                  setBidPricePerToken(e.target.value)
+                }} />
               </div>
-            </>
-          }
-
-          {
-            role === "custodian" &&
-            <>
+            </> : <>
               <Input
                 lable='Number of Tokens'
                 value="500"
@@ -93,12 +92,19 @@ function Buy({ isOpen, data, closeModal }) {
                 inputCls='ml-2'
               />
 
-              <div className='dc'>
+              <div className='dc gap-8 grid-col-full'>
                 <button
-                  className='w-full rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
-                  onClick={() => navigate("/custodian/investors-list", { state: data })}
+                  className='rounded-md text-white bg-slate-600 hover:bg-slate-700'
+                  onClick={() => navigate(`/${role}/investors-list`, { state: data })}
                 >
                   List of Investors
+                </button>
+
+                <button
+                  className='rounded-md text-white bg-slate-600 hover:bg-slate-700'
+                  onClick={() => navigate(`/${role}/transactions-hitory`, { state: data })}
+                >
+                  Transactions List
                 </button>
               </div>
             </>
@@ -110,17 +116,17 @@ function Buy({ isOpen, data, closeModal }) {
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div>
               <label className='mb-1 font-medium' htmlFor="">Quantity</label>
-              <input type="text" />
+              <input type="text" value={numberOfTokens} readOnly />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Price Per Token (LTP)</label>
-              <input type="text" />
+              <input type="text" value={bidPricePerToken} readOnly />
             </div>
 
             <div>
-              <label className='mb-1 font-medium' htmlFor="">Price (LTP)</label>
-              <input type="text" />
+              <label className='mb-1 font-medium' htmlFor="">Total</label>
+              <input type="text" value={total} readOnly />
             </div>
           </div>
         }

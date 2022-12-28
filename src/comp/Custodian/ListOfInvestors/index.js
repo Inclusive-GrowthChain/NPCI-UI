@@ -1,46 +1,47 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import useStore from '../../../store';
 
 import investorList from '../../../constants/investorList';
+import { ReactComponent as Search } from '../../../assets/svg/common/seach.svg';
 import TransactionHistoryModal from '../Modals/TransactionHistory';
 import TokenHoldingsModal from '../Modals/TokenHoldings';
 import BondHoldingsModal from '../Modals/BondHoldings';
-import SearchBorPopup from '../../Home/SearchBorPopup';
 import UserInfoModal from '../Modals/UserInfo';
 import Input from '../../Home/common/Input';
 
 function ListOfInvestors() {
-  const [userName, setUserName] = useState("")
-  const [mbeId, setMbeId] = useState("")
+  const role = useStore(state => state.role)
+
+  const [filter, setFilter] = useState("")
   const [open, setOpen] = useState({ state: "", data: {} })
+
   const { state: tokenDetails } = useLocation()
-
-  const data = useMemo(() => {
-    let cloned = [...investorList]
-
-    if (mbeId) {
-      cloned = cloned.filter(c => c.mbeId.toLowerCase().match(mbeId))
-    }
-
-    if (userName) {
-      cloned = cloned.filter(c => c.name.toLowerCase().match(userName))
-    }
-
-    return cloned
-  }, [mbeId, userName])
 
   const updateOpen = (state, data) => setOpen({ state, data })
 
   const closeModal = () => setOpen({ state: "", data: {} })
 
   return (
-    <section className="dfc h-full border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
+    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <div className='df gap-8 p-4 border-b border-[rgba(255,255,255,.3)]'>
+        <div className='df p-2 bg-slate-800 rounded'>
+          <Search className='w-4 h-4 fill-white' />
+          <input
+            type="text"
+            className='w-44 p-0 bg-inherit border-none leading-none text-white'
+            placeholder={`Search by MBE ID or Name`}
+            // placeholder={`Search by ${role === "mbe" ? "ISIN" : "ISIN/Issuer name"}`}
+            value={filter}
+            onChange={e => setFilter(e.target.value)}
+          />
+        </div>
+
         {
           tokenDetails ?
             <>
               <Input
-                lable='Security Code'
+                lable='ISIN'
                 value={tokenDetails.securityCode}
                 inputCls="bg-slate-800 text-white border-none"
                 lableCls='w-auto mb-0'
@@ -58,7 +59,9 @@ function ListOfInvestors() {
                 lableCls='w-auto mb-0'
               />
             </>
-            : <h1 className='mx-auto text-lg font-medium text-center'>List of Investors</h1>
+            : <h1 className='mx-auto text-lg font-medium text-center'>
+              List of Investors
+            </h1>
         }
       </div>
 
@@ -66,50 +69,40 @@ function ListOfInvestors() {
         <table className="w-full table-fixed">
           <thead>
             <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
-              <td className="w-32 px-4 py-2">Sl.No.</td>
-              <td className="w-36 px-4 py-2">
-                <div className='df group'>
-                  <p>MBE Id</p>
-                  <SearchBorPopup
-                    value={mbeId}
-                    onChange={e => setMbeId(e.target.value)}
-                  />
-                </div>
-              </td>
-              <td className="w-52 px-4 py-2">
-                <div className='df group'>
-                  <p>Investor Name</p>
-                  <SearchBorPopup
-                    value={userName}
-                    onChange={e => setUserName(e.target.value)}
-                  />
-                </div>
-              </td>
+              <td className="w-36 pl-8 pr-4 py-2">MBE Id</td>
+              {
+                role !== "mbe" &&
+                <td className="w-52 px-4 py-2">Investor Name</td>
+              }
               <td className="w-32 px-4 py-2 text-center">Bond holdings</td>
               <td className="w-32 px-4 py-2 text-center">Token holdings</td>
               <td className="w-28 px-4 py-2 text-center">Transactions History</td>
+              <td className="w-24 px-4 py-2 text-center">CBDC Balance</td>
             </tr>
           </thead>
 
           <tbody>
             {
-              data
+              investorList
                 .filter((l, i) => tokenDetails ? i < 5 : true)
-                .map((li, i) => (
+                .filter(li => li.mbeId.toLowerCase().match(filter) || li.name.toLowerCase().match(filter))
+                .map(li => (
                   <tr
                     key={li.mbeId}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                   >
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {i} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.mbeId} </td>
-                    <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
-                      <p
-                        className='cursor-pointer hover:text-emerald-200'
-                        onClick={() => updateOpen("UserInfo", li)}
-                      >
-                        {li.name}
-                      </p>
-                    </td>
+                    <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.mbeId} </td>
+                    {
+                      role !== "mbe" &&
+                      <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
+                        <p
+                          className='cursor-pointer hover:text-emerald-200'
+                          onClick={() => updateOpen("UserInfo", li)}
+                        >
+                          {li.name}
+                        </p>
+                      </td>
+                    }
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
                       <button
                         className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"
@@ -133,6 +126,9 @@ function ListOfInvestors() {
                       >
                         View
                       </button>
+                    </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
+                      {li.noOfToken * 100}
                     </td>
                   </tr>
                 ))
