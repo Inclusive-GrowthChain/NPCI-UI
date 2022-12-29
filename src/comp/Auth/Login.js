@@ -36,7 +36,6 @@ function Login() {
   }
 
   const onSuccess = (payload) => {
-    console.log(payload.role)
     const nodes = ["investor", "custodian", "regulator", "mbe"]
     if (nodes.includes(payload.role)) {
       logIn(payload.role, details.email)

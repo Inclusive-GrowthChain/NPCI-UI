@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import useStore from "../../../store";
+
 import { detokenzie } from '../../../apis/apis';
+
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
-import useStore from "../../../store";
 
 // If Detokenized “Detokenized , Visit transaction for more details”.
 // If pending “Transaction pending, Visit transaction history for more details”.

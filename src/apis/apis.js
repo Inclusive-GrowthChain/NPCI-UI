@@ -10,7 +10,7 @@ export async function sendOtp(data, onSuccess) {
       data,
     })
     console.log(payload)
-    if(payload.status_code === 200)
+    if (payload.status_code === 200)
       onSuccess()
   } catch (error) {
     console.log(error)
@@ -66,7 +66,7 @@ export async function postNseData(data, onSuccess, onFailure) {
     console.log(payload)
     if (payload.status_code === 200)
       onSuccess()
-    else 
+    else
       onFailure()
   } catch (error) {
     console.log(error);
@@ -110,7 +110,7 @@ export async function login(data, onSuccess, onFailure) {
 
 
 export async function fetchInvestorsList(data, onSuccess) {
-  
+
 }
 
 export async function fetchTransactions(data, onSuccess) {
@@ -118,7 +118,7 @@ export async function fetchTransactions(data, onSuccess) {
     console.log(data);
     const payload = await sendApiReq({
       method: 'get',
-      url: endPoints.fetchtransaction,
+      url: endPoints.transactions,
       params: data
     })
     console.log(payload)
@@ -138,7 +138,7 @@ export async function fetchTokenHoldings(data, onSuccess) {
       params: data
     })
     console.log(payload)
-    if (payload.status === 200) 
+    if (payload.status === 200)
       onSuccess(payload)
   } catch (error) {
     console.log(error)
@@ -216,7 +216,7 @@ export async function fetchMbeMarket(onSuccess) {
     })
     console.log(payload)
     if (payload.status === 200)
-      onSuccess()
+      onSuccess(payload.message)
   } catch (error) {
     console.log(error)
   }

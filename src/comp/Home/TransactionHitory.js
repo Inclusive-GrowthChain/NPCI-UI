@@ -1,29 +1,32 @@
 import { useEffect, useState } from 'react';
-import live from "../../constants/live";
-import { ReactComponent as Print } from '../../assets/svg/files/print.svg';
-import CertificateAsPdf from './Modals/CertificateAsPdf';
-import getTypeClr from '../../helper/getTypeClr';
-import { fetchTransactions } from '../../apis/apis';
 import useStore from "../../store";
 
-function TransactionHitory() {
-  const [open, setOpen] = useState(false)
-  const [loading, setLoading] = useState("")
-  const email = useStore(state => state.email)
-  const [transactions, setTransactions] = useState([])
+import { fetchTransactions } from '../../apis/apis';
+import getTypeClr from '../../helper/getTypeClr';
 
-  const updateOpen = () => setOpen(p => !p)
+import { ReactComponent as Print } from '../../assets/svg/files/print.svg';
+import CertificateAsPdf from './Modals/CertificateAsPdf';
+import Loader from '../Common/Loader';
+
+function TransactionHitory() {
+  const email = useStore(state => state.email)
+
+  const [transactions, setTransactions] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    setLoading(true)
-
     const onSuccess = (payload) => {
       setTransactions(payload.data)
       setLoading(false)
     }
 
     fetchTransactions({ email }, onSuccess)
-  }, [])
+  }, [email])
+
+  const updateOpen = () => setOpen(p => !p)
+
+  if (loading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">

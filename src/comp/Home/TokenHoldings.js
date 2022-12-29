@@ -1,17 +1,28 @@
 import { useEffect, useState } from 'react';
-import { fetchTokenHoldings } from '../../apis/apis';
-
-import live from "../../constants/live";
-import Detokenzise from './Modals/Detokenzise';
-import Sell from './Modals/Sell';
 import useStore from "../../store";
 
+import { fetchTokenHoldings } from '../../apis/apis';
+
+import Detokenzise from './Modals/Detokenzise';
+import Loader from '../Common/Loader';
+import Sell from './Modals/Sell';
+
 function TokenHoldings() {
+  const email = useStore(state => state.email)
+
+  const [tokenHoldings, setTokenHoldings] = useState([])
+  const [loading, setLoading] = useState(true)
   const [type, setType] = useState("")
   const [open, setOpen] = useState("")
-  const [loading, setLoading] = useState(false)
-  const email = useStore(state => state.email)
-  const [tokenHoldings, setTokenHoldings] = useState([])
+
+  useEffect(() => {
+    const onSuccess = (payload) => {
+      setTokenHoldings(payload.message)
+      setLoading(false)
+    }
+
+    fetchTokenHoldings({ "mbeId": email }, onSuccess)
+  }, [email])
 
   const updateOpen = (id, category) => {
     setOpen(id)
@@ -23,16 +34,7 @@ function TokenHoldings() {
     setType('')
   }
 
-  useEffect(() => {
-    setLoading(true)
-
-    const onSuccess = (payload) => {
-      setTokenHoldings(payload.message)
-      setLoading(false)
-    }
-
-    fetchTokenHoldings({ "mbeId": email }, onSuccess)
-  }, [])
+  if (loading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
@@ -63,7 +65,6 @@ function TokenHoldings() {
 
           <tbody>
             {
-              // live
               tokenHoldings
                 .filter((a, i) => tokenHoldings[i].isTokenized === true)
                 .map(li => (

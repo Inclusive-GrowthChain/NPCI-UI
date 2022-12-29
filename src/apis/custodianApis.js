@@ -1,4 +1,4 @@
-import endPoints from "../utils/endPoints2";
+import endPoints from "../utils/endPoints";
 import sendApiReq from "../utils/sendApiReq";
 
 export async function getInvestorLists(onSuccess) {

@@ -1,8 +1,5 @@
-// const main = "http://65.2.168.208"
-
 export const root = {
   baseUrl: "http://13.232.85.144:9090/api/v1/",
-  // baseUrl: `${main}:8080/api/v1`,
 }
 
 const endPoints = {
@@ -22,10 +19,15 @@ const endPoints = {
 
   sellOrder: "trade/placeSellOrder",
   buyOrder: "buyOrder",
-  
+
   fetchMarket: "dashbord",
-  fetchtransaction: "transactions",
-  fetchTokenHoldings: "getBonddetailsofUser"
+  fetchTokenHoldings: "getBonddetailsofUser",
+
+  tokenholding: "tokenholding",
+  transactions: "transactions",
+  bondholding: "bondholding",
+  purchaseLog: "purchaseLog",
+  market: "market",
 }
 
 export default endPoints

@@ -5,27 +5,24 @@ import { errorNotify, successNotify } from "../../../helper/toastifyHelp.js";
 import useStore from "../../../store/index.js"
 
 function Step2() {
-  const [isConfiremed, setIsConfirmed] = useState(false)
-  const navigate = useNavigate()
-  const nseData = useStore((state) => state.nseData)
   const clearDetails = useStore((state) => state.clearDetails);
   const clearNseData = useStore((state) => state.clearNseData);
+  const nseData = useStore((state) => state.nseData)
+
+  const [isConfiremed, setIsConfirmed] = useState(false)
+  const navigate = useNavigate()
 
   const onClk = () => {
-    console.log(nseData);
     setIsConfirmed(p => !p)
     registerUser({
       "panCard": nseData.panCard,
       "phoneNumber": nseData.phoneNumber
     }, onSuccess, onFailure)
-    // setTimeout(() => {
-    //   navigate("/login")
-    // }, 3000)
   }
 
   const onSuccess = () => {
-    clearDetails();
-    clearNseData();
+    clearDetails()
+    clearNseData()
     successNotify("Successfully registered user")
     setTimeout(() => {
       navigate("/login")

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useStore from '../../../store';
+
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
-import useStore from '../../../store';
 
 // If executed “Trade executed, Visit transaction history for more details
 // If pending “Transaction pending, Visit transaction history for more details
@@ -11,16 +12,15 @@ import useStore from '../../../store';
 
 function Buy({ isOpen, data, closeModal }) {
   const isLoggedIn = useStore(state => state.isLoggedIn)
+  const email = useStore(state => state.email)
   const role = useStore(state => state.role)
 
   const [isTradeOpen, setIsTradeOpen] = useState(false)
   const navigate = useNavigate()
 
-  const [numberOfTokens, setNumberOfTokens] = useState(null)
-  const [bidPricePerToken, setBidPricePerToken] = useState(null)
-  const [total, setTotal] = useState(null)
-
-  const email = useStore(state => state.email)
+  // const [numberOfTokens, setNumberOfTokens] = useState(null)
+  // const [bidPricePerToken, setBidPricePerToken] = useState(null)
+  // const [total, setTotal] = useState(null)
 
   const [details, setDetails] = useState({
     "orderId": "B_ORDER" + data.isin,

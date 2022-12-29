@@ -1,19 +1,22 @@
 import { useState } from 'react';
+import useStore from "../../../store";
+
 import { sellOrder } from '../../../apis/apis';
+
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
-import useStore from "../../../store";
 
 // If executed “Trade executed, Visit transaction history for more details”.
 // If pending “Transaction pending, Visit transaction history for more details
 
 function Sell({ isOpen, data, closeModal }) {
-  const [isTradeOpen, setIsTradeOpen] = useState(false)
   const email = useStore(state => state.email)
 
-  const [numberOfTokens, setNumberOfTokens] = useState(null)
-  const [sellPricePerToken, setSellPricePerToken] = useState(null)
-  const [total, setTotal] = useState(null)
+  const [isTradeOpen, setIsTradeOpen] = useState(false)
+
+  // const [numberOfTokens, setNumberOfTokens] = useState(null)
+  // const [sellPricePerToken, setSellPricePerToken] = useState(null)
+  // const [total, setTotal] = useState(null)
 
   const [details, setDetails] = useState({
     "orderId": "S_ORDER" + data.isin,
@@ -82,7 +85,7 @@ function Sell({ isOpen, data, closeModal }) {
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-            <input type="text" onChange={onChange} name="NumOfToken"/>
+            <input type="text" onChange={onChange} name="NumOfToken" />
           </div>
 
           <div>
@@ -96,7 +99,7 @@ function Sell({ isOpen, data, closeModal }) {
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div>
               <label className='mb-1 font-medium' htmlFor="">Quantity</label>
-                <input type="text" value={details.NumOfToken} readOnly />
+              <input type="text" value={details.NumOfToken} readOnly />
             </div>
 
             <div>
@@ -106,7 +109,7 @@ function Sell({ isOpen, data, closeModal }) {
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Total</label>
-                <input type="text" value={Number(details.NumOfToken) * Number(details.Price)} readOnly />
+              <input type="text" value={Number(details.NumOfToken) * Number(details.Price)} readOnly />
             </div>
           </div>
         }

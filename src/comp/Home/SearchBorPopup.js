@@ -28,7 +28,6 @@ function SearchBorPopup({ value = "", onChange = () => { } }) {
     <>
       <button
         className={`p-0 ${value || hover ? "" : "opacity-0 group-hover:opacity-100"}`}
-        // onClick={onClk}
         {...getReferenceProps({ ref: reference })}
       >
         <Search className="fill-white w-3 h-3" />

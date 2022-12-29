@@ -1,33 +1,33 @@
 import { useEffect, useState } from 'react';
-import live from "../../../constants/live";
-import useStore from '../../../store';
+// import useStore from '../../store';
 
-import { ReactComponent as Search } from '../../../assets/svg/common/seach.svg';
-import Buy from '../Modals/Buy';
-import { fetchMbeMarket } from '../../../apis/apis';
+import { fetchMbeMarket } from '../../apis/apis';
+
+import { ReactComponent as Search } from '../../assets/svg/common/seach.svg';
+import Loader from '../Common/Loader';
+import Buy from './Modals/Buy';
 
 function MBEMarket() {
-  const mbeId = useStore(state => state.email)
+  // const mbeId = useStore(state => state.email)
+  const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState("")
-  const [open, setOpen] = useState("")
-  const [loading, setLoading] = useState("")
   const [market, setMarket] = useState([])
-
-  const updateOpen = id => setOpen(id)
-
-  const closeModal = () => setOpen("")
+  const [open, setOpen] = useState("")
 
   useEffect(() => {
-    setLoading(true)
-
-    const onSuccess = (payload) => {
-      console.log(payload['message'])
-      setMarket(payload['message'])
+    const onSuccess = (res) => {
+      setMarket(res)
       setLoading(false)
     }
 
     fetchMbeMarket(onSuccess)
   }, [])
+
+  const updateOpen = id => setOpen(id)
+
+  const closeModal = () => setOpen("")
+
+  if (loading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
@@ -68,22 +68,21 @@ function MBEMarket() {
 
           <tbody>
             {
-              // live
               market
                 .filter((a, i) => market[i].isTokenized === true)
                 .map(li => (
                   <tr
-                    key={li.id}
+                    key={li._id}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
-                    onClick={() => updateOpen(li.id)}
+                    onClick={() => updateOpen(li._id)}
                   >
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.isin} </td>
                     <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponRate} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponrate} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.faceValue} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.ltp} </td>
-                    <td className="px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.creditRating} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.maturityDate} </td>
+                    <td className="px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.creditrating} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.maturitydate} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
                       <button className="w-20 px-3 py-1.5 rounded border border-emerald-600">
                         {li.bidPrice}

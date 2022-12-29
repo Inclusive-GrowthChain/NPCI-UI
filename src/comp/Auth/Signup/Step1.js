@@ -4,21 +4,15 @@ import useStore from "../../../store/index.js"
 import { fetchNseData, postNseData, sendOtp, verifyOtp } from "../../../apis/apis";
 
 function RegisteredInvesterWithNSE({ updateStep }) {
+  const setNseDetials = useStore((state) => state.setNseData)
+
+  const [isAadharCard, setIsAadharCard] = useState(false)
   const [isFetched, setIsFetched] = useState(false)
   const [isPanCard, setIsPanCard] = useState(false)
-  const [isAadharCard, setIsAadharCard] = useState(false)
   const [nseData, setNseData] = useState({})
 
-  const updateIsFetched = () => {
-    setIsFetched(p => !p)
-  }
-
-  // const [details, setDetails] = useState(useStore((state) => state.details))
-  const setNseDetials = useStore((state) => state.setNseData);
-
-  const setData = (keyData, valueData) => {
-    setNseDetials(keyData, valueData);
-  }
+  const updateIsFetched = () => setIsFetched(p => !p)
+  const setData = (key, value) => setNseDetials(key, value)
 
   const [kycDetails, setKycDetails] = useState({})
 
@@ -31,17 +25,13 @@ function RegisteredInvesterWithNSE({ updateStep }) {
       setIsPanCard(true)
     if (e.target.name === 'aadharCard')
       setIsAadharCard(true)
-    console.log(kycDetails);
   }
 
   const onSuccessNseDataFetch = (payload) => {
-    console.log("on page")
-    console.log(payload)
     setNseData(payload.data)
-    console.log(nseData)
-    updateIsFetched();
+    updateIsFetched()
     for (const [key, value] of Object.entries(nseData)) {
-      setData(key, value);
+      setData(key, value)
     }
   }
 
@@ -135,7 +125,7 @@ function NewUser({ updateStep }) {
   const [isKycShown, setIsKycShown] = useState(false)
 
   const [details, setDetails] = useState(useStore((state) => state.details))
-  const setDetails2 = useStore((state) => state.setNseData);
+  const setDetails2 = useStore((state) => state.setNseData)
 
   const setData = (keyData, valueData) => {
     setDetails2(keyData, valueData);
@@ -144,7 +134,6 @@ function NewUser({ updateStep }) {
   const [nseData, setNseData] = useState(details)
 
   const onChange = e => {
-    console.log(details)
     setDetails(p => ({
       ...p,
       [e.target.name]: e.target.value
@@ -174,14 +163,13 @@ function NewUser({ updateStep }) {
   }
 
   const onSuccessAadharOtpVerify = () => {
-    delete details['enterOtp'];
+    delete details['enterOtp']
     postNseData(nseData, onSuccessNseDataPost, onPostNseDataError);
   }
 
   const onSuccessNseDataPost = () => {
     for (const [key, value] of Object.entries(nseData)) {
-      console.log(`${key}: ${value}`);
-      setData(key, value);
+      setData(key, value)
     }
     successNotify("Nse Data Added successfully")
     updateStep(2)

@@ -8,8 +8,8 @@ function CertificateAsPdf({ isOpen, closeModal }) {
       closeModal={closeModal}
       contentCls="w-11/12 sm:w-4/5"
       title=' '
-      img=""
     >
+      <img src={certificateImg} alt="" />
     </Modal>
   )
 }

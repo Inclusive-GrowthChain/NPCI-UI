@@ -5,20 +5,16 @@ import countryCodes from '../../../constants/countryCodes';
 import { sendOtp, verifyOtp } from "../../../apis/apis";
 
 function Step0({ updateStep }) {
+  const setDetails = useStore((state) => state.setDetails)
+
   const [selectedCountryCode, setSelectedCountryCode] = useState("+91")
-  const [showOtp, setShowOtp] = useState(false)
-  const [email, setEmail] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState(false)
   const [isOtpEnter, setIsOtpEnter] = useState(false)
-
+  const [showOtp, setShowOtp] = useState(false)
   const [details, setDetail] = useState({})
+  const [email, setEmail] = useState(false)
 
-  const setDetails = useStore((state) => state.setDetails);
-
-  const setData = (keyData, valueData) => {
-    setDetails(keyData, valueData);
-    // clear();
-  }
+  const setData = (keyData, valueData) => setDetails(keyData, valueData)
 
   const onChange = e => {
     setDetail(p => ({
@@ -36,19 +32,13 @@ function Step0({ updateStep }) {
     }
   }
 
-  const onSuccessOtpSend = () => {
-    updateShowOtp();
-  }
-
   const onSuccessOtpVerify = () => {
-    delete details['enterOtp'];
-    console.log(details);
+    delete details['enterOtp']
     for (const [key, value] of Object.entries(details)) {
-      setData(key, value);
+      setData(key, value)
     }
-    // setData(details);
     successNotify("OTP has been successfully verified")
-    updateStep(1);
+    updateStep(1)
   }
 
   const onWrongOtpEnter = () => {
@@ -57,9 +47,9 @@ function Step0({ updateStep }) {
 
   const updateShowOtp = () => {
     successNotify("OTP has been sent to your mobile number and email")
+    setPhoneNumber(p => !p)
     setShowOtp(p => !p)
     setEmail(p => !p)
-    setPhoneNumber(p => !p)
   }
 
   return (
@@ -103,7 +93,7 @@ function Step0({ updateStep }) {
 
       <button
         className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black disabled:opacity-60"
-        onClick={() => sendOtp(details, onSuccessOtpSend)}
+        onClick={() => sendOtp(details, updateShowOtp)}
         disabled={!email || !phoneNumber}
       >
         Send OTP
