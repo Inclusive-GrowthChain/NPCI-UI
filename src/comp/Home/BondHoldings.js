@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import live from "../../constants/live";
+import live from "../../constants/bond";
 import Tokenise from './Modals/Tokenise';
 
 function BondHoldings() {
