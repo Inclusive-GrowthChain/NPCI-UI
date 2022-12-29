@@ -1,7 +1,7 @@
 // const main = "http://65.2.168.208"
 
 export const root = {
-  baseUrl: "http://13.127.192.121:9090/api/v1/",
+  baseUrl: "http://13.232.85.144:9090/api/v1/",
   // baseUrl: `${main}:8080/api/v1`,
 }
 
@@ -15,7 +15,17 @@ const endPoints = {
   nseData: "nse_data",
   panCardData: "pancard_data",
 
-  tokenize: "tokenzie"
+  getUserDetails: "getUserDetails",
+
+  tokenize: "trade/tokenize",
+  detokenize: "trade/detokenize",
+
+  sellOrder: "trade/placeSellOrder",
+  buyOrder: "buyOrder",
+  
+  fetchMarket: "dashbord",
+  fetchtransaction: "transactions",
+  fetchTokenHoldings: "getBonddetailsofUser"
 }
 
 export default endPoints

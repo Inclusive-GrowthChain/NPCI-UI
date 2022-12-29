@@ -112,3 +112,127 @@ export async function login(data, onSuccess, onFailure) {
 export async function fetchInvestorsList(data, onSuccess) {
   
 }
+
+export async function fetchTransactions(data, onSuccess) {
+  try {
+    console.log(data);
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.fetchtransaction,
+      params: data
+    })
+    console.log(payload)
+    if (payload.status_code === 200)
+      onSuccess(payload)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function fetchTokenHoldings(data, onSuccess) {
+  try {
+    console.log(data);
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.fetchTokenHoldings,
+      params: data
+    })
+    console.log(payload)
+    if (payload.status === 200) 
+      onSuccess(payload)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function tokenize(data, onSuccess) {
+  try {
+    console.log(data);
+    const payload = await sendApiReq({
+      method: 'post',
+      url: endPoints.tokenize,
+      data
+    })
+    console.log(payload)
+    if (payload.status_code === 200)
+      onSuccess()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function detokenzie(data, onSuccess) {
+  try {
+    console.log(data);
+    const payload = await sendApiReq({
+      method: 'post',
+      url: endPoints.detokenize,
+      data
+    })
+    console.log(payload)
+    if (payload.status_code === 200)
+      onSuccess()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function sellOrder(data, onSuccess) {
+  try {
+    console.log(data)
+    const payload = await sendApiReq({
+      method: 'post',
+      url: endPoints.sellOrder,
+      data
+    })
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function buyOrder(data, onSuccess) {
+  try {
+    const payload = await sendApiReq({
+      method: 'post',
+      url: endPoints.buyOrder,
+      data
+    })
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function fetchMbeMarket(onSuccess) {
+  try {
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.fetchMarket,
+    })
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getUserDetails(data, onSuccess) {
+  try {
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.getUserDetails,
+      params: data,
+    })
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess()
+  } catch (error) {
+    console.log(error)
+  }
+}

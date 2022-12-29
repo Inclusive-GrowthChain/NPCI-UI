@@ -1,18 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import live from "../../../constants/live";
-// import useStore from '../../store';
+import useStore from '../../../store';
 
 import { ReactComponent as Search } from '../../../assets/svg/common/seach.svg';
 import Buy from '../Modals/Buy';
+import { fetchMbeMarket } from '../../../apis/apis';
 
 function MBEMarket() {
-  // const role = useStore(state => state.role)
+  const mbeId = useStore(state => state.email)
   const [filter, setFilter] = useState("")
   const [open, setOpen] = useState("")
+  const [loading, setLoading] = useState("")
+  const [market, setMarket] = useState([])
 
   const updateOpen = id => setOpen(id)
 
   const closeModal = () => setOpen("")
+
+  useEffect(() => {
+    setLoading(true)
+
+    const onSuccess = (payload) => {
+      console.log(payload['message'])
+      setMarket(payload['message'])
+      setLoading(false)
+    }
+
+    fetchMbeMarket(onSuccess)
+  }, [])
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
@@ -53,15 +68,16 @@ function MBEMarket() {
 
           <tbody>
             {
-              live
-                .filter(li => li.issuerName.toLowerCase().match(filter) || li.securityCode.toLowerCase().match(filter))
+              // live
+              market
+                .filter((a, i) => market[i].isTokenized === true)
                 .map(li => (
                   <tr
                     key={li.id}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                     onClick={() => updateOpen(li.id)}
                   >
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.securityCode} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.isin} </td>
                     <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponRate} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.faceValue} </td>
@@ -89,7 +105,7 @@ function MBEMarket() {
         (open || open === 0) &&
         <Buy
           isOpen
-          data={live.find(li => li.id === open)}
+          data={market.find(li => li.id === open)}
           closeModal={closeModal}
         />
       }

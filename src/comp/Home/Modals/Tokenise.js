@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { tokenize } from '../../../apis/apis';
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
 
@@ -7,6 +8,26 @@ import Input from '../common/Input';
 
 function Tokenise({ isOpen, data, closeModal }) {
   const [noOfLots, setNoOfLots] = useState(0)
+  const [details, setDetails] = useState({
+    "isin": data.isin,
+    "mbeId": data.mbeId,
+  })
+
+  const onChange = e => {
+    setDetails(p => ({
+      ...p,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const onSubmit = () => {
+    console.log(details)
+    tokenize(details, onSuccess)
+  }
+
+  const onSuccess = () => {
+    console.log("Tokenize done")
+  }
 
   return (
     <Modal
@@ -19,7 +40,7 @@ function Tokenise({ isOpen, data, closeModal }) {
         <div className='grid md:grid-cols-2 gap-4 mb-4'>
           <Input
             lable='ISIN'
-            value={data.securityCode}
+            value={data.isin}
           />
           <Input
             lable='Issuer Name'
@@ -39,7 +60,7 @@ function Tokenise({ isOpen, data, closeModal }) {
           />
           <Input
             lable='No. of lots'
-            value="1"
+            value={data.noOfLots}
           />
           <Input
             lable='Currency'
@@ -62,14 +83,25 @@ function Tokenise({ isOpen, data, closeModal }) {
             <input
               type="number"
               value={noOfLots || ""}
-              onChange={e => setNoOfLots(e.target.value || 0)}
+              name="LotNumber"
+              onChange={e => {
+                setNoOfLots(e.target.value || 0)
+                setDetails(p => ({
+                  ...p,
+                  [e.target.name]: e.target.value
+                }))
+                setDetails(p => ({
+                  ...p,
+                  "TotalTokenQty": e.target.value*200000
+                }))
+              }}
               className="no-number-arrows"
             />
           </div>
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-            <input type="text" value={noOfLots * 200000 || ""} disabled onChange={() => { }} />
+            <input type="text" value={noOfLots * 200000 || ""} disabled onChange={() => {}} name="totalTokenQty" />
           </div>
 
           <div>
@@ -79,7 +111,10 @@ function Tokenise({ isOpen, data, closeModal }) {
         </div>
       </div>
 
-      <button className='block w-1/2 mx-auto rounded-md text-white bg-emerald-400 hover:bg-emerald-700'>
+      <button
+        className='block w-1/2 mx-auto rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
+        onClick={onSubmit}
+      >
         Tokenize
       </button>
     </Modal>

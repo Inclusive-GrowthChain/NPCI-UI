@@ -1,12 +1,35 @@
 import { useState } from 'react';
+import { detokenzie } from '../../../apis/apis';
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
+import useStore from "../../../store";
 
 // If Detokenized “Detokenized , Visit transaction for more details”.
 // If pending “Transaction pending, Visit transaction history for more details”.
 
 function Detokenzise({ isOpen, data, closeModal }) {
   const [noOfLots, setNoOfLots] = useState(0)
+  const email = useStore(state => state.email)
+  const [details, setDetails] = useState({
+    "isin": data.isin,
+    "mbeId": email,
+  })
+
+  const onChange = e => {
+    setDetails(p => ({
+      ...p,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const onSubmit = () => {
+    console.log(details)
+    // detokenzie(details, onSuccess)
+  }
+
+  const onSuccess = () => {
+    console.log("Tokenize done")
+  }
 
   return (
     <Modal
@@ -19,7 +42,7 @@ function Detokenzise({ isOpen, data, closeModal }) {
         <div className='grid md:grid-cols-2 gap-4 mb-4'>
           <Input
             lable='ISIN'
-            value={data.securityCode}
+            value={data.isin}
           />
           <Input
             lable='Issuer Name'
@@ -39,7 +62,7 @@ function Detokenzise({ isOpen, data, closeModal }) {
           />
           <Input
             lable='No. of lots'
-            value="1"
+            value={data.noOfLots}
           />
           <Input
             lable='Currency'
@@ -47,7 +70,7 @@ function Detokenzise({ isOpen, data, closeModal }) {
           />
           <Input
             lable='No. of tokens'
-            value="200000"
+            value={data.noOfTokens}
           />
 
           <div className='grid-col-full'>
@@ -66,7 +89,13 @@ function Detokenzise({ isOpen, data, closeModal }) {
             <input
               type="number"
               value={noOfLots || ""}
-              onChange={e => setNoOfLots(e.target.value || 0)}
+              onChange={e => {
+                setNoOfLots(e.target.value || 0)
+                setDetails(p => ({
+                  ...p,
+                  "noOfTokens": e.target.value * 200000
+                }))
+              }}
               className="no-number-arrows"
             />
           </div>
@@ -83,7 +112,10 @@ function Detokenzise({ isOpen, data, closeModal }) {
         </div>
       </div>
 
-      <button className='block w-1/2 mx-auto rounded-md text-white bg-red-400 hover:bg-red-700'>
+      <button
+        className='block w-1/2 mx-auto rounded-md text-white bg-red-400 hover:bg-red-700'
+        onClick={onSubmit}
+      >
         Detokenize
       </button>
     </Modal>
