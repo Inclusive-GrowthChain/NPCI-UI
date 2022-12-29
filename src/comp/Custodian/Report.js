@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
-import { ReactComponent as Filter } from '../../../assets/svg/common/filter.svg';
-import { DropDownWrapper } from '../../UIComp/DropDown';
-import FilterByDate from '../TransactionList/FilterByDate';
-import live from '../../../constants/report';
+import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
+import { DropDownWrapper } from '../UIComp/DropDown';
+import FilterByDate from './FilterByDate';
+import live from '../../constants/report';
 
 function Report() {
   const [dateFilter, setDateFilter] = useState(null)

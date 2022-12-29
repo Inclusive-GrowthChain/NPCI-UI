@@ -1,17 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useStore from '../../store';
 
-import live from "../../constants/live";
+import { getMarket } from '../../apis/custodianApis';
+
 import InvestorsList from './Modals/InvestorsList';
 import UserInfoModal from './Modals/UserInfo';
+import Loader from '../Common/Loader';
 
 function TokenisedBond() {
   const role = useStore(state => state.role)
 
+  const [isLoading, setIsLoading] = useState(true)
   const [open, setOpen] = useState({ state: "", data: {} })
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const onSuccess = res => {
+      setIsLoading(false)
+      setData(res)
+    }
+
+    getMarket("", onSuccess)
+  }, [])
 
   const updateOpen = (state, data = {}) => setOpen({ state, data })
   const closeModal = () => setOpen({ state: "", data: {} })
+
+  if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
@@ -41,7 +56,7 @@ function TokenisedBond() {
 
           <tbody>
             {
-              live.map(li => (
+              data.map(li => (
                 <tr
                   key={li.id}
                   className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"

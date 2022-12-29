@@ -12,43 +12,35 @@ function UserInfo({ isOpen, data, closeModal }) {
       <div className='grid grid-cols-2 gap-4'>
         <Input
           lable='MBE ID'
-          value={data.mbeId}
+          value={data._id}
         />
         <Input
           lable='Name'
-          value={data.name}
+          value={data.firstName + " " + data.lastName}
         />
         <Input
           lable='Father Name'
-          value={data.personal.fatherName}
+          value={data.fatherName}
         />
         <Input
           lable='DOB'
-          value={data.personal.dob}
+          value={data.DOB}
         />
-        {/* <Input
-          lable='PAN Card'
-          value={data.personal.pan}
-        />
-        <Input
-          lable='Aadhar Card'
-          value={data.personal.aadhar}
-        /> */}
         <Input
           lable='Email'
-          value={data.personal.email}
+          value={data.email}
         />
         <Input
           lable='Mobile'
-          value={data.personal.mobile}
+          value={data.phoneNumber}
         />
         <Input
           lable='Address'
-          value={data.personal.address}
+          value={data.address}
         />
         <Input
           lable='Nationality'
-          value="Indian"
+          value={data.Nationality}
         />
       </div>
     </Modal>

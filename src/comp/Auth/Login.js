@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../apis/apis";
-import { errorNotify, successNotify } from "../../helper/toastifyHelp";
 import useStore from "../../store";
 
+import { ReactComponent as EyeClose } from '../../assets/svg/common/eye-close.svg';
+import { ReactComponent as EyeOpen } from '../../assets/svg/common/eye-open.svg';
+
+import { errorNotify, successNotify } from "../../helper/toastifyHelp";
+import { login } from "../../apis/apis";
+
 function Login() {
-  const [password, setPassword] = useState("")
-  const [mbeId, setMBEId] = useState("")
   const logIn = useStore(state => state.logIn)
   const navigate = useNavigate()
 
+  const [showPass, setShowPass] = useState(false)
   const [details, setDetails] = useState({})
 
   const onChange = e => {
@@ -22,9 +25,9 @@ function Login() {
   const onSubmit = () => {
     console.log(details);
     if (details.email === "custodian@gmail.com") {
-      onSuccess({role: "custodian"})
+      onSuccess({ role: "custodian" })
     } else if (details.email === "regulator@gmail.com") {
-      onSuccess({role: "regulator"})
+      onSuccess({ role: "regulator" })
     } else if (details.email === "mbe@gmail.com") {
       onSuccess({ role: "mbe" })
     } else {
@@ -46,6 +49,8 @@ function Login() {
     errorNotify("Log in failed. Please try again")
   }
 
+  const updateShowPass = () => setShowPass(p => !p)
+
   return (
     <div className="dc min-h-screen bg-slate-200">
       <div className="dc flex-col gap-6 container max-w-sm mx-auto flex-1 px-2">
@@ -60,14 +65,21 @@ function Login() {
             onChange={onChange}
           />
 
-          <input
-            type="password"
-            className="p-3 rounded mb-4"
-            name="password"
-            placeholder="Password"
-            // value={password}
-            onChange={onChange}
-          />
+          <div className="relative">
+            <input
+              type={showPass ? "text" : "password"}
+              className="p-3 pr-10 rounded mb-4"
+              name="password"
+              placeholder="Password"
+              // value={password}
+              onChange={onChange}
+            />
+            {
+              showPass
+                ? <EyeClose className="fill-slate-700 absolute top-1/2 right-2 -translate-y-1/2" onClick={updateShowPass} />
+                : <EyeOpen className="fill-slate-700 absolute top-1/2 right-2 -translate-y-1/2" onClick={updateShowPass} />
+            }
+          </div>
 
           <button
             type="submit"

@@ -128,7 +128,7 @@
   /* css loader */
   .loader {
     @apply 
-      w-10 h-10 border-4 animate-spin rounded-full 
+      w-8 h-8 border-4 animate-spin rounded-full 
       border-slate-100 border-t-slate-700;
     ;
   }

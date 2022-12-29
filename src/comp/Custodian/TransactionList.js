@@ -1,29 +1,43 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import useStore from '../../../store';
+import useStore from '../../store';
 
-import custodianTransaction from '../../../constants/custodianTransaction';
-import getTypeClr from '../../../helper/getTypeClr';
+import custodianTransaction from '../../constants/custodianTransaction';
+import { getTransactions } from '../../apis/custodianApis';
+import getTypeClr from '../../helper/getTypeClr';
 
-import { ReactComponent as Filter } from '../../../assets/svg/common/filter.svg';
-import { ReactComponent as Print } from '../../../assets/svg/files/print.svg';
-import { DropDownWrapper, Menu } from '../../UIComp/DropDown';
-import CertificateAsPdf from '../../Home/Modals/CertificateAsPdf';
-import InvestorsList from '../Modals/InvestorsList';
-import UserInfoModal from '../Modals/UserInfo';
+import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
+import { ReactComponent as Print } from '../../assets/svg/files/print.svg';
+import { DropDownWrapper, Menu } from '../UIComp/DropDown';
+import CertificateAsPdf from '../Home/Modals/CertificateAsPdf';
+import InvestorsList from './Modals/InvestorsList';
+import UserInfoModal from './Modals/UserInfo';
 import FilterByDate from './FilterByDate';
-import Input from '../../Home/common/Input';
+import Input from '../Home/common/Input';
+import Loader from '../Common/Loader';
 
 function TransactionList() {
   const role = useStore(state => state.role)
+  const { state: tokenDetails } = useLocation()
 
-  const [dateFilter, setDateFilter] = useState(null)
   const [authorisation, setAuthorisation] = useState("")
+  const [dateFilter, setDateFilter] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [status, setStatus] = useState("")
   const [type, setType] = useState("")
+  const [list, setList] = useState("")
   const [open, setOpen] = useState({ state: "", data: {} })
 
-  const { state: tokenDetails } = useLocation()
+  console.log({ list })
+
+  useEffect(() => {
+    const onSuccess = res => {
+      setIsLoading(false)
+      setList(res)
+    }
+
+    getTransactions(onSuccess)
+  }, [])
 
   const data = useMemo(() => {
     let cloned = [...custodianTransaction]
@@ -58,6 +72,8 @@ function TransactionList() {
 
   const updateOpen = (state, data = {}) => setOpen({ state, data })
   const closeModal = () => setOpen({ state: "", data: {} })
+
+  if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
@@ -123,7 +139,7 @@ function TransactionList() {
             />
             <span className='mr-auto'></span>
           </> :
-            <h1 className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-lg font-medium text-center'>
+            <h1 className='mx-auto text-lg font-medium text-center'>
               Transactions History
             </h1>
         }
@@ -150,7 +166,7 @@ function TransactionList() {
           <tbody>
             {
               data
-                .filter((l, i) => tokenDetails ? i < 10 : true)
+                // .filter((l, i) => tokenDetails ? i < 10 : true)
                 .map((li, i) => (
                   <tr
                     key={li.id}
