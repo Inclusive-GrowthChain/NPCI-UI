@@ -30,8 +30,7 @@ function ListOfInvestors() {
           <input
             type="text"
             className='w-44 p-0 bg-inherit border-none leading-none text-white'
-            placeholder={`Search by MBE ID or Name`}
-            // placeholder={`Search by ${role === "mbe" ? "ISIN" : "ISIN/Issuer name"}`}
+            placeholder="Search by MBE ID or Name"
             value={filter}
             onChange={e => setFilter(e.target.value)}
           />
