@@ -20,10 +20,27 @@ function Buy({ isOpen, data, closeModal }) {
   const [bidPricePerToken, setBidPricePerToken] = useState(null)
   const [total, setTotal] = useState(null)
 
+  const email = useStore(state => state.email)
+
+  const [details, setDetails] = useState({
+    "orderId": "B_ORDER" + data.isin,
+    "mbeId": email,
+    "isin": data.isin
+  })
+
+  const onChange = e => {
+    setDetails(p => ({
+      ...p,
+      [e.target.name]: e.target.value
+    }))
+  }
+
   const onClick = () => {
-    const total = Number(numberOfTokens) * Number(bidPricePerToken)
-    setTotal(total)
     if (!isTradeOpen) return setIsTradeOpen(true)
+    else {
+      console.log(details)
+      // buyOrder(details, onSuccess)
+    }
   }
 
   return (
@@ -37,7 +54,7 @@ function Buy({ isOpen, data, closeModal }) {
         <div className='grid md:grid-cols-2 gap-4 mb-4'>
           <Input
             lable='ISIN'
-            value={data.securityCode}
+            value={data.isin}
           />
           <Input
             lable='Issuer Name'
@@ -73,16 +90,12 @@ function Buy({ isOpen, data, closeModal }) {
             role === "investor" ? <>
               <div>
                 <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-                <input type="text" onChange={(e) => {
-                  setNumberOfTokens(e.target.value)
-                }} />
+                <input type="text" onChange={onChange} name="noOfTokens" />
               </div>
 
               <div>
                 <label className='mb-1 font-medium' htmlFor="">Bid price (Per token)</label>
-                <input type="text" onChange={(e) => {
-                  setBidPricePerToken(e.target.value)
-                }} />
+                <input type="text" onChange={onChange} name="price" />
               </div>
             </> : <>
               <Input
@@ -116,17 +129,17 @@ function Buy({ isOpen, data, closeModal }) {
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div>
               <label className='mb-1 font-medium' htmlFor="">Quantity</label>
-              <input type="text" value={numberOfTokens} readOnly />
+              <input type="text" value={details.noOfTokens} readOnly />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Price Per Token (LTP)</label>
-              <input type="text" value={bidPricePerToken} readOnly />
+              <input type="text" value={details.price} readOnly />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Total</label>
-              <input type="text" value={total} readOnly />
+              <input type="text" value={Number(details.noOfTokens) * Number(details.price)} readOnly />
             </div>
           </div>
         }

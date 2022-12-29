@@ -15,7 +15,17 @@ const endPoints = {
   nseData: "nse_data",
   panCardData: "pancard_data",
 
-  tokenize: "tokenzie"
+  getUserDetails: "getUserDetails",
+
+  tokenize: "trade/tokenize",
+  detokenize: "trade/detokenize",
+
+  sellOrder: "trade/placeSellOrder",
+  buyOrder: "buyOrder",
+  
+  fetchMarket: "dashbord",
+  fetchtransaction: "transactions",
+  fetchTokenHoldings: "getBonddetailsofUser"
 }
 
 export default endPoints

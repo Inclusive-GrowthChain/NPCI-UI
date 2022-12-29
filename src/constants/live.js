@@ -4,7 +4,7 @@ const type = ["Tokenized", "Detokenized", "Sale", "Purchase"]
 
 const live = [
   {
-    securityCode: "INE00XE07101",
+    isin: "INE00XE07101",
     issuerName: "MUTHOOT VEHICLE & ASSET FINANCE LIMITED",
     couponRate: "9.5 %",
     faceValue: 1,
@@ -23,7 +23,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE01I507042",
+    isin: "INE01I507042",
     issuerName: "KLM AXIVA FINVEST LIMITED",
     couponRate: "12 %",
     faceValue: 1,
@@ -42,7 +42,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE027E07923",
+    isin: "INE027E07923",
     issuerName: "L&T FINANCE LIMITED",
     couponRate: "9.1 %",
     faceValue: 1,
@@ -61,7 +61,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE033L07FZ3",
+    isin: "INE033L07FZ3",
     issuerName: "TATA CAPITAL HOUSING FINANCE LIMITED",
     couponRate: "8.8 %",
     faceValue: 1,
@@ -80,7 +80,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE101Q07391",
+    isin: "INE101Q07391",
     issuerName: "MUTHOOTTU MINI FINANCIERS LTD",
     couponRate: "10 %",
     faceValue: 1,
@@ -99,7 +99,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE039A07801",
+    isin: "INE039A07801",
     issuerName: "IFCI LIMITED",
     couponRate: "9.9 %",
     faceValue: 1,
@@ -118,7 +118,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE217K07AF7",
+    isin: "INE217K07AF7",
     issuerName: "RELIANCE HOME FINANCE LIMITED",
     couponRate: "9 %",
     faceValue: 1,
@@ -137,7 +137,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE219X07173",
+    isin: "INE219X07173",
     issuerName: "INDIA GRID TRUST",
     couponRate: "6.65 %",
     faceValue: 1,
@@ -156,7 +156,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE342T07189",
+    isin: "INE342T07189",
     issuerName: "NAVI FINSERV LIMITED",
     couponRate: "9.2 %",
     faceValue: 1,
@@ -175,7 +175,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE774D07ST5",
+    isin: "INE774D07ST5",
     issuerName: "MAHINDRA & MAHINDRA FINANCIAL SERVICES LTD",
     couponRate: "9.1 %",
     faceValue: 1,
@@ -194,7 +194,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE804I075Y4",
+    isin: "INE804I075Y4",
     issuerName: "ECL FINANCE LIMITED",
     couponRate: "9.25 %",
     faceValue: 1,
@@ -213,7 +213,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE872A07UQ5",
+    isin: "INE872A07UQ5",
     issuerName: "SREI EQUIPMENT FINANCE LIMITED",
     couponRate: "8.65 %",
     faceValue: 1,
@@ -232,7 +232,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE918K07FP8",
+    isin: "INE918K07FP8",
     issuerName: "NUVAMA WEALTH FINANCE LIMITED",
     couponRate: "10 %",
     faceValue: 1,
@@ -251,7 +251,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE945W07399",
+    isin: "INE945W07399",
     issuerName: "INCRED FINANCIAL SERVICES LIMITED",
     couponRate: "9.25 %",
     faceValue: 1,
@@ -270,7 +270,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE884Q07061",
+    isin: "INE884Q07061",
     issuerName: "MIDLAND MICROFIN LIMITED",
     couponRate: "12 %",
     faceValue: 1,
@@ -289,7 +289,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE866I08279",
+    isin: "INE866I08279",
     issuerName: "IIFL FINANCE LIMITED",
     couponRate: "10 %",
     faceValue: 1,
@@ -308,7 +308,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE774D08LT8",
+    isin: "INE774D08LT8",
     issuerName: "MAHINDRA & MAHINDRA FINANCIAL SERVICES LTD",
     couponRate: "8.53 %",
     faceValue: 1,
@@ -327,7 +327,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE721A07PE0",
+    isin: "INE721A07PE0",
     issuerName: "SHRIRAM FINANCE LIMITED",
     couponRate: "9.7 %",
     faceValue: 1,
@@ -346,7 +346,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE651J07606",
+    isin: "INE651J07606",
     issuerName: "JM FINANCIAL CREDIT SOLUTIONS LIMITED",
     couponRate: "9.5 %",
     faceValue: 1,
@@ -365,7 +365,7 @@ const live = [
     transactionAmount: getRandom(25, 100),
   },
   {
-    securityCode: "INE583D07240",
+    isin: "INE583D07240",
     issuerName: "UGRO CAPITAL LIMITED",
     couponRate: "10 %",
     faceValue: 1,

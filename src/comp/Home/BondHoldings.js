@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
-import live from "../../constants/bond";
+import bond from "../../constants/bond";
 import Tokenise from './Modals/Tokenise';
+import useStore from "../../store";
 
 function BondHoldings() {
   const [open, setOpen] = useState("")
+  const email = useStore(state => state.email)
 
   const updateOpen = id => setOpen(id)
 
@@ -35,15 +37,15 @@ function BondHoldings() {
 
           <tbody>
             {
-              live
-                .filter((a, i) => [1, 4, 7, 11, 6].includes(i))
+              bond
+                .filter((a, i) => bond[i].mbeId === email)
                 .map(li => (
                   <tr
-                    key={li.id}
+                    key={li.isin}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
-                    onClick={() => updateOpen(li.id)}
+                    onClick={() => updateOpen(li.isin)}
                   >
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.securityCode} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.isin} </td>
                     <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponRate} </td>
                     <td className="px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.creditRating} </td>
@@ -68,7 +70,7 @@ function BondHoldings() {
         open &&
         <Tokenise
           isOpen
-          data={live.find(li => li.id === open)}
+          data={bond.find(li => li.isin === open)}
           closeModal={closeModal}
         />
       }

@@ -1,21 +1,43 @@
 import { useState } from 'react';
+import { sellOrder } from '../../../apis/apis';
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
+import useStore from "../../../store";
 
 // If executed “Trade executed, Visit transaction history for more details”.
 // If pending “Transaction pending, Visit transaction history for more details
 
 function Sell({ isOpen, data, closeModal }) {
   const [isTradeOpen, setIsTradeOpen] = useState(false)
+  const email = useStore(state => state.email)
 
   const [numberOfTokens, setNumberOfTokens] = useState(null)
   const [sellPricePerToken, setSellPricePerToken] = useState(null)
   const [total, setTotal] = useState(null)
 
+  const [details, setDetails] = useState({
+    "orderId": "S_ORDER" + data.isin,
+    "mbeId": email,
+    "isin": data.isin
+  })
+
+  const onChange = e => {
+    setDetails(p => ({
+      ...p,
+      [e.target.name]: e.target.value
+    }))
+  }
+
   const onClick = () => {
-    const total = Number(numberOfTokens) * Number(sellPricePerToken)
-    setTotal(total)
     if (!isTradeOpen) return setIsTradeOpen(true)
+    else {
+      console.log(details)
+      sellOrder(details, onSuccess)
+    }
+  }
+
+  const onSuccess = () => {
+    console.log("Sell order added")
   }
 
   return (
@@ -29,7 +51,7 @@ function Sell({ isOpen, data, closeModal }) {
         <div className='grid md:grid-cols-2 gap-4 mb-4'>
           <Input
             lable='ISIN'
-            value={data.securityCode}
+            value={data.isin}
           />
           <Input
             lable='Issuer Name'
@@ -37,7 +59,7 @@ function Sell({ isOpen, data, closeModal }) {
           />
           <Input
             lable='Coupon Rate'
-            value={data.couponRate}
+            value={data.couponrate}
           />
           <Input
             lable='LTP'
@@ -45,7 +67,7 @@ function Sell({ isOpen, data, closeModal }) {
           />
           <Input
             lable='Maturity Date'
-            value={data.maturityDate}
+            value={data.maturitydate}
           />
           <Input
             lable='Currency'
@@ -53,23 +75,19 @@ function Sell({ isOpen, data, closeModal }) {
           />
           <Input
             lable='Total Number of Tokens'
-            value={data.noOfToken}
+            value={data.TotalTokenQty}
             lableCls="w-auto"
             wrapperCls='grid-col-full'
           />
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-            <input type="text" onChange={(e) => {
-              setNumberOfTokens(e.target.value)
-            }} />
+            <input type="text" onChange={onChange} name="NumOfToken"/>
           </div>
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Ask price (per token)</label>
-            <input type="text" onChange={(e) => {
-              setSellPricePerToken(e.target.value)
-            }} />
+            <input type="text" onChange={onChange} name="Price" />
           </div>
         </div>
 
@@ -78,17 +96,17 @@ function Sell({ isOpen, data, closeModal }) {
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div>
               <label className='mb-1 font-medium' htmlFor="">Quantity</label>
-              <input type="text" value={numberOfTokens} readOnly />
+                <input type="text" value={details.NumOfToken} readOnly />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Price Per Token (LTP)</label>
-              <input type="text" value={sellPricePerToken} readOnly />
+              <input type="text" value={details.Price} readOnly />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Total</label>
-              <input type="text" value={total} readOnly />
+                <input type="text" value={Number(details.NumOfToken) * Number(details.Price)} readOnly />
             </div>
           </div>
         }

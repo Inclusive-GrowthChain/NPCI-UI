@@ -39,7 +39,7 @@ function Login() {
     console.log(payload.role)
     const nodes = ["investor", "custodian", "regulator", "mbe"]
     if (nodes.includes(payload.role)) {
-      logIn(payload.role)
+      logIn(payload.role, details.email)
       navigate("/mbe-market")
     }
     successNotify("Successfully Logged In user")
@@ -59,6 +59,7 @@ function Login() {
           <input
             type="text"
             className="p-3 rounded mb-4"
+            // name="phoneNumber"
             name="email"
             placeholder="MBE ID"
             // value={mbeId}

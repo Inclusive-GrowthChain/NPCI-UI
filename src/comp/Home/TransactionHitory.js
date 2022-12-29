@@ -1,13 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import live from "../../constants/live";
 import { ReactComponent as Print } from '../../assets/svg/files/print.svg';
 import CertificateAsPdf from './Modals/CertificateAsPdf';
 import getTypeClr from '../../helper/getTypeClr';
+import { fetchTransactions } from '../../apis/apis';
+import useStore from "../../store";
 
 function TransactionHitory() {
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState("")
+  const email = useStore(state => state.email)
+  const [transactions, setTransactions] = useState([])
 
   const updateOpen = () => setOpen(p => !p)
+
+  useEffect(() => {
+    setLoading(true)
+
+    const onSuccess = (payload) => {
+      setTransactions(payload.data)
+      setLoading(false)
+    }
+
+    fetchTransactions({ email }, onSuccess)
+  }, [])
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
@@ -33,7 +49,7 @@ function TransactionHitory() {
 
           <tbody>
             {
-              live.map((li, i) => (
+              transactions.map((li, i) => (
                 <tr
                   key={li.id}
                   className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
