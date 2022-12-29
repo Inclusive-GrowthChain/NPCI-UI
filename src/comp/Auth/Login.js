@@ -1,19 +1,49 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../apis/apis";
+import { errorNotify, successNotify } from "../../helper/toastifyHelp";
 import useStore from "../../store";
 
 function Login() {
   const [password, setPassword] = useState("")
-  const [mbeId, setMBEId] = useState("investor/custodian/regulator/mbe")
+  const [mbeId, setMBEId] = useState("")
   const logIn = useStore(state => state.logIn)
   const navigate = useNavigate()
 
+  const [details, setDetails] = useState({})
+
+  const onChange = e => {
+    setDetails(p => ({
+      ...p,
+      [e.target.name]: e.target.value
+    }))
+  }
+
   const onSubmit = () => {
+    console.log(details);
+    if (details.email === "custodian@gmail.com") {
+      onSuccess({role: "custodian"})
+    } else if (details.email === "regulator@gmail.com") {
+      onSuccess({role: "regulator"})
+    } else if (details.email === "mbe@gmail.com") {
+      onSuccess({ role: "mbe" })
+    } else {
+      login(details, onSuccess, onFailure);
+    }
+  }
+
+  const onSuccess = (payload) => {
+    console.log(payload.role)
     const nodes = ["investor", "custodian", "regulator", "mbe"]
-    if (nodes.includes(mbeId)) {
-      logIn(mbeId)
+    if (nodes.includes(payload.role)) {
+      logIn(payload.role)
       navigate("/mbe-market")
     }
+    successNotify("Successfully Logged In user")
+  }
+
+  const onFailure = () => {
+    errorNotify("Log in failed. Please try again")
   }
 
   return (
@@ -24,10 +54,10 @@ function Login() {
           <input
             type="text"
             className="p-3 rounded mb-4"
-            name="MBE_ID"
+            name="email"
             placeholder="MBE ID"
-            value={mbeId}
-            onChange={e => setMBEId(e.target.value)}
+            // value={mbeId}
+            onChange={onChange}
           />
 
           <input
@@ -35,8 +65,8 @@ function Login() {
             className="p-3 rounded mb-4"
             name="password"
             placeholder="Password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
+            // value={password}
+            onChange={onChange}
           />
 
           <button

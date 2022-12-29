@@ -1,6 +1,6 @@
 import useStore from "../../../store/index.js";
 import { useState } from "react";
-import { successNotify } from '../../../helper/toastifyHelp';
+import { errorNotify, successNotify } from '../../../helper/toastifyHelp';
 import countryCodes from '../../../constants/countryCodes';
 import { sendOtp, verifyOtp } from "../../../apis/apis";
 
@@ -9,6 +9,7 @@ function Step0({ updateStep }) {
   const [showOtp, setShowOtp] = useState(false)
   const [email, setEmail] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState(false)
+  const [isOtpEnter, setIsOtpEnter] = useState(false)
 
   const [details, setDetail] = useState({})
 
@@ -30,6 +31,9 @@ function Step0({ updateStep }) {
     if (e.target.name === "phoneNumber") {
       setPhoneNumber(true)
     }
+    if (e.target.name === "enterOtp") {
+      setIsOtpEnter(true)
+    }
   }
 
   const onSuccessOtpSend = () => {
@@ -43,7 +47,12 @@ function Step0({ updateStep }) {
       setData(key, value);
     }
     // setData(details);
+    successNotify("OTP has been successfully verified")
     updateStep(1);
+  }
+
+  const onWrongOtpEnter = () => {
+    errorNotify("Wrong OTP entered")
   }
 
   const updateShowOtp = () => {
@@ -114,7 +123,8 @@ function Step0({ updateStep }) {
 
           <button
             className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black"
-            onClick={() => verifyOtp(details, onSuccessOtpVerify)}
+            onClick={() => verifyOtp(details, onSuccessOtpVerify, onWrongOtpEnter)}
+            disabled={!isOtpEnter}
           >
             Verify
           </button>

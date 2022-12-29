@@ -17,7 +17,7 @@ export async function sendOtp(data, onSuccess) {
   }
 }
 
-export async function verifyOtp(data, onSuccess) {
+export async function verifyOtp(data, onSuccess, onFailure) {
   console.log(data);
   try {
     const payload = await sendApiReq({
@@ -29,13 +29,15 @@ export async function verifyOtp(data, onSuccess) {
     console.log(payload)
     if (payload.status_code === 200)
       onSuccess()
+    else
+      onFailure()
     console.log(data);
   } catch (error) {
     console.log(error)
   }
 }
 
-export async function fetchNseData(data, onSuccess) {
+export async function fetchNseData(data, onSuccess, onFailure) {
   try {
     console.log(data);
     const payload = await sendApiReq({
@@ -46,12 +48,14 @@ export async function fetchNseData(data, onSuccess) {
     console.log(payload)
     if (payload.status_code === 200)
       onSuccess(payload)
+    else
+      onFailure()
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function postNseData(data, onSuccess) {
+export async function postNseData(data, onSuccess, onFailure) {
   try {
     console.log(data);
     const payload = await sendApiReq({
@@ -62,40 +66,49 @@ export async function postNseData(data, onSuccess) {
     console.log(payload)
     if (payload.status_code === 200)
       onSuccess()
+    else 
+      onFailure()
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function fetchPanCardDetails(details, onSuccess) {
+export async function registerUser(data, onSuccess, onFailure) {
   try {
-    console.log(details);
+    console.log(data);
     const payload = await sendApiReq({
-      method: 'get',
-      url: endPoints.panCardData,
-      params: details,
+      method: 'post',
+      url: endPoints.register_user,
+      data
     })
-
-    console.log("payload")
-    console.log(payload)
-    if (payload.status === 200)
+    if (payload.status_code === 200)
       onSuccess()
+    else
+      onFailure()
   } catch (error) {
     console.log(error)
   }
 }
 
-export async function registerUser(details, onSuccess) {
+export async function login(data, onSuccess, onFailure) {
   try {
-    console.log(details);
+    console.log(data);
     const payload = await sendApiReq({
       method: 'post',
-      url: endPoints.register_user,
-      details
+      url: endPoints.login,
+      data
     })
     console.log(payload)
-    onSuccess()
+    if (payload.status_code === 200)
+      onSuccess(payload)
+    else
+      onFailure()
   } catch (error) {
     console.log(error)
   }
+}
+
+
+export async function fetchInvestorsList(data, onSuccess) {
+  
 }

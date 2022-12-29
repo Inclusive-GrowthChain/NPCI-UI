@@ -1,28 +1,39 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from "../../../apis/apis.js";
+import { errorNotify, successNotify } from "../../../helper/toastifyHelp.js";
 import useStore from "../../../store/index.js"
 
 function Step2() {
   const [isConfiremed, setIsConfirmed] = useState(false)
   const navigate = useNavigate()
-  const nseData = useState(useStore((state) => state.nseData))
+  const nseData = useStore((state) => state.nseData)
+  const clearDetails = useStore((state) => state.clearDetails);
+  const clearNseData = useStore((state) => state.clearNseData);
 
   const onClk = () => {
+    console.log(nseData);
     setIsConfirmed(p => !p)
     registerUser({
       "panCard": nseData.panCard,
       "phoneNumber": nseData.phoneNumber
-    }, onSuccess)
+    }, onSuccess, onFailure)
     // setTimeout(() => {
     //   navigate("/login")
     // }, 3000)
   }
 
   const onSuccess = () => {
+    clearDetails();
+    clearNseData();
+    successNotify("Successfully registered user")
     setTimeout(() => {
       navigate("/login")
     }, 3000)
+  }
+
+  const onFailure = () => {
+    errorNotify("Error registering User. Please try again")
   }
 
   return (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { successNotify } from '../../../helper/toastifyHelp';
+import { errorNotify, successNotify } from '../../../helper/toastifyHelp';
 import useStore from "../../../store/index.js"
 import { fetchNseData, postNseData, sendOtp, verifyOtp } from "../../../apis/apis";
 
@@ -45,6 +45,10 @@ function RegisteredInvesterWithNSE({ updateStep }) {
     }
   }
 
+  const onFetchNseDataError = () => {
+    errorNotify("No data found. Please check the pan card and aadhar number")
+  }
+
   return (
     <>
       <input
@@ -67,7 +71,7 @@ function RegisteredInvesterWithNSE({ updateStep }) {
         !isFetched &&
         <button
           className="w-full mt-2 px-6 py-2 font-medium bg-slate-900 text-white rounded-md shadow-xl hover:bg-black disabled:opacity-60"
-          onClick={() => fetchNseData(kycDetails, onSuccessNseDataFetch)}
+          onClick={() => fetchNseData(kycDetails, onSuccessNseDataFetch, onFetchNseDataError)}
           disabled={!isPanCard || !isAadharCard}
         >
           Fetch Data
@@ -131,7 +135,7 @@ function NewUser({ updateStep }) {
   const [isKycShown, setIsKycShown] = useState(false)
 
   const [details, setDetails] = useState(useStore((state) => state.details))
-  const setDetails2 = useStore((state) => state.setDetails);
+  const setDetails2 = useStore((state) => state.setNseData);
 
   const setData = (keyData, valueData) => {
     setDetails2(keyData, valueData);
@@ -140,6 +144,7 @@ function NewUser({ updateStep }) {
   const [nseData, setNseData] = useState(details)
 
   const onChange = e => {
+    console.log(details)
     setDetails(p => ({
       ...p,
       [e.target.name]: e.target.value
@@ -170,7 +175,7 @@ function NewUser({ updateStep }) {
 
   const onSuccessAadharOtpVerify = () => {
     delete details['enterOtp'];
-    postNseData(nseData, onSuccessNseDataPost);
+    postNseData(nseData, onSuccessNseDataPost, onPostNseDataError);
   }
 
   const onSuccessNseDataPost = () => {
@@ -178,7 +183,12 @@ function NewUser({ updateStep }) {
       console.log(`${key}: ${value}`);
       setData(key, value);
     }
+    successNotify("Nse Data Added successfully")
     updateStep(2)
+  }
+
+  const onPostNseDataError = () => {
+    errorNotify("Error Posting Data. Please try again")
   }
 
   const onBtnClk = () => {
@@ -186,13 +196,13 @@ function NewUser({ updateStep }) {
       if (!showOTPForPAN) {
         sendOtp({ "panCard": nseData.panCard }, onSuccessPanOtpSend)
       } else {
-        verifyOtp({ "phoneNumber": details.phoneNumber, "enterOtp": details.enterOtp }, onSuccessPanOtpVerify)
+        verifyOtp({ "email": details.email, "phoneNumber": details.phoneNumber, "enterOtp": details.enterOtp }, onSuccessPanOtpVerify)
       }
     } else {
       if (!showOTPForAadhar) {
         sendOtp({ "aadharCard": nseData.aadharCard }, onSuccessAadharOtpSend)
       } else {
-        verifyOtp({ "phoneNumber": details.phoneNumber, "enterOtp": details.enterOtp }, onSuccessAadharOtpVerify)
+        verifyOtp({ "email": details.email, "phoneNumber": details.phoneNumber, "enterOtp": details.enterOtp }, onSuccessAadharOtpVerify)
       }
     }
   }
