@@ -47,7 +47,7 @@ function Nav() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    let newData = routes[role] || {}
+    let { name, ...newData } = routes[role] || { name: "" }
     setList([...Object.keys(newData), "Log Out"])
   }, [role])
 
