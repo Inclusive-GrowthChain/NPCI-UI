@@ -5,6 +5,7 @@ import useStore from '../../store';
 import { ReactComponent as UserProfile } from '../../assets/svg/users/profile.svg';
 import { DropDownWrapper } from '../UIComp/DropDown';
 import AddBalance from './Modals/AddBalance';
+import { fetchCBDCBalance } from '../../apis/apis';
 
 const routes = {
   investor: {
@@ -41,14 +42,22 @@ function Nav() {
   const isLoggedIn = useStore(state => state.isLoggedIn)
   const logOut = useStore(state => state.logOut)
   const role = useStore(state => state.role)
+  const mbeId = useStore(state => state.email)
 
   const [open, setOpen] = useState(false)
   const [list, setList] = useState([])
+  const [CBDCBalance, setCBDCBalance] = useState({})
   const navigate = useNavigate()
 
   useEffect(() => {
     let { name, ...newData } = routes[role] || { name: "" }
     setList([...Object.keys(newData), "Log Out"])
+
+    const onSuccess = (payload) => {
+      setCBDCBalance(payload)
+    }
+
+    fetchCBDCBalance({ "mbeId": mbeId }, onSuccess)
   }, [role])
 
   const onClk = val => {
@@ -88,7 +97,7 @@ function Nav() {
                 onClick={updateOpen}
                 title="Add balance"
               >
-                CBDC Balance : 10000
+                CBDC Balance : {CBDCBalance.CBDCbalance}
               </button>
             }
 

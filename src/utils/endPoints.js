@@ -22,6 +22,7 @@ const endPoints = {
 
   fetchMarket: "dashbord",
   fetchTokenHoldings: "getBonddetailsofUser",
+  fetchCBDCBalance: "trade/balance",
 
   tokenholding: "tokenholding",
   transactions: "transactions",

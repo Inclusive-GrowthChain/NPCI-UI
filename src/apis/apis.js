@@ -108,11 +108,6 @@ export async function login(data, onSuccess, onFailure) {
   }
 }
 
-
-export async function fetchInvestorsList(data, onSuccess) {
-
-}
-
 export async function fetchTransactions(data, onSuccess) {
   try {
     console.log(data);
@@ -145,7 +140,7 @@ export async function fetchTokenHoldings(data, onSuccess) {
   }
 }
 
-export async function tokenize(data, onSuccess) {
+export async function tokenize(data, onSuccess, onFailure) {
   try {
     console.log(data);
     const payload = await sendApiReq({
@@ -154,14 +149,16 @@ export async function tokenize(data, onSuccess) {
       data
     })
     console.log(payload)
-    if (payload.status_code === 200)
+    if (payload.status === 200)
       onSuccess()
+    else 
+      onFailure()
   } catch (error) {
     console.log(error)
   }
 }
 
-export async function detokenzie(data, onSuccess) {
+export async function detokenzie(data, onSuccess, onFailure) {
   try {
     console.log(data);
     const payload = await sendApiReq({
@@ -170,14 +167,16 @@ export async function detokenzie(data, onSuccess) {
       data
     })
     console.log(payload)
-    if (payload.status_code === 200)
+    if (payload.status === 200)
       onSuccess()
+    else 
+      onFailure()
   } catch (error) {
     console.log(error)
   }
 }
 
-export async function sellOrder(data, onSuccess) {
+export async function sellOrder(data, onSuccess, onFailure) {
   try {
     console.log(data)
     const payload = await sendApiReq({
@@ -188,12 +187,14 @@ export async function sellOrder(data, onSuccess) {
     console.log(payload)
     if (payload.status === 200)
       onSuccess()
+    else
+      onFailure()
   } catch (error) {
     console.log(error)
   }
 }
 
-export async function buyOrder(data, onSuccess) {
+export async function buyOrder(data, onSuccess, onFailure) {
   try {
     const payload = await sendApiReq({
       method: 'post',
@@ -203,6 +204,8 @@ export async function buyOrder(data, onSuccess) {
     console.log(payload)
     if (payload.status === 200)
       onSuccess()
+    else
+      onFailure()
   } catch (error) {
     console.log(error)
   }
@@ -231,7 +234,22 @@ export async function getUserDetails(data, onSuccess) {
     })
     console.log(payload)
     if (payload.status === 200)
-      onSuccess()
+      onSuccess(payload.message)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function fetchCBDCBalance(data, onSuccess) {
+  try {
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.fetchCBDCBalance,
+      params: data,
+    })
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess(payload.message)
   } catch (error) {
     console.log(error)
   }

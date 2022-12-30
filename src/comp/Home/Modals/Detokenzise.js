@@ -5,6 +5,7 @@ import { detokenzie } from '../../../apis/apis';
 
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
+import { errorNotify, successNotify } from "../../../helper/toastifyHelp";
 
 // If Detokenized “Detokenized , Visit transaction for more details”.
 // If pending “Transaction pending, Visit transaction history for more details”.
@@ -26,11 +27,16 @@ function Detokenzise({ isOpen, data, closeModal }) {
 
   const onSubmit = () => {
     console.log(details)
-    detokenzie(details, onSuccess)
+    detokenzie(details, onSuccess, onFailure)
   }
 
   const onSuccess = () => {
-    console.log("Tokenize done")
+    successNotify("Successfully Detokenized!")
+    closeModal()
+  }
+
+  const onFailure = () => {
+    errorNotify("Detokenization failed. Please try again")
   }
 
   return (

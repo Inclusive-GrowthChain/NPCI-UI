@@ -5,6 +5,7 @@ import useStore from '../../../store';
 
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
+import { errorNotify, successNotify } from "../../../helper/toastifyHelp";
 
 // If executed “Trade executed, Visit transaction history for more details
 // If pending “Transaction pending, Visit transaction history for more details
@@ -40,12 +41,17 @@ function Buy({ isOpen, data, closeModal }) {
     if (!isTradeOpen) return setIsTradeOpen(true)
     else {
       console.log(details)
-      buyOrder(details, onSuccess)
+      buyOrder(details, onSuccess, onFailure)
     }
   }
 
   const onSuccess = () => {
-    console.log("Buy order added")
+    successNotify("Buy Order Added Successfully")
+    closeModal()
+  }
+
+  const onFailure = () => {
+    errorNotify("Buy Order Addition failed. Please try again")
   }
 
   return (
