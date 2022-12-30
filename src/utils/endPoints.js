@@ -18,7 +18,7 @@ const endPoints = {
   detokenize: "trade/detokenize",
 
   sellOrder: "trade/placeSellOrder",
-  buyOrder: "buyOrder",
+  buyOrder: "trade/placeBuyOrder",
 
   fetchMarket: "dashbord",
   fetchTokenHoldings: "getBonddetailsofUser",

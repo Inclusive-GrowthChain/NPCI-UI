@@ -26,7 +26,7 @@ function Detokenzise({ isOpen, data, closeModal }) {
 
   const onSubmit = () => {
     console.log(details)
-    // detokenzie(details, onSuccess)
+    detokenzie(details, onSuccess)
   }
 
   const onSuccess = () => {
@@ -52,7 +52,7 @@ function Detokenzise({ isOpen, data, closeModal }) {
           />
           <Input
             lable='Coupon Rate'
-            value={data.couponRate}
+            value={data.couponrate}
           />
           <Input
             lable='LTP'
@@ -60,11 +60,11 @@ function Detokenzise({ isOpen, data, closeModal }) {
           />
           <Input
             lable='Maturity Date'
-            value={data.maturityDate}
+            value={data.maturitydate}
           />
           <Input
             lable='No. of lots'
-            value={data.noOfLots}
+            value={data.LotQty}
           />
           <Input
             lable='Currency'
@@ -72,13 +72,13 @@ function Detokenzise({ isOpen, data, closeModal }) {
           />
           <Input
             lable='No. of tokens'
-            value={data.noOfTokens}
+            value={data.TokenQtyRemaining}
           />
 
           <div className='grid-col-full'>
             <Input
               lable='Security Description'
-              value={data.securityDescription}
+              value={data.securitydescription}
               inputCls="w-full max-w-none"
               lableCls='w-auto'
             />
@@ -91,11 +91,16 @@ function Detokenzise({ isOpen, data, closeModal }) {
             <input
               type="number"
               value={noOfLots || ""}
+              name="LotNumber"
               onChange={e => {
                 setNoOfLots(e.target.value || 0)
                 setDetails(p => ({
                   ...p,
-                  "noOfTokens": e.target.value * 200000
+                  [e.target.name]: e.target.value
+                }))
+                setDetails(p => ({
+                  ...p,
+                  "tokenQty": e.target.value * 200000
                 }))
               }}
               className="no-number-arrows"
@@ -104,12 +109,12 @@ function Detokenzise({ isOpen, data, closeModal }) {
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-            <input type="text" value={noOfLots * 200000 || ""} disabled onChange={() => { }} />
+            <input type="text" value={noOfLots * 200000 || ""} disabled onChange={() => { }} name="tokenQty" />
           </div>
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Current Price</label>
-            <input type="text" defaultValue={data.currentPrice} disabled />
+            <input type="text" defaultValue={data.ltp} disabled />
           </div>
         </div>
       </div>

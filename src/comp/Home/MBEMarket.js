@@ -72,9 +72,9 @@ function MBEMarket() {
                 .filter((a, i) => market[i].isTokenized === true)
                 .map(li => (
                   <tr
-                    key={li._id}
+                    key={li.isin}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
-                    onClick={() => updateOpen(li._id)}
+                    onClick={() => updateOpen(li.isin)}
                   >
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.isin} </td>
                     <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
@@ -85,12 +85,12 @@ function MBEMarket() {
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.maturitydate} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
                       <button className="w-20 px-3 py-1.5 rounded border border-emerald-600">
-                        {li.bidPrice}
+                        {li.bidPrice || 0}
                       </button>
                     </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
                       <button className="w-20 px-3 py-1.5 rounded border border-yellow-600">
-                        {li.askPrice}
+                        {li.askPrice || 0}
                       </button>
                     </td>
                   </tr>
@@ -104,7 +104,7 @@ function MBEMarket() {
         (open || open === 0) &&
         <Buy
           isOpen
-          data={market.find(li => li.id === open)}
+          data={market.find(li => li.isin === open)}
           closeModal={closeModal}
         />
       }

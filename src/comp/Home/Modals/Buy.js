@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { buyOrder } from '../../../apis/apis';
 import useStore from '../../../store';
 
 import Modal from '../../UIComp/Modal';
@@ -23,7 +24,7 @@ function Buy({ isOpen, data, closeModal }) {
   // const [total, setTotal] = useState(null)
 
   const [details, setDetails] = useState({
-    "orderId": "B_ORDER" + data.isin,
+    "OrderId": "B_ORDER" + data.isin,
     "mbeId": email,
     "isin": data.isin
   })
@@ -39,8 +40,12 @@ function Buy({ isOpen, data, closeModal }) {
     if (!isTradeOpen) return setIsTradeOpen(true)
     else {
       console.log(details)
-      // buyOrder(details, onSuccess)
+      buyOrder(details, onSuccess)
     }
+  }
+
+  const onSuccess = () => {
+    console.log("Buy order added")
   }
 
   return (
@@ -62,15 +67,15 @@ function Buy({ isOpen, data, closeModal }) {
           />
           <Input
             lable='Coupon Rate'
-            value={data.couponRate}
+            value={data.couponrate}
           />
           <Input
             lable='LTP'
-            value={data.askPrice}
+            value={data.ltp}
           />
           <Input
             lable='Maturity Date'
-            value={data.maturityDate}
+            value={data.maturitydate}
           />
           <Input
             lable='Currency'
@@ -80,7 +85,7 @@ function Buy({ isOpen, data, closeModal }) {
           <div className='grid-col-full'>
             <Input
               lable='Security Description'
-              value={data.securityDescription}
+              value={data.securitydescription}
               inputCls="w-full max-w-none"
               lableCls='w-auto'
             />
@@ -90,12 +95,12 @@ function Buy({ isOpen, data, closeModal }) {
             role === "investor" ? <>
               <div>
                 <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-                <input type="text" onChange={onChange} name="noOfTokens" />
+                <input type="text" onChange={onChange} name="NumOfTokens" />
               </div>
 
               <div>
-                <label className='mb-1 font-medium' htmlFor="">Bid price (Per token)</label>
-                <input type="text" onChange={onChange} name="price" />
+                <label className='mb-1 font-medium' htmlFor="">Bid Price (Per token)</label>
+                <input type="text" onChange={onChange} name="Price" />
               </div>
             </> : <>
               <Input
@@ -129,17 +134,17 @@ function Buy({ isOpen, data, closeModal }) {
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div>
               <label className='mb-1 font-medium' htmlFor="">Quantity</label>
-              <input type="text" value={details.noOfTokens} readOnly />
+              <input type="text" value={details.NumOfTokens} readOnly />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Price Per Token (LTP)</label>
-              <input type="text" value={details.price} readOnly />
+              <input type="text" value={details.Price} readOnly />
             </div>
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Total</label>
-              <input type="text" value={Number(details.noOfTokens) * Number(details.price)} readOnly />
+              <input type="text" value={Number(details.NumOfTokens) * Number(details.Price)} readOnly />
             </div>
           </div>
         }
