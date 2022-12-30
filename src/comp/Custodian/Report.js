@@ -1,12 +1,28 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+
+import { getPurchaseLog } from '../../apis/custodianApis';
+import live from '../../constants/report';
+
 import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
 import { DropDownWrapper } from '../UIComp/DropDown';
 import FilterByDate from './FilterByDate';
-import live from '../../constants/report';
+import Loader from '../Common/Loader';
 
 function Report() {
   const [dateFilter, setDateFilter] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [type, setType] = useState("")
+  const [list, setList] = useState([])
+
+  console.log(list)
+  useEffect(() => {
+    const onSuccess = res => {
+      setIsLoading(false)
+      setList(res)
+    }
+
+    getPurchaseLog(onSuccess)
+  }, [])
 
   const data = useMemo(() => {
     let cloned = [...live]
@@ -28,6 +44,8 @@ function Report() {
   }, [type, dateFilter])
 
   const updateType = val => setType(p => p === val ? "" : val)
+
+  if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">

@@ -70,8 +70,9 @@ export async function getTransactions(mbeId, onSuccess) {
 
 export async function getPurchaseLog(purchaseLogId, onSuccess) {
   try {
+    const url = purchaseLogId ? `${endPoints.purchaseLog}?purchaseLogId=${purchaseLogId}` : endPoints.purchaseLog
     const res = await sendApiReq({
-      url: `${endPoints.purchaseLog}?purchaseLogId=${purchaseLogId}`,
+      url,
     })
 
     console.log(res)
