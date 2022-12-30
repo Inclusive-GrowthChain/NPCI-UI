@@ -12,7 +12,7 @@ import { DropDownWrapper, Menu } from '../UIComp/DropDown';
 import CertificateAsPdf from '../Home/Modals/CertificateAsPdf';
 import InvestorsList from './Modals/InvestorsList';
 import UserInfoModal from './Modals/UserInfo';
-import FilterByDate from './FilterByDate';
+// import FilterByDate from './FilterByDate';
 import Input from '../Home/common/Input';
 import Loader from '../Common/Loader';
 
@@ -21,7 +21,7 @@ function TransactionList() {
   const { state: tokenDetails } = useLocation()
 
   const [authorisation, setAuthorisation] = useState("")
-  const [dateFilter, setDateFilter] = useState(null)
+  // const [dateFilter, setDateFilter] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [status, setStatus] = useState("")
   const [type, setType] = useState("")
@@ -36,20 +36,20 @@ function TransactionList() {
       setList(res)
     }
 
-    getTransactions(onSuccess)
+    getTransactions("custodian@gmail.com", onSuccess)
   }, [])
 
   const data = useMemo(() => {
     let cloned = [...custodianTransaction]
 
-    if (dateFilter) {
-      let start = new Date(dateFilter.start).getTime()
-      let end = new Date(dateFilter.end).getTime()
-      cloned = cloned.filter(l => {
-        let currDate = new Date(l.maturityDate).getTime()
-        return currDate >= start && currDate <= end
-      })
-    }
+    // if (dateFilter) {
+    //   let start = new Date(dateFilter.start).getTime()
+    //   let end = new Date(dateFilter.end).getTime()
+    //   cloned = cloned.filter(l => {
+    //     let currDate = new Date(l.maturityDate).getTime()
+    //     return currDate >= start && currDate <= end
+    //   })
+    // }
 
     if (authorisation) {
       cloned = cloned.filter(l => l.authorisedStaus.match(authorisation))
@@ -64,7 +64,7 @@ function TransactionList() {
     }
 
     return cloned
-  }, [dateFilter, type, status, authorisation])
+  }, [type, status, authorisation])
 
   const updateType = val => setType(p => p === val ? "" : val)
   const updateStatus = val => setStatus(p => p === val ? "" : val)
@@ -114,7 +114,7 @@ function TransactionList() {
           </DropDownWrapper>
         </Menu>
 
-        <FilterByDate setDateFilter={setDateFilter} />
+        {/* <FilterByDate setDateFilter={setDateFilter} /> */}
 
         {
           tokenDetails ? <>
@@ -149,7 +149,7 @@ function TransactionList() {
         <table className="w-full table-fixed">
           <thead>
             <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
-              <td className="w-32 pl-8 pr-4 py-2">Date</td>
+              {/* <td className="w-32 pl-8 pr-4 py-2">Date</td> */}
               <td className="w-32 px-4 py-2">Transaction Id</td>
               <td className="w-24 px-4 py-2">Type</td>
               <td className="w-32 px-4 py-2">Investors</td>
@@ -172,7 +172,7 @@ function TransactionList() {
                     key={li.id}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                   >
-                    <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturityDate} </td>
+                    {/* <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturityDate} </td> */}
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.transactionNo} </td>
                     <td className={`px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 ${getTypeClr(li.transactionType)}`}>
                       {li.transactionType}
