@@ -8,9 +8,9 @@ import { getPurchaseLog } from '../../apis/custodianApis';
 
 function Report() {
   const [dateFilter, setDateFilter] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [type, setType] = useState("")
   const [res, setRes] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
 
   // const data = useMemo(() => {
   //   let cloned = [...live]
