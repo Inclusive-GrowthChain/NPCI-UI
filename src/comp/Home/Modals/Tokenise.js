@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { tokenize } from '../../../apis/apis';
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
+import { errorNotify, successNotify } from "../../../helper/toastifyHelp";
 
 // If Tokenized “Tokenized , Visit transaction history & My token holdings for more details”.
 // If pending “Transaction pending, Visit transaction history for more details”.
@@ -22,11 +23,16 @@ function Tokenise({ isOpen, data, closeModal }) {
 
   const onSubmit = () => {
     console.log(details)
-    tokenize(details, onSuccess)
+    tokenize(details, onSuccess, onFailure)
   }
 
   const onSuccess = () => {
-    console.log("Tokenize done")
+    successNotify("Successfully Tokenized!")
+    closeModal()
+  }
+
+  const onFailure = () => {
+    errorNotify("Tokenization failed. Please try again")
   }
 
   return (
@@ -48,7 +54,7 @@ function Tokenise({ isOpen, data, closeModal }) {
           />
           <Input
             lable='Coupon Rate'
-            value={data.couponRate}
+            value={data.couponrate}
           />
           <Input
             lable='LTP'
@@ -56,11 +62,11 @@ function Tokenise({ isOpen, data, closeModal }) {
           />
           <Input
             lable='Maturity Date'
-            value={data.maturityDate}
+            value={data.maturitydate}
           />
           <Input
             lable='No. of lots'
-            value={data.noOfLots}
+            value={data.LotQty}
           />
           <Input
             lable='Currency'
@@ -70,7 +76,7 @@ function Tokenise({ isOpen, data, closeModal }) {
           <div className='grid-col-full'>
             <Input
               lable='Security Description'
-              value={data.securityDescription}
+              value={data.securitydescription}
               inputCls="w-full max-w-none"
               lableCls='w-auto'
             />

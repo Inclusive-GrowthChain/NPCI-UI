@@ -72,7 +72,7 @@ function MBEMarket() {
                 .filter((a, i) => market[i].isTokenized === true)
                 .map(li => (
                   <tr
-                    key={li.isin}
+                    key={li._id}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                     onClick={() => updateOpen(li.isin)}
                   >

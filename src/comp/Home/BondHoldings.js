@@ -1,16 +1,32 @@
-import { useState } from 'react';
-
-import bond from "../../constants/bond";
-import Tokenise from './Modals/Tokenise';
+import { useEffect, useState } from 'react';
 import useStore from "../../store";
+
+import { fetchTokenHoldings } from '../../apis/apis';
+
+import Tokenise from './Modals/Tokenise';
+import Loader from '../Common/Loader';
 
 function BondHoldings() {
   const [open, setOpen] = useState("")
   const email = useStore(state => state.email)
 
+  const [bondHoldings, setBondHoldings] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const onSuccess = (payload) => {
+      setBondHoldings(payload.message)
+      setLoading(false)
+    }
+
+    fetchTokenHoldings({ "mbeId": email }, onSuccess)
+  }, [email])
+
   const updateOpen = id => setOpen(id)
 
   const closeModal = () => setOpen("")
+
+  if (loading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
@@ -37,22 +53,22 @@ function BondHoldings() {
 
           <tbody>
             {
-              bond
-                .filter((a, i) => bond[i].mbeId === email)
+              bondHoldings
+                // .filter((a, i) => bond[i].mbeId === email)
                 .map(li => (
                   <tr
-                    key={li.isin}
+                    key={li._id}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                     onClick={() => updateOpen(li.isin)}
                   >
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.isin} </td>
                     <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponRate} </td>
-                    <td className="px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.creditRating} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.maturityDate} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponrate} </td>
+                    <td className="px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.creditrating} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.maturitydate} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.faceValue} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.noOfLots} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.purchasePrice} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.LotQty} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.ltp} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.currentPrice || "-"} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
                       <button className='px-3 py-1.5 rounded border border-emerald-400 hover:bg-emerald-400'>
@@ -70,7 +86,7 @@ function BondHoldings() {
         open &&
         <Tokenise
           isOpen
-          data={bond.find(li => li.isin === open)}
+          data={bondHoldings.find(li => li.isin === open)}
           closeModal={closeModal}
         />
       }

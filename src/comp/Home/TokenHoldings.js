@@ -69,9 +69,9 @@ function TokenHoldings() {
                 .filter((a, i) => tokenHoldings[i].isTokenized === true)
                 .map(li => (
                   <tr
-                    key={li.id}
+                    key={li._id}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
-                    onClick={() => updateOpen(li.id, "Sell")}
+                    onClick={() => updateOpen(li.isin, "Sell")}
                   >
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.isin} </td>
                     <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
@@ -99,7 +99,7 @@ function TokenHoldings() {
                         className='px-3 py-1.5 rounded border border-red-500 hover:bg-red-500 hover:text-white'
                         onClick={e => {
                           e.stopPropagation()
-                          updateOpen(li.id, "Detokenzise")
+                          updateOpen(li.isin, "Detokenzise")
                         }}
                       >
                         Detokenize
@@ -117,7 +117,7 @@ function TokenHoldings() {
         type === 'Sell' &&
         <Sell
           isOpen
-          data={tokenHoldings.find(li => li.id === open)}
+          data={tokenHoldings.find(li => li.isin === open)}
           closeModal={closeModal}
         />
       }
@@ -126,7 +126,7 @@ function TokenHoldings() {
         type === 'Detokenzise' &&
         <Detokenzise
           isOpen
-          data={tokenHoldings.find(li => li.id === open)}
+          data={tokenHoldings.find(li => li.isin === open)}
           closeModal={closeModal}
         />
       }
