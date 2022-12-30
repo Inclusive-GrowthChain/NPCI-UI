@@ -27,7 +27,7 @@ const endPoints = {
   tokenholding: "tokenholding",
   transactions: "transactions",
   bondholding: "bondholding",
-  purchaseLog: "purchaseLog",
+  purchaseLog: "trade/purchaseLog",
   market: "market",
 }
 

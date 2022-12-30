@@ -1,33 +1,48 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
 import { DropDownWrapper } from '../UIComp/DropDown';
 import FilterByDate from './FilterByDate';
 import live from '../../constants/report';
+import Loader from '../Common/Loader';
+import { getPurchaseLog } from '../../apis/custodianApis';
 
 function Report() {
   const [dateFilter, setDateFilter] = useState(null)
   const [type, setType] = useState("")
+  const [res, setRes] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
 
-  const data = useMemo(() => {
-    let cloned = [...live]
+  // const data = useMemo(() => {
+  //   let cloned = [...live]
 
-    if (dateFilter) {
-      let start = new Date(dateFilter.start).getTime()
-      let end = new Date(dateFilter.end).getTime()
-      cloned = cloned.filter(l => {
-        let currDate = new Date(l.maturityDate).getTime()
-        return currDate >= start && currDate <= end
-      })
+  //   if (dateFilter) {
+  //     let start = new Date(dateFilter.start).getTime()
+  //     let end = new Date(dateFilter.end).getTime()
+  //     cloned = cloned.filter(l => {
+  //       let currDate = new Date(l.maturityDate).getTime()
+  //       return currDate >= start && currDate <= end
+  //     })
+  //   }
+
+  //   if (type) {
+  //     cloned = cloned.filter(l => l.transactionType.match(type))
+  //   }
+
+  //   return cloned
+  // }, [type, dateFilter])
+
+  useEffect(() => {
+    const onSuccess = (payload) => {
+      setRes(payload)
+      setIsLoading(false)
     }
 
-    if (type) {
-      cloned = cloned.filter(l => l.transactionType.match(type))
-    }
-
-    return cloned
-  }, [type, dateFilter])
+    getPurchaseLog(onSuccess)
+  }, [])
 
   const updateType = val => setType(p => p === val ? "" : val)
+
+  if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
@@ -68,16 +83,16 @@ function Report() {
 
           <tbody>
             {
-              data.map(li => (
+              res.map(li => (
                 <tr
                   key={li.id}
                   className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                 >
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturityDate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.securityCode} </td>
+                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturitydate} </td>
+                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.isin} </td>
                   <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponRate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturityDate} </td>
+                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponrate} </td>
+                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturitydate} </td>
                   <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.volumn / 1000} </td>
                   <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.volumn} </td>
                 </tr>

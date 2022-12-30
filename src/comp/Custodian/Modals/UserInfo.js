@@ -12,7 +12,7 @@ function UserInfo({ isOpen, data, closeModal }) {
       <div className='grid grid-cols-2 gap-4'>
         <Input
           lable='MBE ID'
-          value={data._id}
+          value={data.email}
         />
         <Input
           lable='Name'

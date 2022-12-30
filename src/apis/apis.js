@@ -117,7 +117,7 @@ export async function fetchTransactions(data, onSuccess) {
       params: data
     })
     console.log(payload)
-    if (payload.status_code === 200)
+    if (payload.status === 200)
       onSuccess(payload)
   } catch (error) {
     console.log(error)

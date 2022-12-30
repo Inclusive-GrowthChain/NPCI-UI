@@ -19,6 +19,7 @@ import Loader from '../Common/Loader';
 function TransactionList() {
   const role = useStore(state => state.role)
   const { state: tokenDetails } = useLocation()
+  const email = useStore(state => state.email)
 
   const [authorisation, setAuthorisation] = useState("")
   const [dateFilter, setDateFilter] = useState(null)
@@ -36,8 +37,8 @@ function TransactionList() {
       setList(res)
     }
 
-    getTransactions(onSuccess)
-  }, [])
+    getTransactions({ "mbeId": email }, onSuccess)
+  }, [email])
 
   const data = useMemo(() => {
     let cloned = [...custodianTransaction]
@@ -121,7 +122,7 @@ function TransactionList() {
             <span className='ml-auto'></span>
             <Input
               lable='ISIN'
-              value={tokenDetails.securityCode}
+              value={tokenDetails.isin}
               inputCls="bg-slate-800 text-white border-none"
               lableCls='w-auto mb-0'
             />
@@ -133,7 +134,7 @@ function TransactionList() {
             />
             <Input
               lable='No Of Token'
-              value={tokenDetails.noOfToken}
+              value={tokenDetails.TotalQtyRemaining}
               inputCls="bg-slate-800 text-white border-none"
               lableCls='w-auto mb-0'
             />
@@ -165,14 +166,14 @@ function TransactionList() {
 
           <tbody>
             {
-              data
+              list
                 // .filter((l, i) => tokenDetails ? i < 10 : true)
                 .map((li, i) => (
                   <tr
                     key={li.id}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                   >
-                    <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturityDate} </td>
+                    <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturitydate} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.transactionNo} </td>
                     <td className={`px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 ${getTypeClr(li.transactionType)}`}>
                       {li.transactionType}
