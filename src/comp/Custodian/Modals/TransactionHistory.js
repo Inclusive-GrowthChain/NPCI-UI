@@ -58,8 +58,8 @@ function TransactionHistory({ isOpen, data, closeModal }) {
                       <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.securityCode} </td>
                       <td className="px-4 py-2 text-sm font-medium opacity-80 group-hover:opacity-100"> {li.issuerName} </td>
                       <td className={`px-4 py-2 text-sm opacity-80 group-hover:opacity-100 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.noOfToken / 100} </td>
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.noOfToken} </td>
+                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.TotalQtyRemaining / 100} </td>
+                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.TotalQtyRemaining} </td>
                       <td className={`px-4 py-2 text-xs opacity-80 group-hover:opacity-100 ${i % 5 === 0 ? "text-red-400" : "text-emerald-400"}`}>
                         {
                           i % 5 === 0

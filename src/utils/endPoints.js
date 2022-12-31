@@ -25,9 +25,9 @@ const endPoints = {
   fetchCBDCBalance: "trade/balance",
 
   tokenholding: "tokenholding",
-  transactions: "transactions",
+  transactions: "trade/purchaselog",
   bondholding: "bondholding",
-  purchaseLog: "trade/purchaseLog",
+  purchaseLog: "trade/purchaselog",
   market: "market",
 }
 

@@ -65,7 +65,6 @@ export async function getTransactions(data, onSuccess) {
     const payload = await sendApiReq({
       method: 'get',
       url: endPoints.transactions,
-      params: data
     })
     console.log(payload)
     if (payload.status === 200)
