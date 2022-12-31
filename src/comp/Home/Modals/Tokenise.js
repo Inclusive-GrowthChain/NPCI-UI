@@ -26,13 +26,13 @@ function Tokenise({ isOpen, data, closeModal }) {
     tokenize(details, onSuccess, onFailure)
   }
 
-  const onSuccess = () => {
-    successNotify("Successfully Tokenized!")
+  const onSuccess = (message) => {
+    successNotify(message)
     closeModal()
   }
 
-  const onFailure = () => {
-    errorNotify("Tokenization failed. Please try again")
+  const onFailure = (message) => {
+    errorNotify(message)
   }
 
   return (

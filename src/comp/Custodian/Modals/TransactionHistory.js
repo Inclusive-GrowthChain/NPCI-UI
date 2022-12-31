@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useStore from '../../../store';
 
-import { getTransactions } from '../../../apis/custodianApis';
+import { fetchSingleUserBuyTransactions, fetchSingleUserSellTransactions, getTransactions } from '../../../apis/custodianApis';
 import getTypeClr from '../../../helper/getTypeClr';
 
 import { ReactComponent as Print } from '../../../assets/svg/files/print.svg';
@@ -15,12 +15,26 @@ function TransactionHistory({ isOpen, data, closeModal }) {
   const [list, setList] = useState([])
 
   useEffect(() => {
-    const onSuccess = res => {
-      setIsLoading(false)
-      setList(res)
+    const onSuccess1 = res => {
+      if (res != null)
+        setList(res)
     }
 
-    getTransactions(data.email, onSuccess)
+    const onSuccess2 = res => {
+      if (res != null) {
+        for (let i = 0; i < res.length; i++) {
+          const entry = res[i]
+          setList(p => ({
+            ...p,
+            entry
+          }))
+        }
+      }
+      setIsLoading(false)
+    }
+
+    fetchSingleUserBuyTransactions(data.email, onSuccess1)
+    fetchSingleUserSellTransactions(data.email, onSuccess2)
   }, [data.email])
 
   return (
@@ -54,8 +68,8 @@ function TransactionHistory({ isOpen, data, closeModal }) {
                       key={li.id}
                       className="even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
                     >
-                      <td className="pl-8 pr-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.maturityDate} </td>
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.securityCode} </td>
+                      <td className="pl-8 pr-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.maturitydate} </td>
+                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.isin} </td>
                       <td className="px-4 py-2 text-sm font-medium opacity-80 group-hover:opacity-100"> {li.issuerName} </td>
                       <td className={`px-4 py-2 text-sm opacity-80 group-hover:opacity-100 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
                       <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.TotalQtyRemaining / 100} </td>

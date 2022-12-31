@@ -30,13 +30,13 @@ function Detokenzise({ isOpen, data, closeModal }) {
     detokenzie(details, onSuccess, onFailure)
   }
 
-  const onSuccess = () => {
-    successNotify("Successfully Detokenized!")
+  const onSuccess = (message) => {
+    successNotify(message)
     closeModal()
   }
 
-  const onFailure = () => {
-    errorNotify("Detokenization failed. Please try again")
+  const onFailure = (message) => {
+    errorNotify(message)
   }
 
   return (

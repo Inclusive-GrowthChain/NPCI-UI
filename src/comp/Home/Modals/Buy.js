@@ -45,13 +45,13 @@ function Buy({ isOpen, data, closeModal }) {
     }
   }
 
-  const onSuccess = () => {
-    successNotify("Buy Order Added Successfully")
+  const onSuccess = (message) => {
+    successNotify(message)
     closeModal()
   }
 
-  const onFailure = () => {
-    errorNotify("Buy Order Addition failed. Please try again")
+  const onFailure = (message) => {
+    errorNotify(message)
   }
 
   return (
@@ -101,7 +101,7 @@ function Buy({ isOpen, data, closeModal }) {
             role === "investor" ? <>
               <div>
                 <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-                <input type="text" onChange={onChange} name="NumOfTokens" />
+                <input type="text" onChange={onChange} name="NumOfToken" />
               </div>
 
               <div>
@@ -140,7 +140,7 @@ function Buy({ isOpen, data, closeModal }) {
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div>
               <label className='mb-1 font-medium' htmlFor="">Quantity</label>
-              <input type="text" value={details.NumOfTokens} readOnly />
+              <input type="text" value={details.NumOfToken} readOnly />
             </div>
 
             <div>
@@ -150,7 +150,7 @@ function Buy({ isOpen, data, closeModal }) {
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Total</label>
-              <input type="text" value={Number(details.NumOfTokens) * Number(details.Price)} readOnly />
+              <input type="text" value={Number(details.NumOfToken) * Number(details.Price)} readOnly />
             </div>
           </div>
         }

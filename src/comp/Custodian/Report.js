@@ -69,9 +69,9 @@ function Report() {
           <Filter className={`fill-white ${type ? "opacity-100" : "opacity-70"}`} />
         </DropDownWrapper>
 
-        <FilterByDate
+        {/* <FilterByDate
           setDateFilter={setDateFilter}
-        />
+        /> */}
 
         <h1 className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-lg font-medium text-center'>
           Report

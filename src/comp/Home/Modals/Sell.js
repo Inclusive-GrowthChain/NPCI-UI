@@ -40,13 +40,13 @@ function Sell({ isOpen, data, closeModal }) {
     }
   }
 
-  const onSuccess = () => {
-    successNotify("Sell Order Added Successfully")
+  const onSuccess = (message) => {
+    successNotify(message)
     closeModal()
   }
 
-  const onFailure = () => {
-    errorNotify("Sell Order Addition failed. Please try again")
+  const onFailure = (message) => {
+    errorNotify(message)
   }
 
   return (

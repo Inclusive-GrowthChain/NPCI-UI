@@ -17,7 +17,7 @@ function TransactionHitory() {
 
   useEffect(() => {
     const onSuccess = (payload) => {
-      setTransactions(payload.data)
+      setTransactions(payload.message)
       setLoading(false)
     }
 

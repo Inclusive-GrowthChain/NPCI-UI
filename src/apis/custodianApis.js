@@ -103,3 +103,60 @@ export async function getMarket(onSuccess) {
     console.log(error)
   }
 }
+
+export async function fetchAllUserSellTransactions(onSuccess) {
+  try {
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.fetchAllUserSellTransactions,
+    })
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess(payload.message)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function fetchAllUserBuyTransactions(onSuccess) {
+  try {
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.fetchAllUserBuyTransactions,
+    })
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess(payload.message)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function fetchSingleUserSellTransactions(onSuccess) {
+  try {
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.fetchSingleUserSellTransactions,
+    })
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess(payload.message)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function fetchSingleUserBuyTransactions(onSuccess) {
+  try {
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.fetchSingleUserBuyTransactions,
+    })
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess(payload.message)
+  } catch (error) {
+    console.log(error)
+  }
+}
+

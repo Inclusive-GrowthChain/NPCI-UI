@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import useStore from '../../store';
 
 import custodianTransaction from '../../constants/custodianTransaction';
-import { getTransactions } from '../../apis/custodianApis';
+import { fetchAllUserBuyTransactions, fetchAllUserSellTransactions, getTransactions } from '../../apis/custodianApis';
 import getTypeClr from '../../helper/getTypeClr';
 
 import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
@@ -19,7 +19,6 @@ import Loader from '../Common/Loader';
 function TransactionList() {
   const role = useStore(state => state.role)
   const { state: tokenDetails } = useLocation()
-  const email = useStore(state => state.email)
 
   const [authorisation, setAuthorisation] = useState("")
   // const [dateFilter, setDateFilter] = useState(null)
@@ -32,13 +31,27 @@ function TransactionList() {
   console.log({ list })
 
   useEffect(() => {
-    const onSuccess = res => {
-      setIsLoading(false)
-      setList(res)
+    const onSuccess1 = res => {
+      if (res != null)
+        setList(res)
     }
 
-    getTransactions({ "mbeId": email }, onSuccess)
-  }, [email])
+    const onSuccess2 = res => {
+      if (res != null) {
+        for (let i = 0; i < res.length; i++) {
+          const entry = res[i]
+          setList(p => ({
+            ...p,
+            entry
+          }))
+        }
+      }
+      setIsLoading(false)
+    }
+
+    fetchAllUserSellTransactions(onSuccess1)
+    fetchAllUserBuyTransactions(onSuccess2)
+  }, [])
 
   const data = useMemo(() => {
     let cloned = [...custodianTransaction]
@@ -134,7 +147,7 @@ function TransactionList() {
             />
             <Input
               lable='No Of Token'
-              value={tokenDetails.TotalQtyRemaining}
+              value={tokenDetails.NumOfToken}
               inputCls="bg-slate-800 text-white border-none"
               lableCls='w-auto mb-0'
             />
@@ -170,11 +183,11 @@ function TransactionList() {
                 // .filter((l, i) => tokenDetails ? i < 10 : true)
                 .map((li, i) => (
                   <tr
-                    key={li.id}
+                    key={li._id}
                     className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                   >
-                    <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturitydate} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.transactionNo} </td>
+                    <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.OrderId} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.transactionType} </td>
                     <td className={`px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 ${getTypeClr(li.transactionType)}`}>
                       {li.transactionType}
                     </td>

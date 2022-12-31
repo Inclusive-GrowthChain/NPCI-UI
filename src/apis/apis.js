@@ -150,9 +150,9 @@ export async function tokenize(data, onSuccess, onFailure) {
     })
     console.log(payload)
     if (payload.status === 200)
-      onSuccess()
+      onSuccess(payload.message)
     else 
-      onFailure()
+      onFailure(payload.message)
   } catch (error) {
     console.log(error)
   }
@@ -168,9 +168,9 @@ export async function detokenzie(data, onSuccess, onFailure) {
     })
     console.log(payload)
     if (payload.status === 200)
-      onSuccess()
-    else 
-      onFailure()
+      onSuccess(payload.message)
+    else
+      onFailure(payload.message)
   } catch (error) {
     console.log(error)
   }
@@ -186,9 +186,9 @@ export async function sellOrder(data, onSuccess, onFailure) {
     })
     console.log(payload)
     if (payload.status === 200)
-      onSuccess()
+      onSuccess(payload.message)
     else
-      onFailure()
+      onFailure(payload.message)
   } catch (error) {
     console.log(error)
   }
@@ -203,9 +203,9 @@ export async function buyOrder(data, onSuccess, onFailure) {
     })
     console.log(payload)
     if (payload.status === 200)
-      onSuccess()
+      onSuccess(payload.message)
     else
-      onFailure()
+      onFailure(payload.message)
   } catch (error) {
     console.log(error)
   }

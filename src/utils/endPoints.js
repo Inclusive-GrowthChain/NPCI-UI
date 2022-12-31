@@ -17,8 +17,14 @@ const endPoints = {
   tokenize: "trade/tokenize",
   detokenize: "trade/detokenize",
 
-  sellOrder: "trade/placeSellOrder",
-  buyOrder: "trade/placeBuyOrder",
+  placeSellOrder: "trade/placeSellOrder",
+  placeBuyOrder: "trade/placeBuyOrder",
+
+  fetchSingleUserSellTransactions: "trade/sellOrderSingle",
+  fetchSingleUserBuyTransactions: "trade/buyOrdersingle",
+
+  fetchAllUserSellTransactions: "trade/sellOrder",
+  fetchAllUserBuyTransactions: "trade/buyOrder",
 
   fetchMarket: "dashbord",
   fetchTokenHoldings: "getBonddetailsofUser",
