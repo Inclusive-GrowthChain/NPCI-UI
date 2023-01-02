@@ -181,7 +181,7 @@ export async function sellOrder(data, onSuccess, onFailure) {
     console.log(data)
     const payload = await sendApiReq({
       method: 'post',
-      url: endPoints.sellOrder,
+      url: endPoints.placeSellOrder,
       data
     })
     console.log(payload)
@@ -198,7 +198,7 @@ export async function buyOrder(data, onSuccess, onFailure) {
   try {
     const payload = await sendApiReq({
       method: 'post',
-      url: endPoints.buyOrder,
+      url: endPoints.placeBuyOrder,
       data
     })
     console.log(payload)
@@ -248,6 +248,41 @@ export async function fetchCBDCBalance(data, onSuccess) {
       params: data,
     })
     console.log(payload)
+    if (payload.status === 200)
+      onSuccess(payload.message)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function addWalletBalance(data, token, onSuccess) {
+  console.log(data)
+  try {
+    const payload = await sendApiReq({
+      method: 'post',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
+      url: endPoints.addBalance,
+      data
+    })
+    console.log(payload)
+    if (payload.status === 200)
+      onSuccess(payload.message)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function fetchNumOfDetokenizeToken(data, onSuccess) {
+  console.log(data);
+  try {
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.numOfDetokenizeToken,
+      params: data,
+    })
+    console.log(data)
     if (payload.status === 200)
       onSuccess(payload.message)
   } catch (error) {

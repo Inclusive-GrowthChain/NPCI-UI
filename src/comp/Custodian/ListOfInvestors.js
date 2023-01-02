@@ -11,6 +11,7 @@ import BondHoldingsModal from './Modals/BondHoldings';
 import UserInfoModal from './Modals/UserInfo';
 import Input from '../Home/common/Input';
 import Loader from '../Common/Loader';
+import { fetchCBDCBalance } from '../../apis/apis';
 
 function ListOfInvestors() {
   const role = useStore(state => state.role)
@@ -20,11 +21,35 @@ function ListOfInvestors() {
   const [filter, setFilter] = useState("")
   const [open, setOpen] = useState({ state: "", data: {} })
   const [data, setData] = useState([])
+  // const [CBDCBalance, setCBDCBalance] = useState({})
+  const CBDCBalance = {}
 
   useEffect(() => {
-    const onSuccess = res => {
-      setIsLoading(false)
+    const onCBDCBalanceFetch = (payload) => {
+      console.log("onCBDCBalanceFetch")
+      console.log(payload)
+      // setCBDCBalance(p => ({
+      //   ...p,
+      //   [payload.mbeId]: payload.CBDCBalance
+      // }))
+      CBDCBalance[payload['mbeId']] = payload.CBDCbalance
+      console.log(CBDCBalance)
+      // for (let i = 0; i < data.length; i++) {
+      //   console.log(data[i])
+      //   if (data[i].email === payload.mbeId) {
+      //     data[i].CBDCBalance = payload.CBDCBalance
+      //   }
+      // }
+    }
+
+    const  onSuccess = async res => {
       setData(res)
+      // for (let i = 0; i < res.length; i++) {
+      //   console.log("res" + res[i].email)
+      //   fetchCBDCBalance({ "MbeId": res[i].email }, onCBDCBalanceFetch);
+      // }
+      fetchCBDCBalance({ "MbeId": res[0].email }, onCBDCBalanceFetch);
+      setIsLoading(false)
     }
 
     getInvestorLists(onSuccess)
@@ -140,7 +165,7 @@ function ListOfInvestors() {
                       </button>
                     </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
-                      {li.noOfToken * 100}
+                      {CBDCBalance[li.email]}
                     </td>
                   </tr>
                 ))

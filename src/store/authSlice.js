@@ -2,10 +2,11 @@ const authSlice = (set, get) => ({
   isLoggedIn: false,
   role: "",
   email: "",
+  token: "",
   details: {},
   nseData: {},
-  logIn: (role, email) => {
-    set({ isLoggedIn: true, role, email })
+  logIn: (role, email, token) => {
+    set({ isLoggedIn: true, role, email, token })
   },
   logOut: () => {
     set({ role: "", isLoggedIn: false })

@@ -66,7 +66,7 @@ function TokenHoldings() {
           <tbody>
             {
               tokenHoldings
-                .filter((a, i) => tokenHoldings[i].isTokenized === true)
+                .filter((a, i) => (tokenHoldings[i].IsTokenized === true && tokenHoldings[i].TokenizedLot !== "0"))
                 .map(li => (
                   <tr
                     key={li._id}
@@ -91,7 +91,7 @@ function TokenHoldings() {
                       </button>
                     </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.TotalTokenQty} </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.LotQty} </td>
+                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.TokenizedLot} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.purchasePrice || "-"} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.currentPrice || "-"} </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">

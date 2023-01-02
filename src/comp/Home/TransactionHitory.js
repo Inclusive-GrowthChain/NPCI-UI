@@ -17,6 +17,8 @@ function TransactionHitory() {
 
   useEffect(() => {
     const onSuccess = (payload) => {
+      const timestamp = Date.now();
+      console.log(new Intl.DateTimeFormat('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(timestamp));
       setTransactions(payload.message)
       setLoading(false)
     }
@@ -31,7 +33,7 @@ function TransactionHitory() {
   return (
     <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
-        Transactions Hitory
+        Transactions History
       </h1>
 
       <div className="scroll-y overflow-x-auto">
@@ -54,26 +56,23 @@ function TransactionHitory() {
             {
               transactions.map((li, i) => (
                 <tr
-                  key={li.id}
+                  key={li._id}
                   className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
                 >
-                  <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturityDate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.securityCode} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.transactionId} </td>
+                  <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturitydate} </td>
+                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.isin} </td>
+                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.BuyOrderId || li.SellOrderId} </td>
                   <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
                   <td className={`px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.noOfToken / 100} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.transactionAmount * 1000} </td>
-                  <td className={`px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 ${i % 5 === 0 ? "text-red-400" : "text-emerald-400"}`}>
+                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.NumOfToken} </td>
+                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.TradeValue} </td>
+                  <td className={`px-4 py-2 text-xs opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-emerald-400`}>
                     {
-                      i % 5 === 0
-                        ? "Failure"
-                        : "Success"
+                      li.Purchased ? "Purchased" : li.isAuthorized ? "Authorized" : li.isProcessed ? "Processed" : "Failure"
                     }
                   </td>
                   <td className='px-4 py-2 text-sm border-b border-[rgba(255,255,255,.3)]'>
                     {
-                      i % 5 !== 0 &&
                       <Print
                         className="mx-auto fill-white opacity-70 hover:opacity-100"
                         onClick={updateOpen}

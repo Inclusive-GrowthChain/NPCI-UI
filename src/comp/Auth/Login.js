@@ -37,6 +37,8 @@ function Login() {
 
   const onSuccess = (payload) => {
     const nodes = ["investor", "custodian", "regulator", "mbe"]
+    // const token = payload.token.split(' ')[1]
+    // console.log(token)
     if (nodes.includes(payload.role)) {
       logIn(payload.role, details.email)
       navigate("/mbe-market")

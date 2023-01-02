@@ -63,7 +63,7 @@ function TokenHoldings({ isOpen, data, closeModal }) {
                       <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.askPrice || 0}</td>
                       <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {li.TokenQtyRemaining} </td>
                       <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {li.ltp} </td>
-                      <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {li.bidPrice || 0} </td>
+                      <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {Math.floor(li.ltp * li.TokenQtyRemaining)} </td>
                     </tr>
                   ))
                 }

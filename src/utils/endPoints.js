@@ -16,6 +16,7 @@ const endPoints = {
 
   tokenize: "trade/tokenize",
   detokenize: "trade/detokenize",
+  numOfDetokenizeToken: "trade/detokenizetoken",
 
   placeSellOrder: "trade/placeSellOrder",
   placeBuyOrder: "trade/placeBuyOrder",
@@ -29,6 +30,7 @@ const endPoints = {
   fetchMarket: "dashbord",
   fetchTokenHoldings: "getBonddetailsofUser",
   fetchCBDCBalance: "trade/balance",
+  addBalance: "trade/walletbalanceAddition",
 
   tokenholding: "tokenholding",
   transactions: "trade/purchaselog",

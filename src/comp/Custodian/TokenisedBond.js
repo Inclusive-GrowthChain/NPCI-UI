@@ -50,7 +50,7 @@ function TokenisedBond() {
               <td className="w-28 px-4 py-2">Current Price</td>
               <td className="w-28 px-4 py-2">List of Investors</td>
               <td className="w-40 px-4 py-2 text-center">Number of tokens detokenized</td>
-              <td className="w-28 px-4 py-2 text-center">Detokenized Value</td>
+              {/* <td className="w-28 px-4 py-2 text-center">Detokenized Value</td> */}
             </tr>
           </thead>
 
@@ -82,9 +82,9 @@ function TokenisedBond() {
                   <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
                     {li.askPrice || 0}
                   </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
+                  {/* <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
                     {li.bidPrice || 0}
-                  </td>
+                  </td> */}
                 </tr>
               ))
             }
