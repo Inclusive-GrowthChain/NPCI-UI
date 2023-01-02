@@ -151,7 +151,7 @@ export async function tokenize(data, onSuccess, onFailure) {
     console.log(payload)
     if (payload.status === 200)
       onSuccess(payload.message)
-    else 
+    else
       onFailure(payload.message)
   } catch (error) {
     console.log(error)
@@ -288,4 +288,13 @@ export async function fetchNumOfDetokenizeToken(data, onSuccess) {
   } catch (error) {
     console.log(error)
   }
+}
+
+export async function fetchCBDCBalance2(params) {
+  const data = await sendApiReq({
+    url: endPoints.fetchCBDCBalance,
+    params
+  })
+
+  return data
 }

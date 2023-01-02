@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import useStore from '../../store';
 
 import { getInvestorLists } from '../../apis/custodianApis';
+import { fetchCBDCBalance2 } from '../../apis/apis';
 
 import { ReactComponent as Search } from '../../assets/svg/common/seach.svg';
 import TransactionHistoryModal from './Modals/TransactionHistory';
@@ -11,7 +12,6 @@ import BondHoldingsModal from './Modals/BondHoldings';
 import UserInfoModal from './Modals/UserInfo';
 import Input from '../Home/common/Input';
 import Loader from '../Common/Loader';
-import { fetchCBDCBalance } from '../../apis/apis';
 
 function ListOfInvestors() {
   const role = useStore(state => state.role)
@@ -21,34 +21,21 @@ function ListOfInvestors() {
   const [filter, setFilter] = useState("")
   const [open, setOpen] = useState({ state: "", data: {} })
   const [data, setData] = useState([])
-  // const [CBDCBalance, setCBDCBalance] = useState({})
-  const CBDCBalance = {}
 
   useEffect(() => {
-    const onCBDCBalanceFetch = (payload) => {
-      console.log("onCBDCBalanceFetch")
-      console.log(payload)
-      // setCBDCBalance(p => ({
-      //   ...p,
-      //   [payload.mbeId]: payload.CBDCBalance
-      // }))
-      CBDCBalance[payload['mbeId']] = payload.CBDCbalance
-      console.log(CBDCBalance)
-      // for (let i = 0; i < data.length; i++) {
-      //   console.log(data[i])
-      //   if (data[i].email === payload.mbeId) {
-      //     data[i].CBDCBalance = payload.CBDCBalance
-      //   }
-      // }
-    }
+    const onSuccess = async res => {
+      const balanceArrPromises = res.map(async current => {
+        const innerRes = await fetchCBDCBalance2({ MbeId: current.email })
 
-    const  onSuccess = async res => {
-      setData(res)
-      // for (let i = 0; i < res.length; i++) {
-      //   console.log("res" + res[i].email)
-      //   fetchCBDCBalance({ "MbeId": res[i].email }, onCBDCBalanceFetch);
-      // }
-      fetchCBDCBalance({ "MbeId": res[0].email }, onCBDCBalanceFetch);
+        return {
+          ...current,
+          CDBCbalance: innerRes.status === 200 ? innerRes?.message?.CBDCbalance || 0 : 0
+        }
+      })
+
+      const final = await Promise.all(balanceArrPromises)
+
+      setData(final)
       setIsLoading(false)
     }
 
@@ -122,7 +109,7 @@ function ListOfInvestors() {
           <tbody>
             {
               data
-                // .filter(li => li.email.toLowerCase().match(filter) || `${li.firstName} ${li.lastName}`.toLowerCase().match(filter))
+                .filter(li => li.email.toLowerCase().match(filter) || `${li.firstName} ${li.lastName}`.toLowerCase().match(filter))
                 .map(li => (
                   <tr
                     key={li._id}
@@ -165,7 +152,7 @@ function ListOfInvestors() {
                       </button>
                     </td>
                     <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
-                      {CBDCBalance[li.email]}
+                      {li.CDBCbalance}
                     </td>
                   </tr>
                 ))
