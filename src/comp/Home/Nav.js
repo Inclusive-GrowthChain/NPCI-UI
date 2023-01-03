@@ -5,8 +5,8 @@ import useStore from '../../store';
 import { ReactComponent as UserProfile } from '../../assets/svg/users/profile.svg';
 import { DropDownWrapper } from '../UIComp/DropDown';
 import AddBalance from './Modals/AddBalance';
-import { fetchCBDCBalance } from '../../apis/apis';
-import { getUserDetails } from '../../apis/custodianApis';
+import { fetchCBDCBalance, getUserDetails } from '../../apis/apis';
+// import { getUserDetails } from '../../apis/custodianApis';
 
 const routes = {
   investor: [
