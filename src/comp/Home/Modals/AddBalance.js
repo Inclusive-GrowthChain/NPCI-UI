@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import Modal from '../../UIComp/Modal';
 import useStore from "../../../store";
+
 import { successNotify } from '../../../helper/toastifyHelp';
 import { addWalletBalance } from '../../../apis/apis';
 
+import Modal from '../../UIComp/Modal';
+
 function AddBalance({ isOpen, closeModal }) {
   const MbeId = useStore(state => state.email)
-  const token = useStore(state => state.token)
   // const [amount, setAmount] = useState({})
   const [details, setDetails] = useState({
     'email': MbeId
@@ -25,7 +26,7 @@ function AddBalance({ isOpen, closeModal }) {
   }
 
   const onSubmit = () => {
-    addWalletBalance(details, token, onSuccess)
+    addWalletBalance(details, onSuccess)
   }
 
   return (

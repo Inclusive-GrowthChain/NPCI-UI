@@ -15,7 +15,6 @@ function Input({ lable = "", value = "" }) {
 
 function Profile() {
   const email = useStore(state => state.email)
-  const token = useStore(state => state.token)
   const [userDetails, setUserDetails] = useState({})
   const [CBDCBalance, setCBDCBalance] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -30,8 +29,8 @@ function Profile() {
       setCBDCBalance(payload?.CBDCbalance || 0)
     }
 
-    getUserDetails({ "email": email }, token, onSuccessUserDetails)
-    fetchCBDCBalance({ "MbeId": email }, token, onSuccessCBDCBalanceFetch)
+    getUserDetails({ "email": email }, onSuccessUserDetails)
+    fetchCBDCBalance({ "MbeId": email }, onSuccessCBDCBalanceFetch)
   }, [email])
 
   if (loading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />

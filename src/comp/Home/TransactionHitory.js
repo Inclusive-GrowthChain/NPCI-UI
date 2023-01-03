@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import useStore from "../../store";
 
-import { fetchTransactions } from '../../apis/apis';
+// import { fetchTransactions } from '../../apis/apis';
+import { fetchSingleUserBuyTransactions, fetchSingleUserSellTransactions } from '../../apis/custodianApis';
 import getTypeClr from '../../helper/getTypeClr';
 
 import { ReactComponent as Print } from '../../assets/svg/files/print.svg';
 import CertificateAsPdf from './Modals/CertificateAsPdf';
 import Loader from '../Common/Loader';
-import { fetchSingleUserBuyTransactions, fetchSingleUserSellTransactions } from '../../apis/custodianApis';
 
 function TransactionHitory() {
   const email = useStore(state => state.email)
@@ -15,7 +15,6 @@ function TransactionHitory() {
   const [transactions, setTransactions] = useState([])
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
-  const token = useStore(state => state.token)
 
   useEffect(() => {
     // const onSuccess = (payload) => {
@@ -45,8 +44,8 @@ function TransactionHitory() {
       setLoading(false)
     }
 
-    fetchSingleUserBuyTransactions({"MbeId": email}, token, onSuccess1)
-    fetchSingleUserSellTransactions({ "MbeId": email }, token, onSuccess2)
+    fetchSingleUserBuyTransactions({ "MbeId": email }, onSuccess1)
+    fetchSingleUserSellTransactions({ "MbeId": email }, onSuccess2)
   }, [email])
 
   const updateOpen = () => setOpen(p => !p)

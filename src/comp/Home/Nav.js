@@ -95,7 +95,6 @@ function Nav() {
   const [open, setOpen] = useState(false)
   const [list, setList] = useState([])
   const navigate = useNavigate()
-  const token = useStore(state => state.token)
 
   useEffect(() => {
     const ddList = role === "investor" ? ["Profile", "Log Out"] : ["Log Out"]
@@ -105,7 +104,7 @@ function Nav() {
       setCBDCBalance(payload?.CBDCbalance || 0)
     }
 
-    fetchCBDCBalance({ "MbeId": MbeId }, token, onSuccess)
+    fetchCBDCBalance({ "MbeId": MbeId }, onSuccess)
   }, [role])
 
   const onClk = val => {

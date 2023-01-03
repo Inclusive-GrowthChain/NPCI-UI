@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import Modal from '../../UIComp/Modal';
-import Input from '../../Home/common/Input';
+
 import { getUserDetails } from '../../../apis/apis';
-import useStore from '../../../store';
+
 import Loader from '../../Common/Loader';
+import Input from '../../Home/common/Input';
+import Modal from '../../UIComp/Modal';
 
 function UserInfo({ isOpen, data, closeModal }) {
-  const email = useStore(state => state.email)
   const [userDetails, setUserDetails] = useState({})
   const [loading, setLoading] = useState(true)
 
@@ -17,7 +17,6 @@ function UserInfo({ isOpen, data, closeModal }) {
     }
 
     getUserDetails({ "email": data.MbeId }, onSuccessUserDetails)
-
   }, [])
 
   if (loading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />

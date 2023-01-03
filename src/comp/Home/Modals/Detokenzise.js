@@ -17,7 +17,6 @@ function Detokenzise({ isOpen, data, closeModal }) {
     "Isin": data.Isin,
     "MbeId": email,
   })
-  const token = useStore(state => state.token)
 
   const onChange = e => {
     setDetails(p => ({
@@ -28,7 +27,7 @@ function Detokenzise({ isOpen, data, closeModal }) {
 
   const onSubmit = () => {
     console.log(details)
-    detokenzie(details, token, onSuccess, onFailure)
+    detokenzie(details, onSuccess, onFailure)
   }
 
   const onSuccess = (message) => {

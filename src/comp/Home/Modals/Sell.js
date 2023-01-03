@@ -24,7 +24,6 @@ function Sell({ isOpen, data, closeModal }) {
     "MbeId": email,
     "Isin": data.Isin
   })
-  const token = useStore(state => state.token)
 
   const onChange = e => {
     setDetails(p => ({
@@ -36,8 +35,7 @@ function Sell({ isOpen, data, closeModal }) {
   const onClick = () => {
     if (!isTradeOpen) return setIsTradeOpen(true)
     else {
-      console.log(details)
-      sellOrder(details, token, onSuccess, onFailure)
+      sellOrder(details, onSuccess, onFailure)
     }
   }
 

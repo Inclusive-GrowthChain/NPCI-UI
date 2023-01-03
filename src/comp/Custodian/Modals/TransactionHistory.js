@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useStore from '../../../store';
 
-import { fetchSingleUserBuyTransactions, fetchSingleUserSellTransactions, getTransactions } from '../../../apis/custodianApis';
+import { fetchSingleUserBuyTransactions, fetchSingleUserSellTransactions } from '../../../apis/custodianApis';
 import getTypeClr from '../../../helper/getTypeClr';
 
 import { ReactComponent as Print } from '../../../assets/svg/files/print.svg';
