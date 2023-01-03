@@ -148,3 +148,44 @@ export async function fetchSingleUserBuyTransactions(data, onSuccess) {
   }
 }
 
+export async function fetchAllTransactions(onSuccess) {
+  try {
+    const payload = await sendApiReq({
+      url: endPoints.transactions,
+    })
+
+    const res1 = await sendApiReq({
+      url: endPoints.fetchAllUserSellTransactions,
+    })
+
+    const res2 = await sendApiReq({
+      url: endPoints.fetchAllUserBuyTransactions,
+    })
+
+    if (payload.status === 200) {
+      let final = []
+
+      final.push(...payload.message)
+
+      if (res1.message) {
+        if (Array.isArray(res1.message)) {
+          final.push(...res1.message)
+        } else {
+          final.push(res1.message)
+        }
+      }
+
+      if (res2.message) {
+        if (Array.isArray(res2.message)) {
+          final.push(...res2.message)
+        } else {
+          final.push(res2.message)
+        }
+      }
+
+      onSuccess(final)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}

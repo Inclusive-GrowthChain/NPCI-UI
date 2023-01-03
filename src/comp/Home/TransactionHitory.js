@@ -57,16 +57,16 @@ function TransactionHitory() {
                   key={li._id}
                   className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
                 >
-                  <td className="pl-8 pr-4 py-2"> {li.MaturityDate} </td>
+                  <td className="pl-8 pr-4 py-2"> {Intl.DateTimeFormat('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit'}).format(Date.parse(li.createdAt))} </td>
                   <td className="px-4 py-2"> {li.Isin} </td>
-                  <td className="px-4 py-2 break-words"> {li.BuyOrderId || li.SellOrderId} </td>
+                  <td className="px-4 py-2 break-words"> {li.OrderId} </td>
                   <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
                   <td className={`px-4 py-2 ${getTypeClr(li.TransactionsType)}`}> {li.TransactionsType} </td>
                   <td className="px-4 py-2"> {li.NumOfToken} </td>
-                  <td className="px-4 py-2"> {li.TradeValue} </td>
+                  <td className="px-4 py-2"> {Number(li.NumOfToken) * Number(li.Price)} </td>
                   <td className={`px-4 py-2 text-xs text-emerald-400`}>
                     {
-                      li.Purchased ? "Purchased" : li.isAuthorized ? "Authorized" : li.IsProcessed ? "Processed" : "Failure"
+                      li.IsProcessed ? "Success" : "Pending"
                     }
                   </td>
                   <td className='px-4 py-2'>

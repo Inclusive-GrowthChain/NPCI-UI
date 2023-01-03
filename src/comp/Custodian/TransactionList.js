@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import useStore from '../../store';
 
 import custodianTransaction from '../../constants/custodianTransaction';
-import { fetchAllUserBuyTransactions, fetchAllUserSellTransactions } from '../../apis/custodianApis';
+import { fetchAllTransactions, fetchAllUserBuyTransactions, fetchAllUserSellTransactions } from '../../apis/custodianApis';
 import getTypeClr from '../../helper/getTypeClr';
 
 import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
@@ -30,25 +30,11 @@ function TransactionList() {
 
   useEffect(() => {
     const onSuccess1 = res => {
-      if (res != null)
-        setList(res)
-    }
-
-    const onSuccess2 = res => {
-      if (res != null) {
-        for (let i = 0; i < res.length; i++) {
-          const entry = res[i]
-          setList(p => ({
-            ...p,
-            entry
-          }))
-        }
-      }
+      setList(res)
       setIsLoading(false)
     }
 
-    fetchAllUserSellTransactions(onSuccess1)
-    fetchAllUserBuyTransactions(onSuccess2)
+    fetchAllTransactions(onSuccess1)
   }, [])
 
   const data = useMemo(() => {
@@ -186,9 +172,9 @@ function TransactionList() {
                   >
                     <td className="pl-8 pr-4 py-2"> {li.OrderId} </td>
                     <td className="px-4 py-2"> {li.TransactionsType} </td>
-                    <td className={`px-4 py-2 font-medium ${getTypeClr(li.TransactionsType)}`}>
+                    {/* <td className={`px-4 py-2 font-medium ${getTypeClr(li.TransactionsType)}`}>
                       {li.TransactionsType}
-                    </td>
+                    </td> */}
                     <td className="px-4 py-2">
                       <button
                         className="w-16 rounded border border-emerald-600 hover:bg-emerald-600 hover:text-white"
@@ -198,12 +184,16 @@ function TransactionList() {
                       </button>
                     </td>
                     <td className={`px-4 py-2 ${getTypeClr(li.status)}`}>
-                      {li.status}
+                      {
+                        li.IsProcessed ? "Success" : "Pending"
+                      }
                     </td>
                     <td className={`px-4 py-2 ${getTypeClr(li.authorisedStaus)}`}>
-                      {li.authorisedStaus}
+                      {
+                        li.IsProcessed ? "Authorized" : "Pending"
+                      }
                     </td>
-                    <td className="px-4 py-2"> {li.transactionNo * 700} </td>
+                    <td className="px-4 py-2"> {Number(li.NumOfToken) * Number(li.Price)} </td>
                     {
                       role !== "mbe" &&
                       <td className='px-4 py-2'>

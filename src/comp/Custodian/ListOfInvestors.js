@@ -110,7 +110,7 @@ function ListOfInvestors() {
           <tbody>
             {
               data
-                .filter(li => li.email.toLowerCase().match(filter) || `${li.firstName} ${li.lastName}`.toLowerCase().match(filter))
+                .filter(li => (li.email.toLowerCase().match(filter) || `${li.firstName} ${li.lastName}`.toLowerCase().match(filter)) && li.email !== 'custodian@gmail.com')
                 .map(li => (
                   <tr
                     key={li._id}

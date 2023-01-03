@@ -7,6 +7,7 @@ import getTypeClr from '../../../helper/getTypeClr';
 import { ReactComponent as Print } from '../../../assets/svg/files/print.svg';
 import Loader from '../../Common/Loader';
 import Modal from '../../UIComp/Modal';
+import { fetchTransactions } from '../../../apis/apis';
 
 function TransactionHistory({ isOpen, data, closeModal }) {
   const role = useStore(state => state.role)
@@ -15,26 +16,12 @@ function TransactionHistory({ isOpen, data, closeModal }) {
   const [list, setList] = useState([])
 
   useEffect(() => {
-    const onSuccess1 = (res) => {
-      if (res != null)
-        setList(res)
-    }
-
-    const onSuccess2 = (res) => {
-      if (res != null) {
-        for (let i = 0; i < res.length; i++) {
-          const entry = res[i]
-          setList(p => ({
-            ...p,
-            entry
-          }))
-        }
-      }
+    const onSuccess = (payload) => {
+      setList(payload)
       setIsLoading(false)
     }
 
-    fetchSingleUserBuyTransactions({ MbeId: data.email }, onSuccess1)
-    fetchSingleUserSellTransactions({ MbeId: data.email }, onSuccess2)
+    fetchTransactions({ "email": data.MbeId }, onSuccess)
   }, [data.email])
 
   return (
@@ -65,29 +52,26 @@ function TransactionHistory({ isOpen, data, closeModal }) {
                 {
                   list.map((li, i) => (
                     <tr
-                      key={li.id}
+                      key={li._id}
                       className="text-sm even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
                     >
-                      <td className="pl-8 pr-4 py-2"> {li.MaturityDate} </td>
+                      <td className="pl-8 pr-4 py-2"> {Intl.DateTimeFormat('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(Date.parse(li.createdAt))} </td>
                       <td className="px-4 py-2"> {li.Isin} </td>
                       <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
                       <td className={`px-4 py-2 ${getTypeClr(li.TransactionsType)}`}> {li.TransactionsType} </td>
-                      <td className="px-4 py-2"> {li.TotalQtyRemaining / 100} </td>
-                      <td className="px-4 py-2"> {li.TotalQtyRemaining} </td>
+                      <td className="px-4 py-2"> {li.NumOfToken} </td>
+                      <td className="px-4 py-2"> {Number(li.NumOfToken) * Number(li.Price)} </td>
                       <td className={`px-4 py-2 text-xs ${i % 5 === 0 ? "text-red-400" : "text-emerald-400"}`}>
                         {
-                          i % 5 === 0
-                            ? "Failure"
-                            : "Success"
+                          li.IsProcessed ? "Success" : "Pending"
                         }
                       </td>
                       <td className='px-4 py-2 text-sm'>
                         {
-                          i % 5 !== 0 &&
-                          <Print
-                            className="mx-auto fill-slate-900"
-                          />
-                        }
+                          li.IsProcessed ?
+                            <Print
+                              className="mx-auto fill-slate-900"
+                            /> : ""}
                       </td>
                     </tr>
                   ))
