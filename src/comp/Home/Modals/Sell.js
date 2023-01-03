@@ -124,7 +124,7 @@ function Sell({ isOpen, data, closeModal }) {
         className='block w-1/2 mx-auto rounded-md text-white bg-emerald-400 hover:bg-emerald-700'
         onClick={onClick}
       >
-        {isTradeOpen ? "Execute Trade" : "Sell"}
+        {isTradeOpen ? "Place Order" : "Sell"}
       </button>
     </Modal>
   )

@@ -35,14 +35,12 @@ function Report() {
   useEffect(() => {
     const onSuccess = (payload) => {
       setRes(payload)
-      for (let i = 0; i < res.length; i++) {
-        const entry = res[i]
-        // for (const [key, value] of Object.entries(res[i])) {
-
-        // }
+      for (let i = 0; i < payload.length; i++) {
+        const entry = payload[i]
         setTradeValueData(p => ({
           ...p,
-          [entry.Isin]: entry.TradeValue + tradeValueData[entry.Isin]
+          // [entry.Isin]: Number(entry.TradeValue)
+          [entry.Isin]: Number(entry.TradeValue) + (tradeValueData[entry.Isin] ? tradeValueData[entry.Isin] : 0)
         }))
       }
       setIsLoading(false)
@@ -96,7 +94,7 @@ function Report() {
             {
               res.map(li => (
                 <tr
-                  key={li.id}
+                  key={li._id}
                   className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
                 >
                   {/* <td className="px-4 py-2"> {li.MaturityDate} </td> */}
@@ -104,7 +102,7 @@ function Report() {
                   <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
                   <td className="px-4 py-2"> {li.CouponRate} </td>
                   <td className="px-4 py-2"> {li.MaturityDate} </td>
-                  <td className="px-4 py-2"> {li.volumn / 1000} </td>
+                  <td className="px-4 py-2"> {li.NumOfToken} </td>
                   <td className="px-4 py-2"> {tradeValueData[li.Isin]} </td>
                 </tr>
               ))

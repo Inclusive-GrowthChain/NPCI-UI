@@ -5,7 +5,8 @@ import useStore from '../../store';
 import { ReactComponent as UserProfile } from '../../assets/svg/users/profile.svg';
 import { DropDownWrapper } from '../UIComp/DropDown';
 import AddBalance from './Modals/AddBalance';
-import { fetchCBDCBalance } from '../../apis/apis';
+import { fetchCBDCBalance, getUserDetails } from '../../apis/apis';
+// import { getUserDetails } from '../../apis/custodianApis';
 
 const routes = {
   investor: [
@@ -88,7 +89,8 @@ const Name = {
 function Nav() {
   const isLoggedIn = useStore(state => state.isLoggedIn)
   const logOut = useStore(state => state.logOut)
-  const MbeId = useStore(state => state.email)
+  const email = useStore(state => state.email)
+  const [userDetails, setUserDetails] = useState({})
   const role = useStore(state => state.role)
 
   const [CBDCBalance, setCBDCBalance] = useState(0)
@@ -100,11 +102,16 @@ function Nav() {
     const ddList = role === "investor" ? ["Profile", "Log Out"] : ["Log Out"]
     setList(ddList)
 
-    const onSuccess = (payload) => {
+    const onSuccessUserDetails = (payload) => {
+      setUserDetails(payload)
+    }
+
+    const onSuccessCBDCBalanceFetch = (payload) => {
       setCBDCBalance(payload?.CBDCbalance || 0)
     }
 
-    fetchCBDCBalance({ "MbeId": MbeId }, onSuccess)
+    fetchCBDCBalance({ "MbeId": email }, onSuccessCBDCBalanceFetch)
+    getUserDetails({ "email": email }, onSuccessUserDetails)
   }, [role])
 
   const onClk = val => {
@@ -167,7 +174,7 @@ function Nav() {
               needArrow
               boxCls="profile-dd"
             >
-              <UserProfile /> <span className='text-xs'>{Name[role]}</span>
+              <UserProfile /> <span className='text-xs'>{userDetails.firstName}</span>
             </DropDownWrapper>
           </> : <>
             <Link

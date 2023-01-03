@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-// import useStore from '../../../store';
+import useStore from '../../../store';
 
 import { fetchBondInvestors } from '../../../apis/apis';
 // import investorList from '../../../constants/investorList';
@@ -10,6 +10,7 @@ import Modal from '../../UIComp/Modal';
 function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen, closeModal, Isin }) {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState(true)
+  const token = useStore(state => state.token)
 
   useEffect(() => {
     const onSuccess = res => {
@@ -17,7 +18,7 @@ function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen
       setData(res)
     }
 
-    fetchBondInvestors(onSuccess)
+    fetchBondInvestors(token, onSuccess)
   }, [])
 
   if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />

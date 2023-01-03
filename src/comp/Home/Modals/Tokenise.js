@@ -112,7 +112,7 @@ function Tokenise({ isOpen, data, closeModal }) {
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Face value</label>
-            <input type="text" defaultValue="1000" disabled />
+            <input type="text" defaultValue="1" disabled />
           </div>
         </div>
       </div>
