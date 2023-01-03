@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import useStore from "../../store";
 
-// import { fetchTransactions } from '../../apis/apis';
-import { fetchSingleUserBuyTransactions, fetchSingleUserSellTransactions } from '../../apis/custodianApis';
+import { fetchTransactions } from '../../apis/apis';
 import getTypeClr from '../../helper/getTypeClr';
 
 import { ReactComponent as Print } from '../../assets/svg/files/print.svg';
@@ -17,35 +16,12 @@ function TransactionHitory() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    // const onSuccess = (payload) => {
-    //   // const timestamp = Date.now()
-    //   // console.log(new Intl.DateTimeFormat('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(timestamp))
-    //   setTransactions(payload.message)
-    //   setLoading(false)
-    // }
-
-    // fetchTransactions({ email }, onSuccess)
-
-    const onSuccess1 = res => {
-      if (res != null)
-        setTransactions(res)
-    }
-
-    const onSuccess2 = res => {
-      if (res != null) {
-        for (let i = 0; i < res.length; i++) {
-          const entry = res[i]
-          setTransactions(p => ({
-            ...p,
-            entry
-          }))
-        }
-      }
+    const onSuccess = (payload) => {
+      setTransactions(payload)
       setLoading(false)
     }
 
-    fetchSingleUserBuyTransactions({ "MbeId": email }, onSuccess1)
-    fetchSingleUserSellTransactions({ "MbeId": email }, onSuccess2)
+    fetchTransactions({ email }, onSuccess)
   }, [email])
 
   const updateOpen = () => setOpen(p => !p)
