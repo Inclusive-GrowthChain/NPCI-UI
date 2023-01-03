@@ -15,12 +15,12 @@ function TransactionHistory({ isOpen, data, closeModal }) {
   const [list, setList] = useState([])
 
   useEffect(() => {
-    const onSuccess1 = res => {
+    const onSuccess1 = (res) => {
       if (res != null)
         setList(res)
     }
 
-    const onSuccess2 = res => {
+    const onSuccess2 = (res) => {
       if (res != null) {
         for (let i = 0; i < res.length; i++) {
           const entry = res[i]
@@ -33,8 +33,8 @@ function TransactionHistory({ isOpen, data, closeModal }) {
       setIsLoading(false)
     }
 
-    fetchSingleUserBuyTransactions(data.email, onSuccess1)
-    fetchSingleUserSellTransactions(data.email, onSuccess2)
+    fetchSingleUserBuyTransactions({ mbeId: data.email}, onSuccess1)
+    fetchSingleUserSellTransactions({ mbeId: data.email }, onSuccess2)
   }, [data.email])
 
   return (

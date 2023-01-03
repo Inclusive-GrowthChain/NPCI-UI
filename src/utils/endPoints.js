@@ -16,7 +16,8 @@ const endPoints = {
 
   tokenize: "trade/tokenize",
   detokenize: "trade/detokenize",
-  numOfDetokenizeToken: "trade/detokenizetoken",
+  numOfDetokenizeToken: "trade/detokenizedtoken",
+  fetchInvestors: "trade/listInvestors",
 
   placeSellOrder: "trade/placeSellOrder",
   placeBuyOrder: "trade/placeBuyOrder",

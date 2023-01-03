@@ -52,7 +52,7 @@ function TokenHoldings({ isOpen, data, closeModal }) {
                     .filter((a, i) => list[i].isTokenized === true)
                     .map(li => (
                     <tr
-                      key={li.id}
+                      key={li._id}
                       className="even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
                     >
                       <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.isin} </td>

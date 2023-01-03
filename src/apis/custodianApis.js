@@ -132,11 +132,12 @@ export async function fetchAllUserBuyTransactions(onSuccess) {
   }
 }
 
-export async function fetchSingleUserSellTransactions(onSuccess) {
+export async function fetchSingleUserSellTransactions(data, onSuccess) {
   try {
     const payload = await sendApiReq({
       method: 'get',
       url: endPoints.fetchSingleUserSellTransactions,
+      params: data
     })
     console.log(payload)
     if (payload.status === 200)
@@ -146,11 +147,12 @@ export async function fetchSingleUserSellTransactions(onSuccess) {
   }
 }
 
-export async function fetchSingleUserBuyTransactions(onSuccess) {
+export async function fetchSingleUserBuyTransactions(data, onSuccess) {
   try {
     const payload = await sendApiReq({
       method: 'get',
       url: endPoints.fetchSingleUserBuyTransactions,
+      params: data
     })
     console.log(payload)
     if (payload.status === 200)

@@ -6,6 +6,7 @@ import { getMarket } from '../../apis/custodianApis';
 import InvestorsList from './Modals/InvestorsList';
 import UserInfoModal from './Modals/UserInfo';
 import Loader from '../Common/Loader';
+import { fetchNumOfDetokenizeToken } from '../../apis/apis';
 
 function TokenisedBond() {
   const role = useStore(state => state.role)
@@ -15,9 +16,20 @@ function TokenisedBond() {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    const onSuccess = res => {
+    const onSuccess = async res => {
+      const detokenizeTokensPromises = res.map(async current => {
+        const innerRes = await fetchNumOfDetokenizeToken({ MbeId: current.mbeId, Isin: current.isin })
+        
+        return {
+          ...current,
+          NumOfDetokenizeTokens: innerRes.status === 200 ? innerRes?.message || 0 : 0
+        }
+      })
+
+      const final = await Promise.all(detokenizeTokensPromises)
+
+      setData(final)
       setIsLoading(false)
-      setData(res)
     }
 
     getMarket(onSuccess)
@@ -100,6 +112,7 @@ function TokenisedBond() {
           updateOpen={updateOpen}
           closeModal={closeModal}
           needInvesterName={role !== "mbe"}
+          isin={open.data?.isin}
         />
       }
 

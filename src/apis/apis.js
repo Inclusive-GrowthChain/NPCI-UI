@@ -274,20 +274,14 @@ export async function addWalletBalance(data, token, onSuccess) {
   }
 }
 
-export async function fetchNumOfDetokenizeToken(data, onSuccess) {
+export async function fetchNumOfDetokenizeToken(data) {
   console.log(data);
-  try {
-    const payload = await sendApiReq({
-      method: 'get',
-      url: endPoints.numOfDetokenizeToken,
-      params: data,
-    })
-    console.log(data)
-    if (payload.status === 200)
-      onSuccess(payload.message)
-  } catch (error) {
-    console.log(error)
-  }
+  const payload = await sendApiReq({
+    method: 'get',
+    url: endPoints.numOfDetokenizeToken,
+    params: data,
+  })
+  return payload
 }
 
 export async function fetchCBDCBalance2(params) {
@@ -297,4 +291,18 @@ export async function fetchCBDCBalance2(params) {
   })
 
   return data
+}
+
+export async function fetchBondInvestors(onSuccess) {
+  try {
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.fetchInvestors,
+    })
+    console.log(payload)
+    if (payload.status === 200) 
+      onSuccess(payload.message)
+  } catch (error) {
+    console.log(error)
+  }
 }
