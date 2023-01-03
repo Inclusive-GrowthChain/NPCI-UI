@@ -10,10 +10,6 @@ import { fetchCBDCBalance } from '../../apis/apis';
 const routes = {
   investor: [
     {
-      key: "Profile",
-      to: "/investor/profile",
-    },
-    {
       key: "My token holdings",
       to: "/investor/token-holdings",
     },
@@ -95,7 +91,7 @@ function Nav() {
   const mbeId = useStore(state => state.email)
   const role = useStore(state => state.role)
 
-  const [CBDCBalance, setCBDCBalance] = useState({})
+  const [CBDCBalance, setCBDCBalance] = useState(0)
   const [open, setOpen] = useState(false)
   const [list, setList] = useState([])
   const navigate = useNavigate()
@@ -105,7 +101,7 @@ function Nav() {
     setList(ddList)
 
     const onSuccess = (payload) => {
-      setCBDCBalance(payload)
+      setCBDCBalance(payload?.CBDCbalance || 0)
     }
 
     fetchCBDCBalance({ "mbeId": mbeId }, onSuccess)
@@ -160,7 +156,7 @@ function Nav() {
                 onClick={updateOpen}
                 title="Add balance"
               >
-                CBDC Balance : {CBDCBalance.CBDCbalance}
+                CBDC Balance : {CBDCBalance}
               </button>
             }
 

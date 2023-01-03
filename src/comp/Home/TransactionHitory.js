@@ -17,8 +17,8 @@ function TransactionHitory() {
 
   useEffect(() => {
     const onSuccess = (payload) => {
-      const timestamp = Date.now();
-      console.log(new Intl.DateTimeFormat('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(timestamp));
+      // const timestamp = Date.now()
+      // console.log(new Intl.DateTimeFormat('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(timestamp))
       setTransactions(payload.message)
       setLoading(false)
     }
@@ -61,8 +61,8 @@ function TransactionHitory() {
                 >
                   <td className="pl-8 pr-4 py-2"> {li.maturitydate} </td>
                   <td className="px-4 py-2"> {li.isin} </td>
-                  <td className="px-4 py-2"> {li.BuyOrderId || li.SellOrderId} </td>
-                  <td className="px-4 py-2text-sm font-medium"> {li.issuerName} </td>
+                  <td className="px-4 py-2 break-words"> {li.BuyOrderId || li.SellOrderId} </td>
+                  <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
                   <td className={`px-4 py-2 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
                   <td className="px-4 py-2"> {li.NumOfToken} </td>
                   <td className="px-4 py-2"> {li.TradeValue} </td>

@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { buyOrder } from '../../../apis/apis';
 import useStore from '../../../store';
 
+import { errorNotify, successNotify } from "../../../helper/toastifyHelp";
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
-import { errorNotify, successNotify } from "../../../helper/toastifyHelp";
 
 // If executed “Trade executed, Visit transaction history for more details
 // If pending “Transaction pending, Visit transaction history for more details
@@ -109,12 +109,12 @@ function Buy({ isOpen, data, closeModal }) {
                 <input type="text" onChange={onChange} name="Price" />
               </div>
             </> : <>
-              <Input
+              {/* <Input
                 lable='Number of Tokens'
                 value="500"
                 lableCls='w-auto'
                 inputCls='ml-2'
-              />
+              /> */}
 
               <div className='dc gap-8 grid-col-full'>
                 <button
