@@ -39,7 +39,7 @@ function TokenHoldings({ isOpen, data, closeModal }) {
                   <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
                   <td className="w-32 px-4 py-2">Coupon Rate</td>
                   <td className="w-28 px-4 py-2">Face Value</td>
-                  <td className="w-24 px-4 py-2">Purchase Price</td>
+                  {/* <td className="w-24 px-4 py-2">Purchase Price</td> */}
                   <td className="w-32 px-4 py-2">Number of tokens</td>
                   <td className="w-24 px-4 py-2">Ltp</td>
                   <td className="w-28 px-4 py-2">Current Price</td>
@@ -60,7 +60,7 @@ function TokenHoldings({ isOpen, data, closeModal }) {
                         <td className="px-4 py-2 text-center"> {li.MaturityDate} </td>
                         <td className="px-4 py-2"> {li.CouponRate} </td>
                         <td className="px-4 py-2"> {li.FaceValue} </td>
-                        <td className="px-4 py-2"> {li.askPrice || 0}</td>
+                        {/* <td className="px-4 py-2"> {li.askPrice || 0}</td> */}
                         <td className="px-4 py-2 text-xs"> {li.TokenQtyRemaining} </td>
                         <td className="px-4 py-2 text-xs"> {li.Ltp} </td>
                         <td className="px-4 py-2 text-xs"> {Math.floor(li.Ltp * li.TokenQtyRemaining)} </td>

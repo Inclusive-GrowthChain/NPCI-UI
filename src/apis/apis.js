@@ -145,7 +145,7 @@ export async function fetchTokenHoldings(data, onSuccess) {
     })
     console.log(payload)
     if (payload.status === 200)
-      onSuccess(payload)
+      onSuccess(payload.message)
   } catch (error) {
     console.log(error)
   }
@@ -303,4 +303,18 @@ export async function fetchBondInvestors(onSuccess) {
   } catch (error) {
     console.log(error)
   }
+}
+
+export async function fetchAskPrice() {
+  const payload = await sendApiReq({
+    url: endPoints.askPrice,
+  })
+  return payload
+}
+
+export async function fetchBidPrice() {
+  const payload = await sendApiReq({
+    url: endPoints.bidPrice,
+  })
+  return payload
 }

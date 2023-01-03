@@ -15,7 +15,7 @@ function BondHoldings() {
 
   useEffect(() => {
     const onSuccess = (payload) => {
-      setBondHoldings(payload.message)
+      setBondHoldings(payload)
       setLoading(false)
     }
 
@@ -45,8 +45,8 @@ function BondHoldings() {
               <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
               <td className="w-28 px-4 py-2 text-center">Face Value</td>
               <td className="w-28 px-4 py-2 text-center">No. of Lots</td>
-              <td className="w-32 px-4 py-2 text-center">Purchase Price</td>
-              <td className="w-28 px-4 py-2 text-center">Current Price</td>
+              {/* <td className="w-32 px-4 py-2 text-center">Purchase Price</td>
+              <td className="w-28 px-4 py-2 text-center">Current Price</td> */}
               <td className="w-32 px-4 py-2"></td>
             </tr>
           </thead>
@@ -68,8 +68,8 @@ function BondHoldings() {
                     <td className="px-4 py-2 text-center"> {li.MaturityDate} </td>
                     <td className="px-4 py-2 text-center"> {"1000"} </td>
                     <td className="px-4 py-2 text-center"> {li.LotQty} </td>
-                    <td className="px-4 py-2 text-center"> {li.Ltp} </td>
-                    <td className="px-4 py-2 text-center"> {li.CurrentPrice || "-"} </td>
+                    {/* <td className="px-4 py-2 text-center"> {li.Ltp} </td>
+                    <td className="px-4 py-2 text-center"> {li.CurrentPrice || "-"} </td> */}
                     <td className="px-4 py-2 text-center">
                       <button className='px-3 py-1.5 rounded border border-emerald-400 hover:bg-emerald-400'>
                         Tokenize

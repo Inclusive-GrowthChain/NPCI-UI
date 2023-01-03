@@ -38,6 +38,9 @@ const endPoints = {
   bondholding: "bondholding",
   purchaseLog: "trade/purchaselog",
   market: "market",
+
+  bidPrice: "trade/buyOrder",
+  askPrice: "trade/sellOrder",
 }
 
 export default endPoints

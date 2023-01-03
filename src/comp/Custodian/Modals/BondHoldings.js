@@ -39,8 +39,8 @@ function BondHoldings({ isOpen, data, closeModal }) {
                   <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
                   <td className="w-32 px-4 py-2">Coupon Rate</td>
                   <td className="w-28 px-4 py-2">Face Value</td>
-                  <td className="w-36 px-4 py-2">Purchase Price</td>
-                  <td className="w-80 px-4 py-2">Current Price</td>
+                  {/* <td className="w-36 px-4 py-2">Purchase Price</td>
+                  <td className="w-80 px-4 py-2">Current Price</td> */}
                 </tr>
               </thead>
 
@@ -55,9 +55,9 @@ function BondHoldings({ isOpen, data, closeModal }) {
                       <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
                       <td className="px-4 py-2 text-center"> {li.MaturityDate} </td>
                       <td className="px-4 py-2"> {li.CouponRate} </td>
-                      <td className="px-4 py-2"> {li.FaceValue} </td>
-                      <td className="px-4 py-2"> {li.askPrice || 0} </td>
-                      <td className="px-4 py-2 text-xs"> {li.bidPrice || 0} </td>
+                      <td className="px-4 py-2"> {li.FaceValue * 1000} </td>
+                      {/* <td className="px-4 py-2"> {li.askPrice || 0} </td>
+                      <td className="px-4 py-2 text-xs"> {li.bidPrice || 0} </td> */}
                     </tr>
                   ))
                 }

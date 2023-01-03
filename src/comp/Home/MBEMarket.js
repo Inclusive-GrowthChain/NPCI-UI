@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { fetchMbeMarket } from '../../apis/apis';
+import { fetchAskPrice, fetchBidPrice, fetchMbeMarket } from '../../apis/apis';
 
 import { ReactComponent as Search } from '../../assets/svg/common/seach.svg';
 import Loader from '../Common/Loader';
@@ -13,8 +13,65 @@ function MBEMarket() {
   const [open, setOpen] = useState("")
 
   useEffect(() => {
-    const onSuccess = (res) => {
-      setMarket(res)
+    const onSuccess = async res => {
+      const bidPricePromises = res.map(async current => {
+        const innerRes = await fetchBidPrice()
+        const bidPriceRes = innerRes.message
+        var bidPrice = 0
+        var currentTime = 0
+        console.log(innerRes)
+
+        for (let i = 0; i < bidPriceRes.length; i++) {
+          if (current.Isin === bidPriceRes[i].Isin) {
+            if (currentTime === 0) {
+              currentTime = Date.parse(bidPriceRes[i].createdAt)
+              bidPrice = bidPriceRes[i].Price
+            }
+            else {
+              if (currentTime >= Date.parse(bidPriceRes[i].createdAt))
+                bidPrice = bidPriceRes[i].Price
+            }
+          }
+        }
+
+        return {
+          ...current,
+          BidPrice: bidPrice
+        }
+      })
+      
+      const final1 = await Promise.all(bidPricePromises)
+
+      const askPricePromises = final1.map(async current => {
+        const innerRes = await fetchAskPrice()
+        const askPriceRes = innerRes.message
+        var askPrice = 0
+        var currentTime = 0
+        console.log(innerRes)
+
+        for (let i = 0; i < askPriceRes.length; i++) {
+          if (current.Isin === askPriceRes[i].Isin) {
+            if (currentTime === 0) {
+              currentTime = Date.parse(askPriceRes[i].createdAt)
+              askPrice = askPriceRes[i].Price
+            }
+            else {
+              if (currentTime >= Date.parse(askPriceRes[i].createdAt))
+                askPrice = askPriceRes[i].Price
+            }
+          }
+        }
+
+        return {
+          ...current,
+          AskPrice: askPrice
+        }
+      })
+
+
+      const final2 = await Promise.all(askPricePromises)
+
+      setMarket(final2)
       setLoading(false)
     }
 
@@ -83,12 +140,12 @@ function MBEMarket() {
                     <td className="px-4 py-2 text-center"> {li.MaturityDate} </td>
                     <td className="px-4 py-2 text-center">
                       <button className="w-20 px-3 py-1.5 rounded border border-emerald-600">
-                        {li.bidPrice || 0}
+                        {li.BidPrice || 0}
                       </button>
                     </td>
                     <td className="px-4 py-2 text-center">
                       <button className="w-20 px-3 py-1.5 rounded border border-yellow-600">
-                        {li.askPrice || 0}
+                        {li.AskPrice || 0}
                       </button>
                     </td>
                   </tr>
