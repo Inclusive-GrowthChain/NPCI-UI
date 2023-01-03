@@ -49,13 +49,13 @@ function ListOfInvestors() {
   if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
-    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
-      <div className='df gap-8 p-4 border-b border-[rgba(255,255,255,.3)]'>
-        <div className='df p-2 bg-slate-800 rounded'>
-          <Search className='w-4 h-4 fill-white' />
+    <section className="dfc gap-0 h-[calc(100vh-64px)] overflow-y-hidden">
+      <div className='df gap-8 p-4 border-b border-[rgba(0,0,0,.1)]'>
+        <div className='df p-2 bg-slate-100 rounded'>
+          <Search className='w-4 h-4' />
           <input
             type="text"
-            className='w-44 p-0 bg-inherit border-none leading-none text-white'
+            className='w-44 p-0 bg-inherit border-none leading-none'
             placeholder="Search by MBE ID or Name"
             value={filter}
             onChange={e => setFilter(e.target.value)}
@@ -93,7 +93,7 @@ function ListOfInvestors() {
       <div className="scroll-y overflow-x-auto">
         <table className="w-full table-fixed">
           <thead>
-            <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
+            <tr className="sticky top-0 text-sm bg-slate-200 shadow-[0_1px_3px_0_rgba(0,0,0,.1)] z-1">
               <td className="w-44 pl-8 pr-4 py-2">MBE Id</td>
               {
                 role !== "mbe" &&
@@ -113,45 +113,44 @@ function ListOfInvestors() {
                 .map(li => (
                   <tr
                     key={li._id}
-                    className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
+                    className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
                   >
-                    <td className="pl-8 pr-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 break-words"> {li.email} </td>
+                    <td className="pl-8 pr-4 py-2 break-words"> {li.email} </td>
                     {
                       role !== "mbe" &&
-                      <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
+                      <td className="px-4 py-2 font-medium">
                         <p
-                          className='cursor-pointer hover:text-emerald-200'
                           onClick={() => updateOpen("UserInfo", li)}
                         >
                           {li.firstName} {li.lastName}
                         </p>
                       </td>
                     }
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
+                    <td className="px-4 py-2">
                       <button
-                        className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"
+                        className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600 hover:text-white"
                         onClick={() => updateOpen("BondHoldings", li)}
                       >
                         View
                       </button>
                     </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
+                    <td className="px-4 py-2">
                       <button
-                        className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"
+                        className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600 hover:text-white"
                         onClick={() => updateOpen("TokenHoldings", li)}
                       >
                         View
                       </button>
                     </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100">
+                    <td className="px-4 py-2">
                       <button
-                        className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600"
+                        className="block w-16 mx-auto rounded border border-emerald-600 hover:bg-emerald-600 hover:text-white"
                         onClick={() => updateOpen("TransactionHistory", li)}
                       >
                         View
                       </button>
                     </td>
-                    <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
+                    <td className="px-4 py-2 text-center">
                       {li.CDBCbalance}
                     </td>
                   </tr>

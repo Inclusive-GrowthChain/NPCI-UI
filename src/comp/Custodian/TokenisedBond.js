@@ -19,7 +19,7 @@ function TokenisedBond() {
     const onSuccess = async res => {
       const detokenizeTokensPromises = res.map(async current => {
         const innerRes = await fetchNumOfDetokenizeToken({ MbeId: current.mbeId, Isin: current.isin })
-        
+
         return {
           ...current,
           NumOfDetokenizeTokens: innerRes.status === 200 ? innerRes?.message || 0 : 0
@@ -41,7 +41,7 @@ function TokenisedBond() {
   if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
-    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
+    <section className="dfc gap-0 h-[calc(100vh-64px)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
         Tokenised Bonds
       </h1>
@@ -49,7 +49,7 @@ function TokenisedBond() {
       <div className="scroll-y overflow-x-auto">
         <table className="w-full table-fixed">
           <thead>
-            <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
+            <tr className="sticky top-0 text-sm bg-slate-200 shadow-[0_1px_3px_0_rgba(0,0,0,.1)] z-1">
               <td className="w-36 px-4 py-2">ISIN</td>
               {
                 role !== "mbe" &&
@@ -60,7 +60,7 @@ function TokenisedBond() {
               <td className="w-28 px-4 py-2 text-center">No. of Tokens</td>
               <td className="w-24 px-4 py-2">LTP</td>
               <td className="w-28 px-4 py-2">Current Price</td>
-              <td className="w-28 px-4 py-2">List of Investors</td>
+              <td className="w-28 px-4 py-2 text-center">List of Investors</td>
               <td className="w-40 px-4 py-2 text-center">Number of tokens detokenized</td>
               {/* <td className="w-28 px-4 py-2 text-center">Detokenized Value</td> */}
             </tr>
@@ -71,30 +71,30 @@ function TokenisedBond() {
               data.map(li => (
                 <tr
                   key={li._id}
-                  className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
+                  className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
                 >
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.isin} </td>
+                  <td className="px-4 py-2"> {li.isin} </td>
                   {
                     role !== "mbe" &&
-                    <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
+                    <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
                   }
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponrate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.maturitydate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center"> {li.TotalTokenQty} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.ltp} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.askPrice || 0} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
+                  <td className="px-4 py-2"> {li.couponrate} </td>
+                  <td className="px-4 py-2 text-center"> {li.maturitydate} </td>
+                  <td className="px-4 py-2 text-center"> {li.TotalTokenQty} </td>
+                  <td className="px-4 py-2"> {li.ltp} </td>
+                  <td className="px-4 py-2"> {li.askPrice || 0} </td>
+                  <td className="px-4 py-2 text-center">
                     <button
-                      className="w-16 rounded border border-emerald-600 hover:bg-emerald-600"
+                      className="w-16 rounded border border-emerald-600 hover:bg-emerald-600 hover:text-white"
                       onClick={() => updateOpen("InvestorsList", li)}
                     >
                       View
                     </button>
                   </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
+                  <td className="px-4 py-2 text-center">
                     {li.askPrice || 0}
                   </td>
-                  {/* <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100 text-center">
+                  {/* <td className="px-4 py-2 text-center">
                     {li.bidPrice || 0}
                   </td> */}
                 </tr>

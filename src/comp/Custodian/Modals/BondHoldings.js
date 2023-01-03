@@ -18,7 +18,7 @@ function BondHoldings({ isOpen, data, closeModal }) {
       setList(res)
     }
 
-    getBondholding({"mbeId": data.email}, onSuccess)
+    getBondholding({ "mbeId": data.email }, onSuccess)
   }, [data.email])
 
   return (
@@ -33,7 +33,7 @@ function BondHoldings({ isOpen, data, closeModal }) {
           isLoading ? <Loader wrapperCls='h-[50vh]' /> :
             <table className='w-full'>
               <thead>
-                <tr className="sticky top-0 text-sm font-medium bg-slate-100 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
+                <tr className="sticky top-0 text-sm font-medium bg-slate-100 shadow-[0_1px_3px_0_rgba(0,0,0,.1)] z-1">
                   <td className="w-36 px-4 py-2">ISIN</td>
                   <td className="w-60 px-4 py-2">Issuer Name</td>
                   <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
@@ -49,15 +49,15 @@ function BondHoldings({ isOpen, data, closeModal }) {
                   list.map(li => (
                     <tr
                       key={li._id}
-                      className="even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
+                      className="text-sm even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
                     >
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.isin} </td>
-                      <td className="px-4 py-2 text-sm font-medium opacity-80 group-hover:opacity-100"> {li.issuerName} </td>
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100 text-center"> {li.maturitydate} </td>
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.couponrate} </td>
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.faceValue} </td>
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.askPrice || 0} </td>
-                      <td className="px-4 py-2 text-xs opacity-80 group-hover:opacity-100"> {li.bidPrice || 0} </td>
+                      <td className="px-4 py-2"> {li.isin} </td>
+                      <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
+                      <td className="px-4 py-2 text-center"> {li.maturitydate} </td>
+                      <td className="px-4 py-2"> {li.couponrate} </td>
+                      <td className="px-4 py-2"> {li.faceValue} </td>
+                      <td className="px-4 py-2"> {li.askPrice || 0} </td>
+                      <td className="px-4 py-2 text-xs"> {li.bidPrice || 0} </td>
                     </tr>
                   ))
                 }

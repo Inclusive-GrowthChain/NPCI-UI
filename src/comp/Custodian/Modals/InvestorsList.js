@@ -31,7 +31,7 @@ function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen
       <div className='scroll-y'>
         <table className='w-full'>
           <thead>
-            <tr className="sticky top-0 text-sm font-medium bg-slate-100 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
+            <tr className="sticky top-0 text-sm font-medium bg-slate-100 shadow-[0_1px_3px_0_rgba(0,0,0,.1)] z-1">
               {/* <td className="w-36 px-4 py-2">MBE Id</td> */}
               {
                 needInvesterName &&
@@ -49,12 +49,12 @@ function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen
                 .map(li => (
                   <tr
                     key={li._id}
-                    className="even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
+                    className="text-sm even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
                   >
-                    {/* <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.email} </td> */}
+                    {/* <td className="px-4 py-2"> {li.email} </td> */}
                     {
                       needInvesterName &&
-                      <td className="px-4 py-2 text-sm font-medium opacity-80 group-hover:opacity-100">
+                      <td className="px-4 py-2 font-medium">
                         <button
                           className='p-0 hover:scale-105 transition-transform'
                           onClick={() => updateOpen("UserInfo", { ...li, issuerName: title })}
@@ -63,8 +63,8 @@ function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen
                         </button>
                       </td>
                     }
-                    <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100 text-center"> {li.TotalTokenQty || 0} </td>
-                    {/* <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100 text-center"> {li.currentValue || "0"} </td> */}
+                    <td className="px-4 py-2 text-center"> {li.TotalTokenQty || 0} </td>
+                    {/* <td className="px-4 py-2 text-center"> {li.currentValue || "0"} </td> */}
                   </tr>
                 ))
             }

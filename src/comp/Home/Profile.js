@@ -37,7 +37,7 @@ function Profile() {
   if (loading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
-    <section className="grid gap-4 max-w-xl mx-4 sm:mx-auto px-6 py-10 bg-slate-800 rounded-b-2xl">
+    <section className="grid gap-4 max-w-xl mx-4 sm:mx-auto px-6 py-10 bg-slate-200 rounded-b-2xl">
       <Input
         lable='Name'
         value={userDetails.firstName + " " + userDetails.lastName}

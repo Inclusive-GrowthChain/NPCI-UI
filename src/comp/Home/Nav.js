@@ -8,50 +8,101 @@ import AddBalance from './Modals/AddBalance';
 import { fetchCBDCBalance } from '../../apis/apis';
 
 const routes = {
-  investor: {
-    name: "Investor",
-    "Profile": "profile",
-    "My token holdings": "token-holdings",
-    "My bond holdings": "bond-holdings",
-    "Transactions Hitory": "transactions-hitory",
-  },
-  custodian: {
-    name: "NSDL(Custodian/Depository)",
-    "Investors list": "investors-list",
-    "Tokenized Bonds": "tokenised-bond",
-    "Transactions list": "transactions-hitory",
-    "Reports": "reports",
-  },
-  regulator: {
-    name: "NSE",
-    "Investors list": "investors-list",
-    "Tokenized Bonds": "tokenised-bond",
-    "Transactions list": "transactions-hitory",
-    "Reports": "reports",
-  },
-  mbe: {
-    name: "MBE",
-    "Investors list": "investors-list",
-    "Tokenized Bonds": "tokenised-bond",
-    "Transactions list": "transactions-hitory",
-    "Reports": "reports",
-  },
+  investor: [
+    {
+      key: "Profile",
+      to: "/investor/profile",
+    },
+    {
+      key: "My token holdings",
+      to: "/investor/token-holdings",
+    },
+    {
+      key: "My bond holdings",
+      to: "/investor/bond-holdings",
+    },
+    {
+      key: "Transactions Hitory",
+      to: "/investor/transactions-hitory",
+    },
+  ],
+  custodian: [
+    {
+      key: "Investors list",
+      to: "/custodian/investors-list",
+    },
+    {
+      key: "Tokenized Bonds",
+      to: "/custodian/tokenised-bond",
+    },
+    {
+      key: "Transactions list",
+      to: "/custodian/transactions-hitory",
+    },
+    {
+      key: "Reports",
+      to: "/custodian/reports",
+    },
+  ],
+  regulator: [
+    {
+      key: "Investors list",
+      to: "/regulator/investors-list",
+    },
+    {
+      key: "Tokenized Bonds",
+      to: "/regulator/tokenised-bond",
+    },
+    {
+      key: "Transactions list",
+      to: "/regulator/transactions-hitory",
+    },
+    {
+      key: "Reports",
+      to: "/regulator/reports",
+    },
+  ],
+  mbe: [
+    {
+      key: "Investors list",
+      to: "/mbe/investors-list",
+    },
+    {
+      key: "Tokenized Bonds",
+      to: "/mbe/tokenised-bond",
+    },
+    {
+      key: "Transactions list",
+      to: "/mbe/transactions-hitory",
+    },
+    {
+      key: "Reports",
+      to: "/mbe/reports",
+    },
+  ],
+}
+
+const Name = {
+  investor: "Investor",
+  custodian: "NSDL(Custodian/Depository)",
+  regulator: "NSE",
+  mbe: "MBE",
 }
 
 function Nav() {
   const isLoggedIn = useStore(state => state.isLoggedIn)
   const logOut = useStore(state => state.logOut)
-  const role = useStore(state => state.role)
   const mbeId = useStore(state => state.email)
+  const role = useStore(state => state.role)
 
+  const [CBDCBalance, setCBDCBalance] = useState({})
   const [open, setOpen] = useState(false)
   const [list, setList] = useState([])
-  const [CBDCBalance, setCBDCBalance] = useState({})
   const navigate = useNavigate()
 
   useEffect(() => {
-    let { name, ...newData } = routes[role] || { name: "" }
-    setList([...Object.keys(newData), "Log Out"])
+    const ddList = role === "investor" ? ["Profile", "Log Out"] : ["Log Out"]
+    setList(ddList)
 
     const onSuccess = (payload) => {
       setCBDCBalance(payload)
@@ -65,7 +116,7 @@ function Nav() {
       logOut()
       navigate("/")
     } else {
-      navigate(`/${role}/${routes[role][val]}`)
+      navigate("/investor/profile")
     }
   }
 
@@ -73,16 +124,16 @@ function Nav() {
 
   return (
     <>
-      <nav className="df gap-4 sm:gap-8 h-16 px-8 border-b border-[rgba(255,255,255,.6)]">
+      <nav className="df gap-4 sm:gap-8 h-16 px-8 border-b border-[rgba(0,0,0,.05)]">
         <Link
-          className='mr-auto py-4 sm:text-xl lg:text-2xl font-semibold text-white'
+          className='mr-auto py-4 sm:text-xl lg:text-2xl font-semibold'
           to="/"
         >
           Micro Bond Exchange
         </Link>
 
         <Link
-          className='text-white hover:text-emerald-300'
+          className='text-sm hover:text-emerald-500'
           to="/mbe-market"
         >
           MBE Market
@@ -90,6 +141,18 @@ function Nav() {
 
         {
           isLoggedIn ? <>
+            {
+              routes[role].map(r => (
+                <Link
+                  className='text-sm hover:text-emerald-500'
+                  key={r.key}
+                  to={r.to}
+                >
+                  {r.key}
+                </Link>
+              ))
+            }
+
             {
               role === "investor" &&
               <button
@@ -108,18 +171,18 @@ function Nav() {
               needArrow
               boxCls="profile-dd"
             >
-              <UserProfile /> <span className='text-xs'>{routes[role]?.name}</span>
+              <UserProfile /> <span className='text-xs'>{Name[role]}</span>
             </DropDownWrapper>
           </> : <>
             <Link
-              className='hover:text-emerald-500'
+              className='text-sm hover:text-emerald-500'
               to="/login"
             >
               Login
             </Link>
 
             <Link
-              className='hover:text-emerald-500'
+              className='text-sm hover:text-emerald-500'
               to="/signup"
             >
               Signup

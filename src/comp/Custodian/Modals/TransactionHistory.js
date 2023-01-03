@@ -33,7 +33,7 @@ function TransactionHistory({ isOpen, data, closeModal }) {
       setIsLoading(false)
     }
 
-    fetchSingleUserBuyTransactions({ mbeId: data.email}, onSuccess1)
+    fetchSingleUserBuyTransactions({ mbeId: data.email }, onSuccess1)
     fetchSingleUserSellTransactions({ mbeId: data.email }, onSuccess2)
   }, [data.email])
 
@@ -49,7 +49,7 @@ function TransactionHistory({ isOpen, data, closeModal }) {
           isLoading ? <Loader wrapperCls='h-[50vh]' /> :
             <table className="w-full">
               <thead>
-                <tr className="sticky top-0 text-sm font-medium bg-slate-100 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
+                <tr className="sticky top-0 text-sm font-medium bg-slate-100 shadow-[0_1px_3px_0_rgba(0,0,0,.1)] z-1">
                   <td className="pl-8 pr-4 py-2">Date</td>
                   <td className="px-4 py-2">ISIN</td>
                   <td className="px-4 py-2">Issuer Name</td>
@@ -66,15 +66,15 @@ function TransactionHistory({ isOpen, data, closeModal }) {
                   list.map((li, i) => (
                     <tr
                       key={li.id}
-                      className="even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
+                      className="text-sm even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
                     >
-                      <td className="pl-8 pr-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.maturitydate} </td>
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.isin} </td>
-                      <td className="px-4 py-2 text-sm font-medium opacity-80 group-hover:opacity-100"> {li.issuerName} </td>
-                      <td className={`px-4 py-2 text-sm opacity-80 group-hover:opacity-100 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.TotalQtyRemaining / 100} </td>
-                      <td className="px-4 py-2 text-sm opacity-80 group-hover:opacity-100"> {li.TotalQtyRemaining} </td>
-                      <td className={`px-4 py-2 text-xs opacity-80 group-hover:opacity-100 ${i % 5 === 0 ? "text-red-400" : "text-emerald-400"}`}>
+                      <td className="pl-8 pr-4 py-2"> {li.maturitydate} </td>
+                      <td className="px-4 py-2"> {li.isin} </td>
+                      <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
+                      <td className={`px-4 py-2 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
+                      <td className="px-4 py-2"> {li.TotalQtyRemaining / 100} </td>
+                      <td className="px-4 py-2"> {li.TotalQtyRemaining} </td>
+                      <td className={`px-4 py-2 text-xs ${i % 5 === 0 ? "text-red-400" : "text-emerald-400"}`}>
                         {
                           i % 5 === 0
                             ? "Failure"
@@ -85,7 +85,7 @@ function TransactionHistory({ isOpen, data, closeModal }) {
                         {
                           i % 5 !== 0 &&
                           <Print
-                            className="mx-auto fill-slate-900 opacity-70 hover:opacity-100"
+                            className="mx-auto fill-slate-900"
                           />
                         }
                       </td>

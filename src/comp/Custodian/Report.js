@@ -38,7 +38,7 @@ function Report() {
       for (let i = 0; i < res.length; i++) {
         const entry = res[i]
         // for (const [key, value] of Object.entries(res[i])) {
-          
+
         // }
         setTradeValueData(p => ({
           ...p,
@@ -56,8 +56,8 @@ function Report() {
   if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
-    <section className="dfc h-[calc(100vh-64px)] border-r border-[rgba(255,255,255,.3)] overflow-y-hidden">
-      <div className='df gap-4 p-4 border-b border-[rgba(255,255,255,.3)] relative'>
+    <section className="dfc gap-0 h-[calc(100vh-64px)] overflow-y-hidden">
+      <div className='df gap-4 p-4 border-b border-[rgba(0,0,0,.1)] relative'>
         <DropDownWrapper
           list={["List of Tokenized Bonds", "List of Detokenized Bonds", "Trade Report"]}
           onClk={updateType}
@@ -66,7 +66,7 @@ function Report() {
           rootCls="p-0"
           needArrow
         >
-          <Filter className={`fill-white ${type ? "opacity-100" : "opacity-70"}`} />
+          <Filter className={type ? "opacity-100" : "opacity-70"} />
         </DropDownWrapper>
 
         {/* <FilterByDate
@@ -81,7 +81,7 @@ function Report() {
       <div className="scroll-y overflow-x-auto">
         <table className="w-full table-fixed">
           <thead>
-            <tr className="sticky top-0 text-sm bg-slate-900 shadow-[0_1px_3px_0_rgba(255,255,255,.1)] z-1">
+            <tr className="sticky top-0 text-sm bg-slate-200 shadow-[0_1px_3px_0_rgba(0,0,0,.1)] z-1">
               {/* <td className="w-32 px-4 py-2">Trade Date</td> */}
               <td className="w-36 px-4 py-2">ISIN</td>
               <td className="w-52 px-4 py-2">Issuer Name</td>
@@ -97,15 +97,15 @@ function Report() {
               res.map(li => (
                 <tr
                   key={li.id}
-                  className="hover:bg-[rgba(255,255,255,.1)] cursor-pointer group"
+                  className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
                 >
-                  {/* <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturitydate} </td> */}
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.isin} </td>
-                  <td className="px-4 py-2 text-sm font-medium opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.issuerName} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.couponrate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.maturitydate} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.volumn / 1000} </td>
-                  <td className="px-4 py-2 text-sm opacity-80 border-b border-[rgba(255,255,255,.3)] group-hover:opacity-100"> {li.volumn} </td>
+                  {/* <td className="px-4 py-2"> {li.maturitydate} </td> */}
+                  <td className="px-4 py-2"> {li.isin} </td>
+                  <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
+                  <td className="px-4 py-2"> {li.couponrate} </td>
+                  <td className="px-4 py-2"> {li.maturitydate} </td>
+                  <td className="px-4 py-2"> {li.volumn / 1000} </td>
+                  <td className="px-4 py-2"> {li.volumn} </td>
                 </tr>
               ))
             }
