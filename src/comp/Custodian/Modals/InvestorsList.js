@@ -9,6 +9,7 @@ import { fetchBondInvestors } from '../../../apis/apis';
 function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen, closeModal, Isin }) {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState(true)
+  const token = useStore(state => state.token)
 
   useEffect(() => {
     const onSuccess = res => {
@@ -16,7 +17,7 @@ function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen
       setData(res)
     }
 
-    fetchBondInvestors(onSuccess)
+    fetchBondInvestors(token, onSuccess)
   }, [])
 
   if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />

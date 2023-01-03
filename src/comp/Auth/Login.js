@@ -23,15 +23,16 @@ function Login() {
   }
 
   const onSubmit = () => {
-    if (details.email === "custodian@gmail.com") {
-      onSuccess({ role: "custodian" })
-    } else if (details.email === "regulator@gmail.com") {
-      onSuccess({ role: "regulator" })
-    } else if (details.email === "mbe@gmail.com") {
-      onSuccess({ role: "mbe" })
-    } else {
-      login(details, onSuccess, onFailure)
-    }
+    // if (details.email === "custodian@gmail.com") {
+    //   onSuccess({ role: "custodian" })
+    // } else if (details.email === "regulator@gmail.com") {
+    //   onSuccess({ role: "regulator" })
+    // } else if (details.email === "mbe@gmail.com") {
+    //   onSuccess({ role: "mbe" })
+    // } else {
+    //   login(details, onSuccess, onFailure)
+    // }
+    login(details, onSuccess, onFailure)
   }
 
   const onSuccess = (payload) => {

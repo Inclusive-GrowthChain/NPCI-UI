@@ -1,9 +1,14 @@
 import endPoints from "../utils/endPoints";
 import sendApiReq from "../utils/sendApiReq";
 
-export async function getInvestorLists(onSuccess) {
+export async function getInvestorLists(token, onSuccess) {
   try {
-    const res = await sendApiReq({})
+    const res = await sendApiReq({
+      method: 'get',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
+    })
     console.log("investors List")
     console.log(res)
     onSuccess(res.message)
