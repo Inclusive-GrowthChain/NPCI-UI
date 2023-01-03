@@ -9,7 +9,6 @@ import Sell from './Modals/Sell';
 
 function TokenHoldings() {
   const email = useStore(state => state.email)
-  const token = useStore(state => state.token)
 
   const [tokenHoldings, setTokenHoldings] = useState([])
   const [loading, setLoading] = useState(true)
@@ -22,7 +21,7 @@ function TokenHoldings() {
       setLoading(false)
     }
 
-    fetchTokenHoldings({ "MbeId": email }, token, onSuccess)
+    fetchTokenHoldings({ "MbeId": email }, onSuccess)
   }, [email])
 
   const updateOpen = (id, category) => {

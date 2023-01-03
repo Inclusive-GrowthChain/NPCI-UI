@@ -9,7 +9,6 @@ import Loader from '../Common/Loader';
 function BondHoldings() {
   const [open, setOpen] = useState("")
   const email = useStore(state => state.email)
-  const token = useStore(state => state.token)
 
   const [bondHoldings, setBondHoldings] = useState([])
   const [loading, setLoading] = useState(true)
@@ -20,7 +19,7 @@ function BondHoldings() {
       setLoading(false)
     }
 
-    fetchTokenHoldings({ "MbeId": email }, token, onSuccess)
+    fetchTokenHoldings({ "MbeId": email }, onSuccess)
   }, [email])
 
   const updateOpen = id => setOpen(id)

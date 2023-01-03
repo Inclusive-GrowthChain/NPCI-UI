@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import useStore from '../../store';
 
+import { fetchNumOfDetokenizeToken } from '../../apis/apis';
 import { getMarket } from '../../apis/custodianApis';
 
 import InvestorsList from './Modals/InvestorsList';
 import UserInfoModal from './Modals/UserInfo';
 import Loader from '../Common/Loader';
-import { fetchNumOfDetokenizeToken } from '../../apis/apis';
 
 function TokenisedBond() {
   const role = useStore(state => state.role)

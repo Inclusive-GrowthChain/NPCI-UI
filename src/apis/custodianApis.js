@@ -3,14 +3,7 @@ import sendApiReq from "../utils/sendApiReq";
 
 export async function getInvestorLists(token, onSuccess) {
   try {
-    const res = await sendApiReq({
-      method: 'get',
-      headers: {
-        'Authorization': "Bearer " + token,
-      },
-    })
-    console.log("investors List")
-    console.log(res)
+    const res = await sendApiReq({})
     onSuccess(res.message)
 
   } catch (error) {
@@ -34,9 +27,7 @@ export async function getUserDetails(MbeId, onSuccess) {
 
 export async function getBondholding(data, onSuccess) {
   try {
-    console.log(data);
     const payload = await sendApiReq({
-      method: 'get',
       url: endPoints.fetchTokenHoldings,
       params: data
     })
@@ -50,9 +41,7 @@ export async function getBondholding(data, onSuccess) {
 
 export async function getTokenHoldings(data, onSuccess) {
   try {
-    console.log(data);
     const payload = await sendApiReq({
-      method: 'get',
       url: endPoints.fetchTokenHoldings,
       params: data
     })
@@ -64,11 +53,9 @@ export async function getTokenHoldings(data, onSuccess) {
   }
 }
 
-export async function getTransactions(data, onSuccess) {
+export async function getTransactions(onSuccess) {
   try {
-    console.log(data);
     const payload = await sendApiReq({
-      method: 'get',
       url: endPoints.transactions,
     })
     console.log(payload)
@@ -79,13 +66,9 @@ export async function getTransactions(data, onSuccess) {
   }
 }
 
-export async function getPurchaseLog(token, onSuccess) {
+export async function getPurchaseLog(onSuccess) {
   try {
     const res = await sendApiReq({
-      method: "get",
-      headers: {
-        'Authorization': "Bearer " + token,
-      },
       url: endPoints.purchaseLog,
     })
 
@@ -101,7 +84,6 @@ export async function getPurchaseLog(token, onSuccess) {
 export async function getMarket(onSuccess) {
   try {
     const payload = await sendApiReq({
-      method: 'get',
       url: endPoints.fetchMarket,
     })
     console.log(payload)
@@ -112,13 +94,9 @@ export async function getMarket(onSuccess) {
   }
 }
 
-export async function fetchAllUserSellTransactions(token, onSuccess) {
+export async function fetchAllUserSellTransactions(onSuccess) {
   try {
     const payload = await sendApiReq({
-      method: 'get',
-      headers: {
-        'Authorization': "Bearer " + token,
-      },
       url: endPoints.fetchAllUserSellTransactions,
     })
     console.log(payload)
@@ -129,13 +107,9 @@ export async function fetchAllUserSellTransactions(token, onSuccess) {
   }
 }
 
-export async function fetchAllUserBuyTransactions(token, onSuccess) {
+export async function fetchAllUserBuyTransactions(onSuccess) {
   try {
     const payload = await sendApiReq({
-      method: 'get',
-      headers: {
-        'Authorization': "Bearer " + token,
-      },
       url: endPoints.fetchAllUserBuyTransactions,
     })
     console.log(payload)
@@ -146,13 +120,9 @@ export async function fetchAllUserBuyTransactions(token, onSuccess) {
   }
 }
 
-export async function fetchSingleUserSellTransactions(data, token, onSuccess) {
+export async function fetchSingleUserSellTransactions(data, onSuccess) {
   try {
     const payload = await sendApiReq({
-      method: 'get',
-      headers: {
-        'Authorization': "Bearer " + token,
-      },
       url: endPoints.fetchSingleUserSellTransactions,
       params: data
     })
@@ -164,13 +134,9 @@ export async function fetchSingleUserSellTransactions(data, token, onSuccess) {
   }
 }
 
-export async function fetchSingleUserBuyTransactions(data, token, onSuccess) {
+export async function fetchSingleUserBuyTransactions(data, onSuccess) {
   try {
     const payload = await sendApiReq({
-      method: 'get',
-      headers: {
-        'Authorization': "Bearer " + token,
-      },
       url: endPoints.fetchSingleUserBuyTransactions,
       params: data
     })

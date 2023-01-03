@@ -1,9 +1,8 @@
 import { useState } from 'react';
+import { errorNotify, successNotify } from "../../../helper/toastifyHelp";
 import { tokenize } from '../../../apis/apis';
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
-import useStore from "../../../store";
-import { errorNotify, successNotify } from "../../../helper/toastifyHelp";
 
 // If Tokenized “Tokenized , Visit transaction history & My token holdings for more details”.
 // If pending “Transaction pending, Visit transaction history for more details”.
@@ -14,7 +13,6 @@ function Tokenise({ isOpen, data, closeModal }) {
     "Isin": data.Isin,
     "MbeId": data.MbeId,
   })
-  const token = useStore(state => state.token)
 
   const onChange = e => {
     setDetails(p => ({
@@ -25,7 +23,7 @@ function Tokenise({ isOpen, data, closeModal }) {
 
   const onSubmit = () => {
     console.log(details)
-    tokenize(details, token, onSuccess, onFailure)
+    tokenize(details, onSuccess, onFailure)
   }
 
   const onSuccess = (message) => {
@@ -100,7 +98,7 @@ function Tokenise({ isOpen, data, closeModal }) {
                 }))
                 setDetails(p => ({
                   ...p,
-                  "TotalTokenQty": (e.target.value*200000).toString()
+                  "TotalTokenQty": (e.target.value * 200000).toString()
                 }))
               }}
               className="no-number-arrows"
@@ -109,7 +107,7 @@ function Tokenise({ isOpen, data, closeModal }) {
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-            <input type="text" value={noOfLots * 200000 || ""} disabled onChange={() => {}} name="TotalTokenQty" />
+            <input type="text" value={noOfLots * 200000 || ""} disabled onChange={() => { }} name="TotalTokenQty" />
           </div>
 
           <div>

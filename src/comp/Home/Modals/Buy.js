@@ -19,7 +19,6 @@ function Buy({ isOpen, data, closeModal }) {
 
   const [isTradeOpen, setIsTradeOpen] = useState(false)
   const navigate = useNavigate()
-  const token = useStore(state => state.token)
 
   // const [numberOfTokens, setNumberOfTokens] = useState(null)
   // const [bidPricePerToken, setBidPricePerToken] = useState(null)
@@ -41,8 +40,7 @@ function Buy({ isOpen, data, closeModal }) {
   const onClick = () => {
     if (!isTradeOpen) return setIsTradeOpen(true)
     else {
-      console.log(details)
-      buyOrder(details, token, onSuccess, onFailure)
+      buyOrder(details, onSuccess, onFailure)
     }
   }
 

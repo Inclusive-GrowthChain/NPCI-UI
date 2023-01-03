@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import useStore from '../../store';
 
 import { fetchMbeMarket } from '../../apis/apis';
 
@@ -8,9 +7,7 @@ import Loader from '../Common/Loader';
 import Buy from './Modals/Buy';
 
 function MBEMarket() {
-  // const MbeId = useStore(state => state.email)
   const [loading, setLoading] = useState(true)
-  const token = useStore(state => state.token)
   const [filter, setFilter] = useState("")
   const [market, setMarket] = useState([])
   const [open, setOpen] = useState("")
@@ -21,7 +18,7 @@ function MBEMarket() {
       setLoading(false)
     }
 
-    fetchMbeMarket(token, onSuccess)
+    fetchMbeMarket(onSuccess)
   }, [])
 
   const updateOpen = id => setOpen(id)

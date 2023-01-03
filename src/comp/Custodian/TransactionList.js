@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import useStore from '../../store';
 
 import custodianTransaction from '../../constants/custodianTransaction';
-import { fetchAllUserBuyTransactions, fetchAllUserSellTransactions, getTransactions } from '../../apis/custodianApis';
+import { fetchAllUserBuyTransactions, fetchAllUserSellTransactions } from '../../apis/custodianApis';
 import getTypeClr from '../../helper/getTypeClr';
 
 import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
@@ -27,8 +27,6 @@ function TransactionList() {
   const [type, setType] = useState("")
   const [list, setList] = useState("")
   const [open, setOpen] = useState({ state: "", data: {} })
-
-  console.log({ list })
 
   useEffect(() => {
     const onSuccess1 = res => {

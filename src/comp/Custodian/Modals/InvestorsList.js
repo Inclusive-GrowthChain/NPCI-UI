@@ -1,10 +1,11 @@
-import Modal from '../../UIComp/Modal';
-import investorList from '../../../constants/investorList';
 import { useEffect, useState } from 'react';
-import useStore from '../../../store';
-import Loader from '../../Common/Loader';
-import { getInvestorLists } from '../../../apis/custodianApis';
+// import useStore from '../../../store';
+
 import { fetchBondInvestors } from '../../../apis/apis';
+// import investorList from '../../../constants/investorList';
+
+import Loader from '../../Common/Loader';
+import Modal from '../../UIComp/Modal';
 
 function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen, closeModal, Isin }) {
   const [isLoading, setIsLoading] = useState(true)
