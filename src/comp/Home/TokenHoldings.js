@@ -31,8 +31,10 @@ function TokenHoldings() {
               bidPrice = bidPriceRes[i].Price
             }
             else {
-              if (currentTime >= Date.parse(bidPriceRes[i].createdAt))
+              if (currentTime <= Date.parse(bidPriceRes[i].createdAt)) {
+                currentTime = Date.parse(bidPriceRes[i].createdAt)
                 bidPrice = bidPriceRes[i].Price
+              }
             }
           }
         }
@@ -59,8 +61,10 @@ function TokenHoldings() {
               askPrice = askPriceRes[i].Price
             }
             else {
-              if (currentTime >= Date.parse(askPriceRes[i].createdAt))
+              if (currentTime <= Date.parse(askPriceRes[i].createdAt)) {
+                currentTime = Date.parse(askPriceRes[i].createdAt)
                 askPrice = askPriceRes[i].Price
+              }
             }
           }
         }
@@ -114,8 +118,8 @@ function TokenHoldings() {
               <td className="w-28 px-4 py-2 text-center">Ask Price</td>
               <td className="w-32 px-4 py-2 text-center">No. of Tokens</td>
               <td className="w-32 px-4 py-2 text-center">No. of Lots</td>
-              {/* <td className="w-32 px-4 py-2 text-center">Purchase Price</td>
-              <td className="w-32 px-4 py-2 text-center">Current Price</td> */}
+              {/* <td className="w-32 px-4 py-2 text-center">Purchase Price</td> */}
+              <td className="w-32 px-4 py-2 text-center">Current Price</td>
               <td className="w-32 px-4 py-2"></td>
             </tr>
           </thead>
@@ -149,8 +153,8 @@ function TokenHoldings() {
                     </td>
                     <td className="px-4 py-2 text-center"> {li.TotalTokenQty} </td>
                     <td className="px-4 py-2 text-center"> {li.TokenizedLot} </td>
-                    {/* <td className="px-4 py-2 text-center"> {li.purchasePrice || "-"} </td>
-                    <td className="px-4 py-2 text-center"> {li.currentPrice || "-"} </td> */}
+                    {/* <td className="px-4 py-2 text-center"> {li.purchasePrice || "-"} </td> */}
+                    <td className="px-4 py-2 text-center"> {Number(li.Ltp) * Number(li.TotalTokenQty) || "-"} </td>
                     <td className="px-4 py-2 text-center">
                       <button
                         className='px-3 py-1.5 rounded border border-red-500 hover:bg-red-500 hover:text-white'

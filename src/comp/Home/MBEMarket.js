@@ -28,7 +28,8 @@ function MBEMarket() {
               bidPrice = bidPriceRes[i].Price
             }
             else {
-              if (currentTime >= Date.parse(bidPriceRes[i].createdAt))
+              if (currentTime <= Date.parse(bidPriceRes[i].createdAt))
+                currentTime = Date.parse(bidPriceRes[i].createdAt)
                 bidPrice = bidPriceRes[i].Price
             }
           }
@@ -56,7 +57,8 @@ function MBEMarket() {
               askPrice = askPriceRes[i].Price
             }
             else {
-              if (currentTime >= Date.parse(askPriceRes[i].createdAt))
+              if (currentTime <= Date.parse(askPriceRes[i].createdAt))
+                currentTime = Date.parse(askPriceRes[i].createdAt)
                 askPrice = askPriceRes[i].Price
             }
           }

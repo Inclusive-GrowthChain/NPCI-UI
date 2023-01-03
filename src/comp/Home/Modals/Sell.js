@@ -114,7 +114,7 @@ function Sell({ isOpen, data, closeModal }) {
 
             <div>
               <label className='mb-1 font-medium' htmlFor="">Total</label>
-              <input type="text" value={Number(details.NumOfToken) * Number(details.Price)} readOnly />
+              <input type="text" value={Math.round(Number(details.NumOfToken) * Number(details.Price))} readOnly />
             </div>
           </div>
         }

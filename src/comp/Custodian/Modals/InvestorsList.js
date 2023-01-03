@@ -10,15 +10,18 @@ import Modal from '../../UIComp/Modal';
 function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen, closeModal, Isin }) {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState(true)
-  const token = useStore(state => state.token)
 
   useEffect(() => {
     const onSuccess = res => {
+      const resp = res
+      for (let i = 0; i < res.length; i++) {
+        resp[i].TotalTokenQty = Number(res[i].TotalTokenQty) + (Number(resp[i].TotalTokenQty) ? Number(resp[i].TotalTokenQty) : 0)
+      }
+      setData(resp)
       setIsLoading(false)
-      setData(res)
     }
 
-    fetchBondInvestors(token, onSuccess)
+    fetchBondInvestors(onSuccess)
   }, [])
 
   if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
@@ -47,7 +50,7 @@ function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen
           <tbody>
             {
               data
-                .filter((a, i) => data[i].Isin === Isin)
+                .filter((a, i) => data[i].Isin === Isin && data[i].TotalTokenQty !== 0)
                 .map(li => (
                   <tr
                     key={li._id}
