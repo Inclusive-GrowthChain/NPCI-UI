@@ -7,6 +7,7 @@ import getTypeClr from '../../helper/getTypeClr';
 import { ReactComponent as Print } from '../../assets/svg/files/print.svg';
 import CertificateAsPdf from './Modals/CertificateAsPdf';
 import Loader from '../Common/Loader';
+import { fetchSingleUserBuyTransactions, fetchSingleUserSellTransactions } from '../../apis/custodianApis';
 
 function TransactionHitory() {
   const email = useStore(state => state.email)
@@ -14,16 +15,38 @@ function TransactionHitory() {
   const [transactions, setTransactions] = useState([])
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
+  const token = useStore(state => state.token)
 
   useEffect(() => {
-    const onSuccess = (payload) => {
-      // const timestamp = Date.now()
-      // console.log(new Intl.DateTimeFormat('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(timestamp))
-      setTransactions(payload.message)
+    // const onSuccess = (payload) => {
+    //   // const timestamp = Date.now()
+    //   // console.log(new Intl.DateTimeFormat('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(timestamp))
+    //   setTransactions(payload.message)
+    //   setLoading(false)
+    // }
+
+    // fetchTransactions({ email }, onSuccess)
+
+    const onSuccess1 = res => {
+      if (res != null)
+        setTransactions(res)
+    }
+
+    const onSuccess2 = res => {
+      if (res != null) {
+        for (let i = 0; i < res.length; i++) {
+          const entry = res[i]
+          setTransactions(p => ({
+            ...p,
+            entry
+          }))
+        }
+      }
       setLoading(false)
     }
 
-    fetchTransactions({ email }, onSuccess)
+    fetchSingleUserBuyTransactions({"MbeId": email}, token, onSuccess1)
+    fetchSingleUserSellTransactions({ "MbeId": email }, token, onSuccess2)
   }, [email])
 
   const updateOpen = () => setOpen(p => !p)
@@ -44,7 +67,7 @@ function TransactionHitory() {
               <td className="w-28 px-4 py-2">ISIN</td>
               <td className="w-28 px-4 py-2">Transaction Id</td>
               <td className="w-56 px-4 py-2">Issuer Name</td>
-              <td className="w-32 px-4 py-2">TransactionType</td>
+              <td className="w-32 px-4 py-2">TransactionsType</td>
               <td className="w-32 px-4 py-2">No. of Tokens</td>
               <td className="w-24 px-4 py-2">Amount</td>
               <td className="w-24 px-4 py-2">Status</td>
@@ -59,16 +82,16 @@ function TransactionHitory() {
                   key={li._id}
                   className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
                 >
-                  <td className="pl-8 pr-4 py-2"> {li.maturitydate} </td>
-                  <td className="px-4 py-2"> {li.isin} </td>
+                  <td className="pl-8 pr-4 py-2"> {li.MaturityDate} </td>
+                  <td className="px-4 py-2"> {li.Isin} </td>
                   <td className="px-4 py-2 break-words"> {li.BuyOrderId || li.SellOrderId} </td>
-                  <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
-                  <td className={`px-4 py-2 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
+                  <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
+                  <td className={`px-4 py-2 ${getTypeClr(li.TransactionsType)}`}> {li.TransactionsType} </td>
                   <td className="px-4 py-2"> {li.NumOfToken} </td>
                   <td className="px-4 py-2"> {li.TradeValue} </td>
                   <td className={`px-4 py-2 text-xs text-emerald-400`}>
                     {
-                      li.Purchased ? "Purchased" : li.isAuthorized ? "Authorized" : li.isProcessed ? "Processed" : "Failure"
+                      li.Purchased ? "Purchased" : li.isAuthorized ? "Authorized" : li.IsProcessed ? "Processed" : "Failure"
                     }
                   </td>
                   <td className='px-4 py-2'>

@@ -6,7 +6,7 @@ import Loader from '../../Common/Loader';
 import { getInvestorLists } from '../../../apis/custodianApis';
 import { fetchBondInvestors } from '../../../apis/apis';
 
-function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen, closeModal, isin }) {
+function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen, closeModal, Isin }) {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState(true)
 
@@ -45,7 +45,7 @@ function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen
           <tbody>
             {
               data
-                .filter((a, i) => data[i].Isin === isin)
+                .filter((a, i) => data[i].Isin === Isin)
                 .map(li => (
                   <tr
                     key={li._id}
@@ -57,7 +57,7 @@ function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen
                       <td className="px-4 py-2 font-medium">
                         <button
                           className='p-0 hover:scale-105 transition-transform'
-                          onClick={() => updateOpen("UserInfo", { ...li, issuerName: title })}
+                          onClick={() => updateOpen("UserInfo", { ...li, IssuerName: title })}
                         >
                           {li.MbeId}
                         </button>

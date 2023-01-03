@@ -60,7 +60,7 @@ function TransactionList() {
     //   let start = new Date(dateFilter.start).getTime()
     //   let end = new Date(dateFilter.end).getTime()
     //   cloned = cloned.filter(l => {
-    //     let currDate = new Date(l.maturityDate).getTime()
+    //     let currDate = new Date(l.MaturityDate).getTime()
     //     return currDate >= start && currDate <= end
     //   })
     // }
@@ -74,7 +74,7 @@ function TransactionList() {
     }
 
     if (type) {
-      cloned = cloned.filter(l => l.transactionType.match(type))
+      cloned = cloned.filter(l => l.TransactionsType.match(type))
     }
 
     return cloned
@@ -135,13 +135,13 @@ function TransactionList() {
             <span className='ml-auto'></span>
             <Input
               lable='ISIN'
-              value={tokenDetails.isin}
+              value={tokenDetails.Isin}
               inputCls="bg-slate-800 text-white border-none"
               lableCls='w-auto mb-0'
             />
             <Input
               lable='Issuer Name'
-              value={tokenDetails.issuerName}
+              value={tokenDetails.IssuerName}
               inputCls="bg-slate-800 text-white border-none"
               lableCls='w-auto mb-0'
             />
@@ -187,9 +187,9 @@ function TransactionList() {
                     className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
                   >
                     <td className="pl-8 pr-4 py-2"> {li.OrderId} </td>
-                    <td className="px-4 py-2"> {li.transactionType} </td>
-                    <td className={`px-4 py-2 font-medium ${getTypeClr(li.transactionType)}`}>
-                      {li.transactionType}
+                    <td className="px-4 py-2"> {li.TransactionsType} </td>
+                    <td className={`px-4 py-2 font-medium ${getTypeClr(li.TransactionsType)}`}>
+                      {li.TransactionsType}
                     </td>
                     <td className="px-4 py-2">
                       <button
@@ -237,7 +237,7 @@ function TransactionList() {
         open.state === "InvestorsList" &&
         <InvestorsList
           isOpen
-          title={tokenDetails?.issuerName || "SHRIRAM TRANSPORT"}
+          title={tokenDetails?.IssuerName || "SHRIRAM TRANSPORT"}
           updateOpen={updateOpen}
           closeModal={closeModal}
           needInvesterName={role !== "mbe"}

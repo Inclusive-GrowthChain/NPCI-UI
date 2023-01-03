@@ -18,7 +18,7 @@ function BondHoldings({ isOpen, data, closeModal }) {
       setList(res)
     }
 
-    getBondholding({ "mbeId": data.email }, onSuccess)
+    getBondholding({ "MbeId": data.email }, onSuccess)
   }, [data.email])
 
   return (
@@ -26,7 +26,7 @@ function BondHoldings({ isOpen, data, closeModal }) {
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc max-h-[80vh] overflow-y-hidden"
-      title={`Bond Holdings of ${role === "mbe" ? data.mbeId : data.email}`}
+      title={`Bond Holdings of ${role === "mbe" ? data.MbeId : data.email}`}
     >
       <div className='scroll-y'>
         {
@@ -51,11 +51,11 @@ function BondHoldings({ isOpen, data, closeModal }) {
                       key={li._id}
                       className="text-sm even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
                     >
-                      <td className="px-4 py-2"> {li.isin} </td>
-                      <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
-                      <td className="px-4 py-2 text-center"> {li.maturitydate} </td>
-                      <td className="px-4 py-2"> {li.couponrate} </td>
-                      <td className="px-4 py-2"> {li.faceValue} </td>
+                      <td className="px-4 py-2"> {li.Isin} </td>
+                      <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
+                      <td className="px-4 py-2 text-center"> {li.MaturityDate} </td>
+                      <td className="px-4 py-2"> {li.CouponRate} </td>
+                      <td className="px-4 py-2"> {li.FaceValue} </td>
                       <td className="px-4 py-2"> {li.askPrice || 0} </td>
                       <td className="px-4 py-2 text-xs"> {li.bidPrice || 0} </td>
                     </tr>

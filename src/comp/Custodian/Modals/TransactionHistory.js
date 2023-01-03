@@ -33,8 +33,8 @@ function TransactionHistory({ isOpen, data, closeModal }) {
       setIsLoading(false)
     }
 
-    fetchSingleUserBuyTransactions({ mbeId: data.email }, onSuccess1)
-    fetchSingleUserSellTransactions({ mbeId: data.email }, onSuccess2)
+    fetchSingleUserBuyTransactions({ MbeId: data.email }, onSuccess1)
+    fetchSingleUserSellTransactions({ MbeId: data.email }, onSuccess2)
   }, [data.email])
 
   return (
@@ -42,7 +42,7 @@ function TransactionHistory({ isOpen, data, closeModal }) {
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc max-h-[80vh] overflow-y-hidden"
-      title={`Transactions History of ${role === "mbe" ? data.mbeId : data.email}`}
+      title={`Transactions History of ${role === "mbe" ? data.MbeId : data.email}`}
     >
       <div className='scroll-y'>
         {
@@ -53,7 +53,7 @@ function TransactionHistory({ isOpen, data, closeModal }) {
                   <td className="pl-8 pr-4 py-2">Date</td>
                   <td className="px-4 py-2">ISIN</td>
                   <td className="px-4 py-2">Issuer Name</td>
-                  <td className="px-4 py-2">TransactionType</td>
+                  <td className="px-4 py-2">TransactionsType</td>
                   <td className="px-4 py-2">Number of Tokens</td>
                   <td className="px-4 py-2">Amount</td>
                   <td className="px-4 py-2">Status</td>
@@ -68,10 +68,10 @@ function TransactionHistory({ isOpen, data, closeModal }) {
                       key={li.id}
                       className="text-sm even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"
                     >
-                      <td className="pl-8 pr-4 py-2"> {li.maturitydate} </td>
-                      <td className="px-4 py-2"> {li.isin} </td>
-                      <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
-                      <td className={`px-4 py-2 ${getTypeClr(li.transactionType)}`}> {li.transactionType} </td>
+                      <td className="pl-8 pr-4 py-2"> {li.MaturityDate} </td>
+                      <td className="px-4 py-2"> {li.Isin} </td>
+                      <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
+                      <td className={`px-4 py-2 ${getTypeClr(li.TransactionsType)}`}> {li.TransactionsType} </td>
                       <td className="px-4 py-2"> {li.TotalQtyRemaining / 100} </td>
                       <td className="px-4 py-2"> {li.TotalQtyRemaining} </td>
                       <td className={`px-4 py-2 text-xs ${i % 5 === 0 ? "text-red-400" : "text-emerald-400"}`}>

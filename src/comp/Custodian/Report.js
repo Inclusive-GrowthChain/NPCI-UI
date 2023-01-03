@@ -20,13 +20,13 @@ function Report() {
   //     let start = new Date(dateFilter.start).getTime()
   //     let end = new Date(dateFilter.end).getTime()
   //     cloned = cloned.filter(l => {
-  //       let currDate = new Date(l.maturityDate).getTime()
+  //       let currDate = new Date(l.MaturityDate).getTime()
   //       return currDate >= start && currDate <= end
   //     })
   //   }
 
   //   if (type) {
-  //     cloned = cloned.filter(l => l.transactionType.match(type))
+  //     cloned = cloned.filter(l => l.TransactionsType.match(type))
   //   }
 
   //   return cloned
@@ -42,7 +42,7 @@ function Report() {
         // }
         setTradeValueData(p => ({
           ...p,
-          [entry.isin]: entry.TradeValue + tradeValueData[entry.isin]
+          [entry.Isin]: entry.TradeValue + tradeValueData[entry.Isin]
         }))
       }
       setIsLoading(false)
@@ -99,13 +99,13 @@ function Report() {
                   key={li.id}
                   className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
                 >
-                  {/* <td className="px-4 py-2"> {li.maturitydate} </td> */}
-                  <td className="px-4 py-2"> {li.isin} </td>
-                  <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
-                  <td className="px-4 py-2"> {li.couponrate} </td>
-                  <td className="px-4 py-2"> {li.maturitydate} </td>
+                  {/* <td className="px-4 py-2"> {li.MaturityDate} </td> */}
+                  <td className="px-4 py-2"> {li.Isin} </td>
+                  <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
+                  <td className="px-4 py-2"> {li.CouponRate} </td>
+                  <td className="px-4 py-2"> {li.MaturityDate} </td>
                   <td className="px-4 py-2"> {li.volumn / 1000} </td>
-                  <td className="px-4 py-2"> {li.volumn} </td>
+                  <td className="px-4 py-2"> {tradeValueData[li.Isin]} </td>
                 </tr>
               ))
             }

@@ -29,8 +29,8 @@ export async function verifyOtp(data, onSuccess, onFailure) {
     console.log(payload)
     if (payload.status_code === 200)
       onSuccess()
-    else
-      onFailure()
+    // else
+    //   onFailure()
     console.log(data);
   } catch (error) {
     console.log(error)
@@ -48,8 +48,8 @@ export async function fetchNseData(data, onSuccess, onFailure) {
     console.log(payload)
     if (payload.status_code === 200)
       onSuccess(payload)
-    else
-      onFailure()
+    // else
+    //   onFailure()
   } catch (error) {
     console.log(error);
   }
@@ -66,8 +66,8 @@ export async function postNseData(data, onSuccess, onFailure) {
     console.log(payload)
     if (payload.status_code === 200)
       onSuccess()
-    else
-      onFailure()
+    // else
+    //   onFailure()
   } catch (error) {
     console.log(error);
   }
@@ -83,8 +83,25 @@ export async function registerUser(data, onSuccess, onFailure) {
     })
     if (payload.status_code === 200)
       onSuccess()
-    else
-      onFailure()
+    // else
+    //   onFailure()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getPancardData(data, onSuccess, onFailure) {
+  try {
+    console.log(data);
+    const payload = await sendApiReq({
+      method: 'get',
+      url: endPoints.panCardData,
+      params: data
+    })
+    if (payload.status_code === 200)
+      onSuccess(payload.data)
+    // else
+    //   onFailure()
   } catch (error) {
     console.log(error)
   }
@@ -108,11 +125,14 @@ export async function login(data, onSuccess, onFailure) {
   }
 }
 
-export async function fetchTransactions(data, onSuccess) {
+export async function fetchTransactions(data, token, onSuccess) {
   try {
     console.log(data);
     const payload = await sendApiReq({
       method: 'get',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
       url: endPoints.transactions,
       params: data
     })
@@ -124,11 +144,14 @@ export async function fetchTransactions(data, onSuccess) {
   }
 }
 
-export async function fetchTokenHoldings(data, onSuccess) {
+export async function fetchTokenHoldings(data, token, onSuccess) {
   try {
     console.log(data);
     const payload = await sendApiReq({
       method: 'get',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
       url: endPoints.fetchTokenHoldings,
       params: data
     })
@@ -140,11 +163,14 @@ export async function fetchTokenHoldings(data, onSuccess) {
   }
 }
 
-export async function tokenize(data, onSuccess, onFailure) {
+export async function tokenize(data, token, onSuccess, onFailure) {
   try {
     console.log(data);
     const payload = await sendApiReq({
       method: 'post',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
       url: endPoints.tokenize,
       data
     })
@@ -158,11 +184,14 @@ export async function tokenize(data, onSuccess, onFailure) {
   }
 }
 
-export async function detokenzie(data, onSuccess, onFailure) {
+export async function detokenzie(data, token, onSuccess, onFailure) {
   try {
     console.log(data);
     const payload = await sendApiReq({
       method: 'post',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
       url: endPoints.detokenize,
       data
     })
@@ -176,11 +205,14 @@ export async function detokenzie(data, onSuccess, onFailure) {
   }
 }
 
-export async function sellOrder(data, onSuccess, onFailure) {
+export async function sellOrder(data, token, onSuccess, onFailure) {
   try {
     console.log(data)
     const payload = await sendApiReq({
       method: 'post',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
       url: endPoints.placeSellOrder,
       data
     })
@@ -194,10 +226,13 @@ export async function sellOrder(data, onSuccess, onFailure) {
   }
 }
 
-export async function buyOrder(data, onSuccess, onFailure) {
+export async function buyOrder(data, token, onSuccess, onFailure) {
   try {
     const payload = await sendApiReq({
       method: 'post',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
       url: endPoints.placeBuyOrder,
       data
     })
@@ -211,10 +246,13 @@ export async function buyOrder(data, onSuccess, onFailure) {
   }
 }
 
-export async function fetchMbeMarket(onSuccess) {
+export async function fetchMbeMarket(token, onSuccess) {
   try {
     const payload = await sendApiReq({
       method: 'get',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
       url: endPoints.fetchMarket,
     })
     console.log(payload)
@@ -225,10 +263,13 @@ export async function fetchMbeMarket(onSuccess) {
   }
 }
 
-export async function getUserDetails(data, onSuccess) {
+export async function getUserDetails(data, token, onSuccess) {
   try {
     const payload = await sendApiReq({
       method: 'get',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
       url: endPoints.getUserDetails,
       params: data,
     })
@@ -240,10 +281,13 @@ export async function getUserDetails(data, onSuccess) {
   }
 }
 
-export async function fetchCBDCBalance(data, onSuccess) {
+export async function fetchCBDCBalance(data, token, onSuccess) {
   try {
     const payload = await sendApiReq({
       method: 'get',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
       url: endPoints.fetchCBDCBalance,
       params: data,
     })
@@ -257,6 +301,7 @@ export async function fetchCBDCBalance(data, onSuccess) {
 
 export async function addWalletBalance(data, token, onSuccess) {
   console.log(data)
+  console.log(token)
   try {
     const payload = await sendApiReq({
       method: 'post',
@@ -293,10 +338,13 @@ export async function fetchCBDCBalance2(params) {
   return data
 }
 
-export async function fetchBondInvestors(onSuccess) {
+export async function fetchBondInvestors(token, onSuccess) {
   try {
     const payload = await sendApiReq({
       method: 'get',
+      headers: {
+        'Authorization': "Bearer " + token,
+      },
       url: endPoints.fetchInvestors,
     })
     console.log(payload)

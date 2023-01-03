@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { tokenize } from '../../../apis/apis';
 import Modal from '../../UIComp/Modal';
 import Input from '../common/Input';
+import useStore from "../../../store";
 import { errorNotify, successNotify } from "../../../helper/toastifyHelp";
 
 // If Tokenized “Tokenized , Visit transaction history & My token holdings for more details”.
@@ -10,9 +11,10 @@ import { errorNotify, successNotify } from "../../../helper/toastifyHelp";
 function Tokenise({ isOpen, data, closeModal }) {
   const [noOfLots, setNoOfLots] = useState(0)
   const [details, setDetails] = useState({
-    "isin": data.isin,
-    "mbeId": data.mbeId,
+    "Isin": data.Isin,
+    "MbeId": data.MbeId,
   })
+  const token = useStore(state => state.token)
 
   const onChange = e => {
     setDetails(p => ({
@@ -23,7 +25,7 @@ function Tokenise({ isOpen, data, closeModal }) {
 
   const onSubmit = () => {
     console.log(details)
-    tokenize(details, onSuccess, onFailure)
+    tokenize(details, token, onSuccess, onFailure)
   }
 
   const onSuccess = (message) => {
@@ -46,23 +48,23 @@ function Tokenise({ isOpen, data, closeModal }) {
         <div className='grid md:grid-cols-2 gap-4 mb-4'>
           <Input
             lable='ISIN'
-            value={data.isin}
+            value={data.Isin}
           />
           <Input
             lable='Issuer Name'
-            value={data.issuerName}
+            value={data.IssuerName}
           />
           <Input
             lable='Coupon Rate'
-            value={data.couponrate}
+            value={data.CouponRate}
           />
           <Input
-            lable='LTP'
-            value={data.ltp}
+            lable='Ltp'
+            value={data.Ltp}
           />
           <Input
             lable='Maturity Date'
-            value={data.maturitydate}
+            value={data.MaturityDate}
           />
           <Input
             lable='No. of lots'
@@ -76,7 +78,7 @@ function Tokenise({ isOpen, data, closeModal }) {
           <div className='grid-col-full'>
             <Input
               lable='Security Description'
-              value={data.securitydescription}
+              value={data.SecurityDescription}
               inputCls="w-full max-w-none"
               lableCls='w-auto'
             />
@@ -98,7 +100,7 @@ function Tokenise({ isOpen, data, closeModal }) {
                 }))
                 setDetails(p => ({
                   ...p,
-                  "TotalTokenQty": e.target.value*200000
+                  "TotalTokenQty": (e.target.value*200000).toString()
                 }))
               }}
               className="no-number-arrows"
@@ -107,12 +109,12 @@ function Tokenise({ isOpen, data, closeModal }) {
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Number of Tokens</label>
-            <input type="text" value={noOfLots * 200000 || ""} disabled onChange={() => {}} name="totalTokenQty" />
+            <input type="text" value={noOfLots * 200000 || ""} disabled onChange={() => {}} name="TotalTokenQty" />
           </div>
 
           <div>
             <label className='mb-1 font-medium' htmlFor="">Face value</label>
-            <input type="text" defaultValue="1" disabled />
+            <input type="text" defaultValue="1000" disabled />
           </div>
         </div>
       </div>

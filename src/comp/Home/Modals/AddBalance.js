@@ -5,11 +5,11 @@ import { successNotify } from '../../../helper/toastifyHelp';
 import { addWalletBalance } from '../../../apis/apis';
 
 function AddBalance({ isOpen, closeModal }) {
-  const mbeId = useStore(state => state.email)
+  const MbeId = useStore(state => state.email)
   const token = useStore(state => state.token)
   // const [amount, setAmount] = useState({})
   const [details, setDetails] = useState({
-    'email': mbeId
+    'email': MbeId
   })
 
   const onChange = e => {

@@ -18,7 +18,7 @@ function TokenHoldings({ isOpen, data, closeModal }) {
       setList(res)
     }
 
-    getTokenHoldings({ "mbeId": data.email }, onSuccess)
+    getTokenHoldings({ "MbeId": data.email }, onSuccess)
   }, [data.email])
 
   return (
@@ -26,7 +26,7 @@ function TokenHoldings({ isOpen, data, closeModal }) {
       isOpen={isOpen}
       closeModal={closeModal}
       contentCls="dfc max-h-[80vh] overflow-y-hidden"
-      title={`Token Holdings of ${role === "mbe" ? data.mbeId : data.email}`}
+      title={`Token Holdings of ${role === "mbe" ? data.MbeId : data.email}`}
     >
       <div className='scroll-y'>
         {
@@ -41,7 +41,7 @@ function TokenHoldings({ isOpen, data, closeModal }) {
                   <td className="w-28 px-4 py-2">Face Value</td>
                   <td className="w-24 px-4 py-2">Purchase Price</td>
                   <td className="w-32 px-4 py-2">Number of tokens</td>
-                  <td className="w-24 px-4 py-2">LTP</td>
+                  <td className="w-24 px-4 py-2">Ltp</td>
                   <td className="w-28 px-4 py-2">Current Price</td>
                 </tr>
               </thead>
@@ -49,21 +49,21 @@ function TokenHoldings({ isOpen, data, closeModal }) {
               <tbody>
                 {
                   list
-                    .filter((a, i) => list[i].isTokenized === true)
+                    .filter((a, i) => list[i].IsTokenized === true)
                     .map(li => (
                       <tr
                         key={li._id}
                         className="text-sm even:bg-slate-50 hover:bg-slate-200 cursor-pointer"
                       >
-                        <td className="px-4 py-2"> {li.isin} </td>
-                        <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
-                        <td className="px-4 py-2 text-center"> {li.maturitydate} </td>
-                        <td className="px-4 py-2"> {li.couponrate} </td>
-                        <td className="px-4 py-2"> {li.faceValue} </td>
+                        <td className="px-4 py-2"> {li.Isin} </td>
+                        <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
+                        <td className="px-4 py-2 text-center"> {li.MaturityDate} </td>
+                        <td className="px-4 py-2"> {li.CouponRate} </td>
+                        <td className="px-4 py-2"> {li.FaceValue} </td>
                         <td className="px-4 py-2"> {li.askPrice || 0}</td>
                         <td className="px-4 py-2 text-xs"> {li.TokenQtyRemaining} </td>
-                        <td className="px-4 py-2 text-xs"> {li.ltp} </td>
-                        <td className="px-4 py-2 text-xs"> {Math.floor(li.ltp * li.TokenQtyRemaining)} </td>
+                        <td className="px-4 py-2 text-xs"> {li.Ltp} </td>
+                        <td className="px-4 py-2 text-xs"> {Math.floor(li.Ltp * li.TokenQtyRemaining)} </td>
                       </tr>
                     ))
                 }

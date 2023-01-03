@@ -73,13 +73,13 @@ function ListOfInvestors() {
               />
               <Input
                 lable='Issuer Name'
-                value={tokenDetails.issuerName}
+                value={tokenDetails.IssuerName}
                 inputCls="bg-slate-800 text-white border-none"
                 lableCls='w-auto mb-0'
               />
               <Input
                 lable='No Of Token'
-                value={tokenDetails.noOfToken}
+                value={tokenDetails.NumOfToken}
                 inputCls="bg-slate-800 text-white border-none"
                 lableCls='w-auto mb-0'
               />

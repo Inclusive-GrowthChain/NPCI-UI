@@ -9,6 +9,7 @@ import Sell from './Modals/Sell';
 
 function TokenHoldings() {
   const email = useStore(state => state.email)
+  const token = useStore(state => state.token)
 
   const [tokenHoldings, setTokenHoldings] = useState([])
   const [loading, setLoading] = useState(true)
@@ -21,7 +22,7 @@ function TokenHoldings() {
       setLoading(false)
     }
 
-    fetchTokenHoldings({ "mbeId": email }, onSuccess)
+    fetchTokenHoldings({ "MbeId": email }, token, onSuccess)
   }, [email])
 
   const updateOpen = (id, category) => {
@@ -50,7 +51,7 @@ function TokenHoldings() {
               <td className="w-52 px-4 py-2">Issuer Name</td>
               <td className="w-32 px-4 py-2">Coupon Rate</td>
               <td className="w-28 px-4 py-2">Face Value</td>
-              <td className="w-24 px-4 py-2">LTP</td>
+              <td className="w-24 px-4 py-2">Ltp</td>
               <td className="w-72 px-4 py-2">Credit Rating</td>
               <td className="w-32 px-4 py-2 text-center">Maturity Date</td>
               <td className="w-28 px-4 py-2 text-center">Bid Price</td>
@@ -71,15 +72,15 @@ function TokenHoldings() {
                   <tr
                     key={li._id}
                     className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
-                    onClick={() => updateOpen(li.isin, "Sell")}
+                    onClick={() => updateOpen(li.Isin, "Sell")}
                   >
-                    <td className="px-4 py-2"> {li.isin} </td>
-                    <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
-                    <td className="px-4 py-2"> {li.couponrate} </td>
-                    <td className="px-4 py-2"> {li.faceValue} </td>
-                    <td className="px-4 py-2"> {li.ltp} </td>
-                    <td className="px-4 py-2text-xs"> {li.creditrating} </td>
-                    <td className="px-4 py-2 text-center"> {li.maturitydate} </td>
+                    <td className="px-4 py-2"> {li.Isin} </td>
+                    <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
+                    <td className="px-4 py-2"> {li.CouponRate} </td>
+                    <td className="px-4 py-2"> {li.FaceValue} </td>
+                    <td className="px-4 py-2"> {li.Ltp} </td>
+                    <td className="px-4 py-2text-xs"> {li.CreditRating} </td>
+                    <td className="px-4 py-2 text-center"> {li.MaturityDate} </td>
                     <td className="px-4 py-2 text-center">
                       <button className="w-20 px-3 py-1.5 rounded border border-emerald-600">
                         {li.bidPrice || 0}
@@ -99,7 +100,7 @@ function TokenHoldings() {
                         className='px-3 py-1.5 rounded border border-red-500 hover:bg-red-500 hover:text-white'
                         onClick={e => {
                           e.stopPropagation()
-                          updateOpen(li.isin, "Detokenzise")
+                          updateOpen(li.Isin, "Detokenzise")
                         }}
                       >
                         Detokenize
@@ -117,7 +118,7 @@ function TokenHoldings() {
         type === 'Sell' &&
         <Sell
           isOpen
-          data={tokenHoldings.find(li => li.isin === open)}
+          data={tokenHoldings.find(li => li.Isin === open)}
           closeModal={closeModal}
         />
       }
@@ -126,7 +127,7 @@ function TokenHoldings() {
         type === 'Detokenzise' &&
         <Detokenzise
           isOpen
-          data={tokenHoldings.find(li => li.isin === open)}
+          data={tokenHoldings.find(li => li.Isin === open)}
           closeModal={closeModal}
         />
       }

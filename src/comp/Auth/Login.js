@@ -37,10 +37,10 @@ function Login() {
 
   const onSuccess = (payload) => {
     const nodes = ["investor", "custodian", "regulator", "mbe"]
-    // const token = payload.token.split(' ')[1]
+    const token = payload.token?.split(' ')[1] || ""
     // console.log(token)
     if (nodes.includes(payload.role)) {
-      logIn(payload.role, details.email)
+      logIn(payload.role, details.email, token)
       navigate("/mbe-market")
     }
     successNotify("Successfully Logged In user")
@@ -63,7 +63,7 @@ function Login() {
             // name="phoneNumber"
             name="email"
             placeholder="MBE ID"
-            // value={mbeId}
+            // value={MbeId}
             onChange={onChange}
           />
 

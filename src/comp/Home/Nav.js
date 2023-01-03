@@ -88,13 +88,14 @@ const Name = {
 function Nav() {
   const isLoggedIn = useStore(state => state.isLoggedIn)
   const logOut = useStore(state => state.logOut)
-  const mbeId = useStore(state => state.email)
+  const MbeId = useStore(state => state.email)
   const role = useStore(state => state.role)
 
   const [CBDCBalance, setCBDCBalance] = useState(0)
   const [open, setOpen] = useState(false)
   const [list, setList] = useState([])
   const navigate = useNavigate()
+  const token = useStore(state => state.token)
 
   useEffect(() => {
     const ddList = role === "investor" ? ["Profile", "Log Out"] : ["Log Out"]
@@ -104,7 +105,7 @@ function Nav() {
       setCBDCBalance(payload?.CBDCbalance || 0)
     }
 
-    fetchCBDCBalance({ "mbeId": mbeId }, onSuccess)
+    fetchCBDCBalance({ "MbeId": MbeId }, token, onSuccess)
   }, [role])
 
   const onClk = val => {

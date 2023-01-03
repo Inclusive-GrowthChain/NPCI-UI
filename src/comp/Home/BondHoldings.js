@@ -9,6 +9,7 @@ import Loader from '../Common/Loader';
 function BondHoldings() {
   const [open, setOpen] = useState("")
   const email = useStore(state => state.email)
+  const token = useStore(state => state.token)
 
   const [bondHoldings, setBondHoldings] = useState([])
   const [loading, setLoading] = useState(true)
@@ -19,7 +20,7 @@ function BondHoldings() {
       setLoading(false)
     }
 
-    fetchTokenHoldings({ "mbeId": email }, onSuccess)
+    fetchTokenHoldings({ "MbeId": email }, token, onSuccess)
   }, [email])
 
   const updateOpen = id => setOpen(id)
@@ -54,22 +55,22 @@ function BondHoldings() {
           <tbody>
             {
               bondHoldings
-                // .filter((a, i) => bond[i].mbeId === email)
+                .filter((a, i) => bondHoldings[i].MbeId === email && bondHoldings[i].LotQty !== "0")
                 .map(li => (
                   <tr
                     key={li._id}
                     className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
-                    onClick={() => updateOpen(li.isin)}
+                    onClick={() => updateOpen(li.Isin)}
                   >
-                    <td className="px-4 py-2"> {li.isin} </td>
-                    <td className="px-4 py-2 font-medium"> {li.issuerName} </td>
-                    <td className="px-4 py-2"> {li.couponrate} </td>
-                    <td className="px-4 py-2 text-xs"> {li.creditrating} </td>
-                    <td className="px-4 py-2 text-center"> {li.maturitydate} </td>
-                    <td className="px-4 py-2 text-center"> {li.faceValue} </td>
+                    <td className="px-4 py-2"> {li.Isin} </td>
+                    <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
+                    <td className="px-4 py-2"> {li.CouponRate} </td>
+                    <td className="px-4 py-2 text-xs"> {li.CreditRating} </td>
+                    <td className="px-4 py-2 text-center"> {li.MaturityDate} </td>
+                    <td className="px-4 py-2 text-center"> {"1000"} </td>
                     <td className="px-4 py-2 text-center"> {li.LotQty} </td>
-                    <td className="px-4 py-2 text-center"> {li.ltp} </td>
-                    <td className="px-4 py-2 text-center"> {li.currentPrice || "-"} </td>
+                    <td className="px-4 py-2 text-center"> {li.Ltp} </td>
+                    <td className="px-4 py-2 text-center"> {li.CurrentPrice || "-"} </td>
                     <td className="px-4 py-2 text-center">
                       <button className='px-3 py-1.5 rounded border border-emerald-400 hover:bg-emerald-400'>
                         Tokenize
@@ -86,7 +87,7 @@ function BondHoldings() {
         open &&
         <Tokenise
           isOpen
-          data={bondHoldings.find(li => li.isin === open)}
+          data={bondHoldings.find(li => li.Isin === open)}
           closeModal={closeModal}
         />
       }
