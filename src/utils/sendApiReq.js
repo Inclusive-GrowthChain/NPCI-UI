@@ -9,7 +9,7 @@ const requestIntercepter = (instance, isAuthendicated, headers) => {
     function (config) {
       if (isAuthendicated) {
         config.headers = {
-          Authorization: cookies.get("NPCIToken"),
+          Authorization: cookies.get("NPCI-token"),
           ...headers
         }
       }
