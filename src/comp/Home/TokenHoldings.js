@@ -149,7 +149,7 @@ function TokenHoldings() {
                     <td className="px-4 py-2 text-center"> {li.TotalTokenQty} </td>
                     <td className="px-4 py-2 text-center"> {li.TokenizedLot} </td>
                     {/* <td className="px-4 py-2 text-center"> {li.purchasePrice || "-"} </td> */}
-                    <td className="px-4 py-2 text-center"> {Number(Number(li.Ltp) * Number(li.TotalTokenQty)).toFixed(2) || "-"} </td>
+                    <td className="px-4 py-2 text-center"> {Math.round(Number(li.Ltp) * Number(li.TotalTokenQty)) || "-"} </td>
                     <td className="px-4 py-2 text-center">
                       <button
                         className='px-3 py-1.5 rounded border border-red-500 hover:bg-red-500 hover:text-white'
