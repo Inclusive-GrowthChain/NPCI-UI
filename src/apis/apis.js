@@ -125,10 +125,10 @@ export async function login(data, onSuccess, onFailure) {
 
 export async function fetchTransactions(data, onSuccess) {
   try {
-    // const payload = await sendApiReq({
-    //   url: endPoints.transactions,
-    //   params: data
-    // })
+    const payload = await sendApiReq({
+      url: endPoints.transactions,
+      params: data
+    })
 
     const res1 = await sendApiReq({
       url: endPoints.fetchSingleUserSellTransactions,
@@ -140,34 +140,18 @@ export async function fetchTransactions(data, onSuccess) {
       params: { MbeId: data.email }
     })
 
-    // if (payload.status === 200) {
-    //   let final = []
-
-    //   final.push(...payload.message)
-
-    //   if (res1.message) {
-    //     if (Array.isArray(res1.message)) {
-    //       final.push(...res1.message)
-    //     } else {
-    //       final.push(res1.message)
-    //     }
-    //   }
-
-    //   if (res2.message) {
-    //     if (Array.isArray(res2.message)) {
-    //       final.push(...res2.message)
-    //     } else {
-    //       final.push(res2.message)
-    //     }
-    //   }
-
-    //   onSuccess(final)
-    // }
-
-    if (res1.status === 200) {
+    if (payload.status === 200) {
       let final = []
 
-      final.push(...res1.message)
+      final.push(...payload.message)
+
+      if (res1.message) {
+        if (Array.isArray(res1.message)) {
+          final.push(...res1.message)
+        } else {
+          final.push(res1.message)
+        }
+      }
 
       if (res2.message) {
         if (Array.isArray(res2.message)) {
@@ -179,6 +163,22 @@ export async function fetchTransactions(data, onSuccess) {
 
       onSuccess(final)
     }
+
+    // if (res1.status === 200) {
+    //   let final = []
+
+    //   final.push(...res1.message)
+
+    //   if (res2.message) {
+    //     if (Array.isArray(res2.message)) {
+    //       final.push(...res2.message)
+    //     } else {
+    //       final.push(res2.message)
+    //     }
+    //   }
+
+    //   onSuccess(final)
+    // }
   } catch (error) {
     console.log(error)
   }
