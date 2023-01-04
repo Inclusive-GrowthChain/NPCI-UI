@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
-import useStore from '../../../store';
 
 import { fetchBondInvestors } from '../../../apis/apis';
-// import investorList from '../../../constants/investorList';
-
 import Loader from '../../Common/Loader';
 import Modal from '../../UIComp/Modal';
 

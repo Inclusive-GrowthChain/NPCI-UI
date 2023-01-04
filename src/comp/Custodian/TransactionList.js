@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import useStore from '../../store';
 
 import custodianTransaction from '../../constants/custodianTransaction';
-import { fetchAllTransactions, fetchAllUserBuyTransactions, fetchAllUserSellTransactions } from '../../apis/custodianApis';
+import { fetchAllTransactions } from '../../apis/custodianApis';
 import getTypeClr from '../../helper/getTypeClr';
 
 import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
@@ -24,9 +24,9 @@ function TransactionList() {
   // const [dateFilter, setDateFilter] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [status, setStatus] = useState("")
+  const [open, setOpen] = useState({ state: "", data: {} })
   const [type, setType] = useState("")
   const [list, setList] = useState("")
-  const [open, setOpen] = useState({ state: "", data: {} })
 
   useEffect(() => {
     const onSuccess1 = res => {

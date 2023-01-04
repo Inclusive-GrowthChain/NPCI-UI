@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import useStore from '../../../store';
 
-import { fetchSingleUserBuyTransactions, fetchSingleUserSellTransactions } from '../../../apis/custodianApis';
+import { fetchTransactions } from '../../../apis/apis';
 import getTypeClr from '../../../helper/getTypeClr';
 
 import { ReactComponent as Print } from '../../../assets/svg/files/print.svg';
 import Loader from '../../Common/Loader';
 import Modal from '../../UIComp/Modal';
-import { fetchTransactions } from '../../../apis/apis';
 
 function TransactionHistory({ isOpen, data, closeModal }) {
   const role = useStore(state => state.role)
@@ -22,7 +21,7 @@ function TransactionHistory({ isOpen, data, closeModal }) {
     }
 
     fetchTransactions({ "email": data.MbeId }, onSuccess)
-  }, [data.email])
+  }, [data.MbeId])
 
   return (
     <Modal
