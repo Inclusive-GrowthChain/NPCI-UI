@@ -169,8 +169,10 @@ function TransactionList() {
                     key={li._id}
                     className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
                   >
-                    <td className="pl-8 pr-4 py-2"> {li.OrderId} </td>
-                    <td className="px-4 py-2"> {li.TransactionsType} </td>
+                    <td className="pl-8 pr-4 py-2 break-words"> {li.OrderId || li.BuyOrderId || li.SellOrderId || li._id} </td>
+                    <td className="px-4 py-2">
+                      {li.IsProcessed ? "Trade" : li.TransactionsType}
+                    </td>
                     {/* <td className={`px-4 py-2 font-medium ${getTypeClr(li.TransactionsType)}`}>
                       {li.TransactionsType}
                     </td> */}

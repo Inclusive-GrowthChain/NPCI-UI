@@ -29,7 +29,7 @@ function CertificateAsPdf({ isOpen, data = {}, closeModal }) {
 
         <tbody>
           <tr className='even:bg-slate-50'>
-            <td className='px-4 py-2'>{data?.OrderId || ""}</td>
+            <td className='px-4 py-2'>{data?.OrderId || data?.BuyOrderId || data?.SellOrderId || data?._id || ""}</td>
             <td className='px-4 py-2'>{data?.Isin || ""}</td>
             <td className='px-4 py-2'>{data?.IssuerName || ""}</td>
             <td className='px-4 py-2'>Trade</td>
