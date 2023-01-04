@@ -101,7 +101,7 @@ function ListOfInvestors() {
               }
               <td className="w-32 px-4 py-2 text-center">Bond holdings</td>
               <td className="w-32 px-4 py-2 text-center">Token holdings</td>
-              <td className="w-28 px-4 py-2 text-center">Transactions History</td>
+              <td className="w-28 px-4 py-2 text-center">Order book</td>
               <td className="w-24 px-4 py-2 text-center">CBDC Balance</td>
             </tr>
           </thead>

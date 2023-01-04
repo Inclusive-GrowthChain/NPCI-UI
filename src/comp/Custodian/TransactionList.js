@@ -137,7 +137,7 @@ function TransactionList() {
             <span className='mr-auto'></span>
           </> :
             <h1 className='mx-auto text-lg font-medium text-center'>
-              Transactions History
+              Order Book
             </h1>
         }
       </div>
@@ -164,7 +164,7 @@ function TransactionList() {
             {
               list
                 // .filter((l, i) => tokenDetails ? i < 10 : true)
-                .map((li, i) => (
+                .map(li => (
                   <tr
                     key={li._id}
                     className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
@@ -197,10 +197,10 @@ function TransactionList() {
                       role !== "mbe" &&
                       <td className='px-4 py-2'>
                         {
-                          i % 5 !== 0 &&
+                          li.IsProcessed &&
                           <Print
                             className="mx-auto"
-                            onClick={() => updateOpen("CertificateAsPdf")}
+                            onClick={() => updateOpen("CertificateAsPdf", li)}
                           />
                         }
                       </td>
@@ -216,6 +216,7 @@ function TransactionList() {
         open.state === "CertificateAsPdf" &&
         <CertificateAsPdf
           isOpen
+          data={open.data}
           closeModal={closeModal}
         />
       }

@@ -19,7 +19,7 @@ const routes = {
       to: "/investor/bond-holdings",
     },
     {
-      key: "Transactions Hitory",
+      key: "Trade book",
       to: "/investor/transactions-hitory",
     },
   ],
@@ -33,7 +33,7 @@ const routes = {
       to: "/custodian/tokenised-bond",
     },
     {
-      key: "Transactions list",
+      key: "Order book",
       to: "/custodian/transactions-hitory",
     },
     {
@@ -51,7 +51,7 @@ const routes = {
       to: "/regulator/tokenised-bond",
     },
     {
-      key: "Transactions list",
+      key: "Order book",
       to: "/regulator/transactions-hitory",
     },
     {
@@ -69,7 +69,7 @@ const routes = {
       to: "/mbe/tokenised-bond",
     },
     {
-      key: "Transactions list",
+      key: "Order book",
       to: "/mbe/transactions-hitory",
     },
     {
