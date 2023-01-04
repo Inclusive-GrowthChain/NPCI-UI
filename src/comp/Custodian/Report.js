@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getPurchaseLog } from '../../apis/custodianApis';
 
-import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
-import { DropDownWrapper } from '../UIComp/DropDown';
+// import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
+// import { DropDownWrapper } from '../UIComp/DropDown';
 // import FilterByDate from './FilterByDate';
 import Loader from '../Common/Loader';
 
@@ -10,8 +10,8 @@ function Report() {
   const [tradeValueData, setTradeValueData] = useState({})
   // const [dateFilter, setDateFilter] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [type, setType] = useState("")
-  const [res, setRes] = useState({})
+  // const [type, setType] = useState("")
+  const [res, setRes] = useState([])
 
   // const data = useMemo(() => {
   //   let cloned = [...live]
@@ -34,29 +34,29 @@ function Report() {
 
   useEffect(() => {
     const onSuccess = (payload) => {
-      setRes(payload)
+      let tradeLocal = {}
+
       for (let i = 0; i < payload.length; i++) {
         const entry = payload[i]
-        setTradeValueData(p => ({
-          ...p,
-          // [entry.Isin]: Number(entry.TradeValue)
-          [entry.Isin]: Number(entry.TradeValue) + (tradeValueData[entry.Isin] ? tradeValueData[entry.Isin] : 0)
-        }))
+        tradeLocal[entry.Isin] = Number(entry.TradeValue) + (tradeLocal[entry.Isin] || 0)
       }
+
+      setRes(payload)
+      setTradeValueData(tradeLocal)
       setIsLoading(false)
     }
 
     getPurchaseLog(onSuccess)
   }, [])
 
-  const updateType = val => setType(p => p === val ? "" : val)
+  // const updateType = val => setType(p => p === val ? "" : val)
 
   if (isLoading) return <Loader wrapperCls='h-[calc(100vh-64px)]' />
 
   return (
     <section className="dfc gap-0 h-[calc(100vh-64px)] overflow-y-hidden">
       <div className='df gap-4 p-4 border-b border-[rgba(0,0,0,.1)] relative'>
-        <DropDownWrapper
+        {/* <DropDownWrapper
           list={["List of Tokenized Bonds", "List of Detokenized Bonds", "Trade Report"]}
           onClk={updateType}
           active={type}
@@ -65,7 +65,7 @@ function Report() {
           needArrow
         >
           <Filter className={type ? "opacity-100" : "opacity-70"} />
-        </DropDownWrapper>
+        </DropDownWrapper> */}
 
         {/* <FilterByDate
           setDateFilter={setDateFilter}

@@ -18,12 +18,12 @@ function Detokenzise({ isOpen, data, closeModal }) {
     "MbeId": email,
   })
 
-  const onChange = e => {
-    setDetails(p => ({
-      ...p,
-      [e.target.name]: e.target.value
-    }))
-  }
+  // const onChange = e => {
+  //   setDetails(p => ({
+  //     ...p,
+  //     [e.target.name]: e.target.value
+  //   }))
+  // }
 
   const onSubmit = () => {
     console.log(details)
