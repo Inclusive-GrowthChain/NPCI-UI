@@ -141,30 +141,44 @@ export async function fetchTransactions(data, onSuccess) {
     })
 
     // if (payload.status === 200) {
-      
+    //   let final = []
+
+    //   final.push(...payload.message)
+
+    //   if (res1.message) {
+    //     if (Array.isArray(res1.message)) {
+    //       final.push(...res1.message)
+    //     } else {
+    //       final.push(res1.message)
+    //     }
+    //   }
+
+    //   if (res2.message) {
+    //     if (Array.isArray(res2.message)) {
+    //       final.push(...res2.message)
+    //     } else {
+    //       final.push(res2.message)
+    //     }
+    //   }
+
+    //   onSuccess(final)
     // }
 
-    let final = []
+    if (res1.status === 200) {
+      let final = []
 
-    final.push(...payload.message)
+      final.push(...res1.message)
 
-    if (res1.message) {
-      if (Array.isArray(res1.message)) {
-        final.push(...res1.message)
-      } else {
-        final.push(res1.message)
+      if (res2.message) {
+        if (Array.isArray(res2.message)) {
+          final.push(...res2.message)
+        } else {
+          final.push(res2.message)
+        }
       }
-    }
 
-    if (res2.message) {
-      if (Array.isArray(res2.message)) {
-        final.push(...res2.message)
-      } else {
-        final.push(res2.message)
-      }
+      onSuccess(final)
     }
-
-    onSuccess(final)
   } catch (error) {
     console.log(error)
   }
