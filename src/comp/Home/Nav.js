@@ -174,7 +174,7 @@ function Nav() {
               needArrow
               boxCls="profile-dd"
             >
-              <UserProfile /> <span className='text-xs'>{email === 'custodian@gmail.com' ? "Custodian" : userDetails.firstName}</span>
+              <UserProfile /> <span className='text-xs'>{email === 'custodian@gmail.com' ? "Custodian" : email === 'mbe@gmail.com' ? "MBE" : email === 'regulator@gmail.com' ? 'Regulator' : userDetails.firstName}</span>
             </DropDownWrapper>
           </> : <>
             <Link

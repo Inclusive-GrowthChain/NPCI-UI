@@ -106,7 +106,7 @@ function Detokenzise({ isOpen, data, closeModal }) {
                 }))
                 setDetails(p => ({
                   ...p,
-                  "tokenQty": e.target.value * 200000
+                  "TokenQty": e.target.value * 200000
                 }))
               }}
               className="no-number-arrows"
