@@ -15,7 +15,6 @@ import Loader from '../Common/Loader';
 
 function ListOfInvestors() {
   const role = useStore(state => state.role)
-  const token = useStore(state => state.token)
   const { state: tokenDetails } = useLocation()
 
   const [isLoading, setIsLoading] = useState(true)
@@ -40,7 +39,7 @@ function ListOfInvestors() {
       setIsLoading(false)
     }
 
-    getInvestorLists(token, onSuccess)
+    getInvestorLists(onSuccess)
   }, [])
 
   const updateOpen = (state, data) => setOpen({ state, data })

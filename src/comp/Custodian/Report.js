@@ -1,17 +1,17 @@
-import { useMemo, useState, useEffect } from 'react';
-import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
-import { DropDownWrapper } from '../UIComp/DropDown';
-import FilterByDate from './FilterByDate';
-import live from '../../constants/report';
-import Loader from '../Common/Loader';
+import { useState, useEffect } from 'react';
 import { getPurchaseLog } from '../../apis/custodianApis';
 
+import { ReactComponent as Filter } from '../../assets/svg/common/filter.svg';
+import { DropDownWrapper } from '../UIComp/DropDown';
+// import FilterByDate from './FilterByDate';
+import Loader from '../Common/Loader';
+
 function Report() {
-  const [dateFilter, setDateFilter] = useState(null)
+  const [tradeValueData, setTradeValueData] = useState({})
+  // const [dateFilter, setDateFilter] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [type, setType] = useState("")
   const [res, setRes] = useState({})
-  const [tradeValueData, setTradeValueData] = useState({})
 
   // const data = useMemo(() => {
   //   let cloned = [...live]
