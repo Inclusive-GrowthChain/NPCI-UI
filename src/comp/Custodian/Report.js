@@ -7,7 +7,6 @@ import { getPurchaseLog } from '../../apis/custodianApis';
 import Loader from '../Common/Loader';
 
 function Report() {
-  const [tradeValueData, setTradeValueData] = useState({})
   // const [dateFilter, setDateFilter] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   // const [type, setType] = useState("")
@@ -34,15 +33,7 @@ function Report() {
 
   useEffect(() => {
     const onSuccess = (payload) => {
-      let tradeLocal = {}
-
-      for (let i = 0; i < payload.length; i++) {
-        const entry = payload[i]
-        tradeLocal[entry.Isin] = Number(entry.TradeValue) + (tradeLocal[entry.Isin] || 0)
-      }
-
       setRes(payload)
-      setTradeValueData(tradeLocal)
       setIsLoading(false)
     }
 
@@ -103,7 +94,7 @@ function Report() {
                   <td className="px-4 py-2"> {li.CouponRate} </td>
                   <td className="px-4 py-2"> {li.MaturityDate} </td>
                   <td className="px-4 py-2"> {li.NumOfToken} </td>
-                  <td className="px-4 py-2"> {tradeValueData[li.Isin]} </td>
+                  <td className="px-4 py-2"> {li.TradeValue} </td>
                 </tr>
               ))
             }

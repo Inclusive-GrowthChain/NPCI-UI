@@ -73,8 +73,23 @@ export async function getPurchaseLog(onSuccess) {
     })
 
     console.log(res)
-    if (res.status === 200)
-      onSuccess(res.message)
+    if (res.status === 200) {
+      let final = res.message.reduce((prev, curr) => {
+        let isPresent = prev.find(p => p.Isin === curr.Isin)
+
+        if (isPresent) {
+          isPresent.TradeValue = Number(isPresent.TradeValue) + Number(curr.TradeValue)
+          isPresent.NumOfToken = Number(isPresent.NumOfToken) + Number(curr.NumOfToken)
+
+        } else {
+          prev.push(curr)
+        }
+
+        return prev
+      }, [])
+
+      onSuccess(final)
+    }
 
   } catch (error) {
     console.log(error)
