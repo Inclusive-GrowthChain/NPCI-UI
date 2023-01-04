@@ -22,7 +22,8 @@ function Sell({ isOpen, data, closeModal }) {
   const [details, setDetails] = useState({
     "OrderId": "S_ORDER" + data.Isin,
     "MbeId": email,
-    "Isin": data.Isin
+    "Isin": data.Isin,
+    "IssuerName": data.IssuerName
   })
 
   const onChange = e => {
