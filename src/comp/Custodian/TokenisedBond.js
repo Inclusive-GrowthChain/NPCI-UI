@@ -43,7 +43,7 @@ function TokenisedBond() {
   return (
     <section className="dfc gap-0 h-[calc(100vh-64px)] overflow-y-hidden">
       <h1 className='py-2 text-2xl text-center border-b border-[rgba(255,255,255,.6)]'>
-        Tokenised Bonds
+        Tokenized Bonds
       </h1>
 
       <div className="scroll-y overflow-x-auto">
