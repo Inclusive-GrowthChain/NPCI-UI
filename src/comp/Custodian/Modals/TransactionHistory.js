@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import useStore from '../../../store';
 
 import { fetchTransactions } from '../../../apis/apis';
-import getTypeClr from '../../../helper/getTypeClr';
 
 import { ReactComponent as Print } from '../../../assets/svg/files/print.svg';
 import Loader from '../../Common/Loader';
@@ -57,7 +56,7 @@ function TransactionHistory({ isOpen, data, closeModal }) {
 
                       <tbody>
                         <tr className='even:bg-slate-50'>
-                          <td className='px-4 py-2'>{certData?.OrderId || ""}</td>
+                          <td className='px-4 py-2'>{certData?.OrderId || certData?.BuyOrderId || certData?.SellOrderId || certData?._id || ""}</td>
                           <td className='px-4 py-2'>{certData?.Isin || ""}</td>
                           <td className='px-4 py-2'>{certData?.IssuerName || ""}</td>
                           <td className='px-4 py-2'>Trade</td>
@@ -94,7 +93,9 @@ function TransactionHistory({ isOpen, data, closeModal }) {
                             <td className="pl-8 pr-4 py-2"> {Intl.DateTimeFormat('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(Date.parse(li.createdAt))} </td>
                             <td className="px-4 py-2"> {li.Isin} </td>
                             <td className="px-4 py-2 font-medium"> {li.IssuerName} </td>
-                            <td className={`px-4 py-2 ${getTypeClr(li.TransactionsType)}`}> {li.TransactionsType} </td>
+                            <td className="px-4 py-2">
+                              {li.IsProcessed ? "Trade" : li.TransactionsType}
+                            </td>
                             <td className="px-4 py-2"> {li.NumOfToken} </td>
                             <td className="px-4 py-2"> {Number(li.NumOfToken) * Number(li.Price)} </td>
                             <td className={`px-4 py-2 text-xs ${!li.IsProcessed ? "text-red-400" : "text-emerald-400"}`}>
