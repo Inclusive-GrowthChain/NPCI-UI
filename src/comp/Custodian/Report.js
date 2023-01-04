@@ -11,7 +11,8 @@ function Report() {
   // const [dateFilter, setDateFilter] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [type, setType] = useState("")
-  const [res, setRes] = useState({})
+  const [res, setRes] = useState([])
+  const [data, setData] = useState([])
 
   // const data = useMemo(() => {
   //   let cloned = [...live]
@@ -33,7 +34,7 @@ function Report() {
   // }, [type, dateFilter])
 
   useEffect(() => {
-    const onSuccess = (payload) => {
+    const onSuccess = async payload => {
       setRes(payload)
       for (let i = 0; i < payload.length; i++) {
         const entry = payload[i]
@@ -42,7 +43,15 @@ function Report() {
           // [entry.Isin]: Number(entry.TradeValue)
           [entry.Isin]: Number(entry.TradeValue) + (tradeValueData[entry.Isin] ? tradeValueData[entry.Isin] : 0)
         }))
+
+        if (data === null) {
+          setData(p => ({
+            ...p,
+            entry
+          }))
+        }
       }
+      
       setIsLoading(false)
     }
 
