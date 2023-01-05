@@ -20,7 +20,9 @@ function TransactionHistory({ isOpen, data, closeModal }) {
       setIsLoading(false)
     }
 
-    fetchTransactions({ "email": data.MbeId }, onSuccess)
+    const email = data.MbeId
+
+    fetchTransactions({ email }, onSuccess)
   }, [data.MbeId])
 
   return (
@@ -85,7 +87,8 @@ function TransactionHistory({ isOpen, data, closeModal }) {
 
                     <tbody>
                       {
-                        list.map(li => (
+                        list.filter((a, i) => 'Price' in list[i])
+                          .map(li => (
                           <tr
                             key={li._id}
                             className="text-sm even:bg-slate-50 hover:bg-slate-200 cursor-pointer group"

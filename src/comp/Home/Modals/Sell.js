@@ -84,7 +84,7 @@ function Sell({ isOpen, data, closeModal }) {
           />
           <Input
             lable='Total Number of Tokens'
-            value={data.TotalTokenQty}
+            value={data.TokenQtyRemaining}
             lableCls="w-auto"
             wrapperCls='grid-col-full'
           />
