@@ -80,9 +80,9 @@ function TokenisedBond() {
                   }
                   <td className="px-4 py-2"> {li.CouponRate} </td>
                   <td className="px-4 py-2 text-center"> {li.MaturityDate} </td>
-                  <td className="px-4 py-2 text-center"> {li.TotalTokenQty} </td>
+                  <td className="px-4 py-2 text-center"> {li.TokenQtyRemaining} </td>
                   <td className="px-4 py-2"> {li.Ltp} </td>
-                  <td className="px-4 py-2"> {Math.round(Number(li.Ltp) * Number(li.TotalTokenQty))} </td>
+                  <td className="px-4 py-2"> {Math.round(Number(li.Ltp) * Number(li.TokenQtyRemaining))} </td>
                   <td className="px-4 py-2 text-center">
                     <button
                       className="w-16 rounded border border-emerald-600 hover:bg-emerald-600 hover:text-white"

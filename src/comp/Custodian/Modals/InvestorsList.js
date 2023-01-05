@@ -47,7 +47,7 @@ function InvestorsList({ isOpen, title = "", needInvesterName = true, updateOpen
           <tbody>
             {
               data
-                .filter((a, i) => data[i].Isin === Isin && data[i].TotalTokenQty !== 0)
+                .filter((a, i) => (data[i].Isin === Isin && (data[i].TotalTokenQty !== 0 || data[i].TotalTokenQty !== "0")))
                 .map(li => (
                   <tr
                     key={li._id}

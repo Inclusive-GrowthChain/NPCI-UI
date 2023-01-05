@@ -149,7 +149,7 @@ function TransactionList() {
               {/* <td className="w-32 pl-8 pr-4 py-2">Date</td> */}
               <td className="w-32 px-4 py-2">Transaction Id</td>
               <td className="w-24 px-4 py-2">Type</td>
-              <td className="w-32 px-4 py-2">Investors</td>
+              {/* <td className="w-32 px-4 py-2">Investors</td> */}
               <td className="w-28 px-4 py-2">Status</td>
               <td className="w-24 px-4 py-2">Authorization</td>
               <td className="w-24 px-4 py-2">Amount</td>
@@ -177,14 +177,14 @@ function TransactionList() {
                     {/* <td className={`px-4 py-2 font-medium ${getTypeClr(li.TransactionsType)}`}>
                       {li.TransactionsType}
                     </td> */}
-                    <td className="px-4 py-2">
+                    {/* <td className="px-4 py-2">
                       <button
                         className="w-16 rounded border border-emerald-600 hover:bg-emerald-600 hover:text-white"
-                        onClick={() => updateOpen("InvestorsList")}
+                        onClick={() => updateOpen("InvestorsList", li)}
                       >
                         View
                       </button>
-                    </td>
+                    </td> */}
                     <td className={`px-4 py-2 ${getTypeClr(li.status)}`}>
                       {
                         li.IsProcessed ? "Success" : "Pending"
@@ -228,10 +228,11 @@ function TransactionList() {
         open.state === "InvestorsList" &&
         <InvestorsList
           isOpen
-          title={tokenDetails?.IssuerName || "SHRIRAM TRANSPORT"}
+          title={open.data?.Isin || "SHRIRAM TRANSPORT"}
           updateOpen={updateOpen}
           closeModal={closeModal}
           needInvesterName={role !== "mbe"}
+          Isin={open.data?.Isin}
         />
       }
 
@@ -240,7 +241,7 @@ function TransactionList() {
         <UserInfoModal
           isOpen
           data={open.data}
-          closeModal={() => updateOpen("InvestorsList")}
+          closeModal={() => updateOpen("InvestorsList", open.data)}
         />
       }
     </section>
