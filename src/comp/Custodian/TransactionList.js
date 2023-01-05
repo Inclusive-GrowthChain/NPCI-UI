@@ -163,6 +163,7 @@ function TransactionList() {
           <tbody>
             {
               list
+                .filter((a, i) => 'Price' in list[i])
                 // .filter((l, i) => tokenDetails ? i < 10 : true)
                 .map(li => (
                   <tr

@@ -52,7 +52,8 @@ function TransactionHitory() {
 
           <tbody>
             {
-              transactions.map(li => (
+              transactions.filter((a, i) => 'Price' in transactions[i])
+                .map(li => (
                 <tr
                   key={li._id}
                   className="text-sm even:bg-slate-50 hover:bg-slate-100 cursor-pointer"
