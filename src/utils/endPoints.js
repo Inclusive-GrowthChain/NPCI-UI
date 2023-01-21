@@ -1,5 +1,5 @@
 export const root = {
-  baseUrl: "http://13.232.85.144:9090/api/v1/",
+  baseUrl: "http://43.205.199.240:9090/api/v1/",
 }
 
 const endPoints = {
